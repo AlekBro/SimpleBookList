@@ -27,16 +27,33 @@ namespace SimpleBookList.Models
         /// </summary>
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name = "Release Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ReleaseDate { get; set; }
+
+        /// <summary>
+        /// Gets From date string
+        /// </summary>
+        
+        public string FormattedReleaseDate
+        {
+            get
+            {
+                return this.ReleaseDate.ToString("MM/dd/yyyy");
+            }
+        }
+        
 
         /// <summary>
         /// Gets or sets number of pages in this Book
         /// </summary>
+        [Display(Name = "Pages")]
         public int Pages { get; set; }
 
         /// <summary>
         /// Gets or sets Book rating
         /// </summary>
+        [Display(Name = "Rating")]
         public int Rating { get; set; }
 
         /// <summary>
