@@ -38,6 +38,11 @@ namespace SimpleBookList.DAL.EF
             Book book4 = new Book { Name = "The ASP.NET 2.0 Anthology: 101 Essential Tips, Tricks & Hacks", ReleaseDate = new DateTime(2007, 9, 18), Pages = 500, Rating = 0, Authors = new List<Author> { author4, author6, author7, author2, author8 } };
             Book book5 = new Book { Name = "C# 6.0 and the .NET 4.6 Framework", ReleaseDate = new DateTime(2015, 11, 8), Pages = 1625, Rating = 0, Authors = new List<Author> { author9, author10 } };
 
+            context.Books.Add(book1);
+            context.Books.Add(book2);
+            context.Books.Add(book3);
+            context.Books.Add(book4);
+            context.Books.Add(book5);
 
             context.SaveChanges();
         }
