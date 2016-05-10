@@ -42,26 +42,4 @@
     
 </table>
 
-<script>
-        $(document).ready(function () {
-            $("#myTable").DataTable({
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": false, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                "ajax": {
-                    "url": "/home/LoadData",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-                "columns": [
-                        { "data": "ContactName", "name": "ContactName", "autoWidth": true },
-                        { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
-                        { "data": "Phone", "name": "Phone", "autoWidth": true },
-                        { "data": "Country", "name": "Country", "autoWidth": true },
-                        { "data": "City", "name": "City", "autoWidth": true },
-                        { "data": "PostalCode", "name": "PostalCode", "autoWidth": true }
-                ]
-            });
-        });
-</script>
+

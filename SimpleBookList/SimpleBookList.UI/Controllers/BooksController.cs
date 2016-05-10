@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace SimpleBookList.UI.Controllers
+﻿namespace SimpleBookList.UI.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
     using BLL.Interfaces;
     using SimpleBookList.Models;
+    using Utils;
+
     public class BooksController : Controller
     {
 
@@ -94,50 +96,18 @@ namespace SimpleBookList.UI.Controllers
 
         //---------------------------------------------------------------------------------
 
-        /*
-    public class ResultSet
-    {
-        public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length, List<BookViewModel> dtResult, List<string> columnFilters)
-        {
-            return FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
-        }
+   
+    
 
-        public int Count(string search, List<BookViewModel> dtResult, List<string> columnFilters)
-        {
-            return FilterResult(search, dtResult, columnFilters).Count();
-        }
-
-        private IQueryable<BookViewModel> FilterResult(string search, List<BookViewModel> dtResult, List<string> columnFilters)
-        {
-            IQueryable<BookViewModel> results = dtResult.AsQueryable();
-
-            results = results.Where(p => (search == null ||
-            (p.Name != null && p.Name.ToLower().Contains(search.ToLower()) ||
-            p.Pages != null && p.Pages.ToString().ToLower().Contains(search.ToLower()) ||
-            p.Rating != null && p.Rating.ToString().ToLower().Contains(search.ToLower()) ||
-                p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(search.ToLower())
-
-                && (columnFilters[0] == null || (p.Name != null && p.Name.ToLower().Contains(columnFilters[0].ToLower())))
-                && (columnFilters[1] == null || (p.Pages != null && p.Pages.ToString().ToLower().Contains(columnFilters[1].ToLower())))
-                && (columnFilters[2] == null || (p.Rating != null && p.Rating.ToString().ToLower().Contains(columnFilters[2].ToLower())))
-                && (columnFilters[3] == null || (p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(columnFilters[3].ToLower())))
-
-                );
-
-            return results;
-        }
-    }
-    */
-
-        /*
+        
     public JsonResult DataHandler(DTParameters param)
     {
         try
         {
 
-            IEnumerable<BookViewModel> allBooks = this.Service.GetAllBooks();
+            List<BookViewModel> allBooks = this.Service.GetAllBooks().ToList();
 
-            List<String> columnSearch = new List<string>();
+            List<string> columnSearch = new List<string>();
 
             foreach (var col in param.Columns)
             {
@@ -145,7 +115,9 @@ namespace SimpleBookList.UI.Controllers
             }
 
             List<BookViewModel> data = new ResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allBooks, columnSearch);
+
             int count = new ResultSet().Count(param.Search.Value, allBooks, columnSearch);
+
             DTResult<BookViewModel> result = new DTResult<BookViewModel>
             {
                 draw = param.Draw,
@@ -160,7 +132,7 @@ namespace SimpleBookList.UI.Controllers
             return Json(new { error = ex.Message });
         }
     }
-    */
+    
 
         //-------------------------------------------------------------------------
 

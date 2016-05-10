@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleBookList.Models
+﻿namespace SimpleBookList.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.ComponentModel.DataAnnotations;
+
     public class BookViewModel
     {
 
@@ -34,7 +33,7 @@ namespace SimpleBookList.Models
         /// <summary>
         /// Gets From date string
         /// </summary>
-        
+
         public string FormattedReleaseDate
         {
             get
@@ -42,7 +41,7 @@ namespace SimpleBookList.Models
                 return this.ReleaseDate.ToString("MM/dd/yyyy");
             }
         }
-        
+
 
         /// <summary>
         /// Gets or sets number of pages in this Book
@@ -69,6 +68,22 @@ namespace SimpleBookList.Models
             Authors = new List<AuthorViewModel>();
         }
 
+        public string AuthorsNames
+        {
+            get
+            {
+                
+                StringBuilder names = new StringBuilder();
+                foreach (var item in Authors.Select(n => n.Name))
+                {
+                    names.Append(item);
+                    names.Append(", ");
+
+                }
+                names.Remove(names.Length - 2, 2);
+                return names.ToString();
+            }
+        }
 
 
     }

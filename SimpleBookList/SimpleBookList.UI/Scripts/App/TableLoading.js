@@ -46,12 +46,18 @@ $(document).ready(function () {
 
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
-        "filter": false, // this is for disable filter (search box)
+        //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
+
+        "paging": true, // ??
+        "deferRender": true, // ??
+
         "ajax": {
-            "url": "/Books/LoadData",
+            "url": "/Books/DataHandler",
             "type": "POST",
-            "datatype": "json"
+            //"datatype": "json"
+            "contentType": 'application/json; charset=utf-8',
+            'data': function (data) { return data = JSON.stringify(data); }
         },
 
         "aoColumns": [
@@ -60,7 +66,7 @@ $(document).ready(function () {
             { "data": "FormattedReleaseDate", "render": getDataForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Pages", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Rating", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
-            { "data": "Authors", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
+            { "data": "AuthorsNames", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
 
@@ -69,4 +75,7 @@ $(document).ready(function () {
         //"bFilter": false
 
     });
+
+
+
 });
