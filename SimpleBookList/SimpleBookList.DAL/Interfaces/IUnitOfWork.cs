@@ -3,7 +3,7 @@ namespace SimpleBookList.DAL.Interfaces
 {
     using System;
 
-    using Entities;
+    //using Entities;
 
     /// <summary>
     /// Unit Of Work Pattern interface

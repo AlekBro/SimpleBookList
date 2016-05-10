@@ -9,7 +9,7 @@ namespace SimpleBookList.BLL.Infrastructure
 {
     using AutoMapper;
 
-    using DAL.Entities;
+    using DAL;
     using Models;
     public class MappingProfile : Profile
     {

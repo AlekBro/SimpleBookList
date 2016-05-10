@@ -6,8 +6,8 @@ namespace SimpleBookList.DAL.Repositories
     using System.Data.Entity;
     using System.Linq;
 
-    using EF;
-    using Entities;
+    //using EF;
+    //using Entities;
     using Interfaces;
 
     /// <summary>
@@ -18,13 +18,13 @@ namespace SimpleBookList.DAL.Repositories
         /// <summary>
         /// Context for interacting with Database
         /// </summary>
-        private DatabaseContext context;
+        private DatabaseEntities context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookRepository" /> class.
         /// </summary>
         /// <param name="context">Context for interacting with Database</param>
-        public AuthorRepository(DatabaseContext context)
+        public AuthorRepository(DatabaseEntities context)
         {
             this.context = context;
         }

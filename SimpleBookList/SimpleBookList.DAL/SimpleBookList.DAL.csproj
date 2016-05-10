@@ -41,6 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,10 +51,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\DatabaseContext.cs" />
-    <Compile Include="EF\DatabaseInitializer.cs" />
-    <Compile Include="Entities\Author.cs" />
-    <Compile Include="Entities\Book.cs" />
+    <Compile Include="Author.cs">
+      <DependentUpon>BookEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Book.cs">
+      <DependentUpon>BookEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookEntityDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookEntityDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookEntityDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookEntityDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookEntityDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,7 +81,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="BookEntityDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BookEntityDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BookEntityDataModel.edmx.diagram">
+      <DependentUpon>BookEntityDataModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BookEntityDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookEntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>BookEntityDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BookEntityDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookEntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>BookEntityDataModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

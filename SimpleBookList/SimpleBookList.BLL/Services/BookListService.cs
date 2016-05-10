@@ -5,7 +5,7 @@ namespace SimpleBookList.BLL.Services
     using System.Collections.Generic;
 
     using AutoMapper;
-    using DAL.Entities;
+    using DAL;
     using DAL.Interfaces;
     using Interfaces;
     using Models;

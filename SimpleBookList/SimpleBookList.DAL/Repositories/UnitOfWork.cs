@@ -2,8 +2,9 @@
 {
     using System;
 
-    using EF;
-    using Entities;
+    //using EF;
+    //using Entities;
+    using DAL;
     using Interfaces;
 
     /// <summary>
@@ -14,7 +15,7 @@
         /// <summary>
         /// keeps Context for interacting with Database
         /// </summary>
-        private DatabaseContext context;
+        private DatabaseEntities context;
 
         /// <summary>
         /// keeps Repository with Books
@@ -37,7 +38,7 @@
         /// <param name="connectionString">String with settings for connection to the Database</param>
         public UnitOfWork(string connectionString)
         {
-            this.context = new DatabaseContext(connectionString);
+            this.context = new DatabaseEntities(connectionString);
         }
 
         /// <summary>

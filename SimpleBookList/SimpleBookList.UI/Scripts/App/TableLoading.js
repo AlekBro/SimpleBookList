@@ -43,6 +43,17 @@ $(document).ready(function () {
 
 
     var eventTable = $('#BookListTable').DataTable({
+
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": false, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        "ajax": {
+            "url": "/Books/LoadData",
+            "type": "POST",
+            "datatype": "json"
+        },
+
         "aoColumns": [
             { "data": "Id", "render": getNumberForItem, "visible": false, "searchable": false },
             { "data": "Name", "render": getStringForItem, "class": "dt-head-center dt-body-center" },

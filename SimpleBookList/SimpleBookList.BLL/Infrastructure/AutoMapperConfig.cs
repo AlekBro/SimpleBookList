@@ -8,8 +8,8 @@ using AutoMapper;
 
 namespace SimpleBookList.BLL.Infrastructure
 {
-    using DAL.Entities;
-    using Models;
+    //using DAL.Entities;
+    //using Models;
     public static class AutoMapperConfig
     {
         public static MapperConfiguration Configuration { get; private set; }

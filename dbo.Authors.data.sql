@@ -1,0 +1,18 @@
+SET IDENTITY_INSERT [dbo].[Authors] ON
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (1, N'Adam', N'Freeman')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (2, N'Jon', N'Galloway')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (3, N'Brad', N'Wilson')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (4, N'Scott', N'Allen')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (5, N'David', N'Matson')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (6, N'Jeff', N'Atwood')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (7, N'Wyatt', N'Barnett')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (8, N'Phil', N'Haack')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (9, N'Andrew', N'Troelsen')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (10, N'Philip', N'Japikse')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (11, N'Jamie', N'Munro')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (12, N'Arnaud', N'Weil')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (13, N'Simone', N'Chiaretta')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (14, N'Jess', N'Chadwick')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (15, N'Todd', N'Snyder')
+INSERT INTO [dbo].[Authors] ([Id], [FirstName], [LastName]) VALUES (16, N'Hrusikesh', N'Panda')
+SET IDENTITY_INSERT [dbo].[Authors] OFF
