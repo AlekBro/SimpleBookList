@@ -17,6 +17,8 @@ namespace SimpleBookList.BLL.Infrastructure
         {
             CreateMap<Author, AuthorViewModel>();
             CreateMap<Book, BookViewModel>();
+            CreateMap<AuthorViewModel, Author>();
+            CreateMap<BookViewModel, Book>();
         }
     }
 }

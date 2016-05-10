@@ -46,10 +46,10 @@ namespace SimpleBookList.BLL.Services
         public BookListService(IUnitOfWork unitOfWork)
         {
             this.UnitOfWorkProperty = unitOfWork;
-            
+
         }
 
-  
+
         /// <summary>
         /// Gets or sets UnitOfWork class
         /// </summary>
@@ -82,11 +82,11 @@ namespace SimpleBookList.BLL.Services
         /// <summary>
         /// Create new Book
         /// </summary>
-        /// <param name="BookViewModel">new Book model</param>
+        /// <param name="bookViewModel">new Book model</param>
         /// <returns>New Book model item</returns>
-        public BookViewModel CreateBook(BookViewModel BookViewModel)
+        public BookViewModel CreateBook(BookViewModel bookViewModel)
         {
-            Book newBook = Mapper.Map<Book>(BookViewModel);
+            Book newBook = Mapper.Map<Book>(bookViewModel);
             newBook = this.UnitOfWorkProperty.BooksRepository.Create(newBook);
             this.UnitOfWorkProperty.Save();
 
@@ -97,10 +97,10 @@ namespace SimpleBookList.BLL.Services
         /// <summary>
         /// Update existing Book
         /// </summary>
-        /// <param name="BookViewModel">Book model for update</param>
-        public void UpdateBook(BookViewModel BookViewModel)
+        /// <param name="bookViewModel">Book model for update</param>
+        public void UpdateBook(BookViewModel bookViewModel)
         {
-            Book bookItem = Mapper.Map<Book>(BookViewModel);
+            Book bookItem = Mapper.Map<Book>(bookViewModel);
             this.UnitOfWorkProperty.BooksRepository.Update(bookItem);
             this.UnitOfWorkProperty.Save();
         }
@@ -133,28 +133,43 @@ namespace SimpleBookList.BLL.Services
 
         public AuthorViewModel GetOneAuthor(int authorId)
         {
-            throw new NotImplementedException();
+            Author author = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
+            return Mapper.Map<AuthorViewModel>(author);
         }
 
         public AuthorViewModel CreateAuthor(AuthorViewModel authorViewModel)
         {
-            throw new NotImplementedException();
+            Author author = Mapper.Map<Author>(authorViewModel);
+            author = this.UnitOfWorkProperty.AuthorsRepository.Create(author);
+            this.UnitOfWorkProperty.Save();
+
+            return Mapper.Map<AuthorViewModel>(author);
         }
 
         public void UpdateAuthor(AuthorViewModel authorViewModel)
         {
-            throw new NotImplementedException();
+            Author authorItem = Mapper.Map<Author>(authorViewModel);
+            this.UnitOfWorkProperty.AuthorsRepository.Update(authorItem);
+            this.UnitOfWorkProperty.Save();
         }
 
         public void DeleteAuthor(int authorId)
         {
-            throw new NotImplementedException();
+
+            Author authorItem = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
+
+            if (authorItem != null)
+            {
+                this.UnitOfWorkProperty.AuthorsRepository.Delete(authorItem);
+                this.UnitOfWorkProperty.Save();
+            }
+            else
+            {
+                throw new Exception("Such an Book is not found in the database!");
+            }
+
         }
 
-        public IEnumerable<AuthorViewModel> GetAuthorsOfBook(int bookId)
-        {
-            throw new NotImplementedException();
-        }
 
 
 

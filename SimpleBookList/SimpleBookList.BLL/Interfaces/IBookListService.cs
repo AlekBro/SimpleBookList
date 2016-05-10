@@ -79,15 +79,6 @@ namespace SimpleBookList.BLL.Interfaces
 
 
         /// <summary>
-        ///  Get collection of all Authors for this book
-        /// </summary>
-        /// <param name="bookId">Book Id</param>
-        /// <returns>All Authors collection of Book</returns>
-        IEnumerable<AuthorViewModel> GetAuthorsOfBook(int bookId);
-
-
-
-        /// <summary>
         /// Free any objects here.
         /// </summary>
         void Dispose();

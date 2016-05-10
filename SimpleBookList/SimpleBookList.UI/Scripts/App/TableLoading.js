@@ -41,6 +41,8 @@ $(document).ready(function () {
         return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="deleteFunc(this, event)">Delete</a>';
     };
 
+ 
+
 
     var eventTable = $('#BookListTable').DataTable({
 

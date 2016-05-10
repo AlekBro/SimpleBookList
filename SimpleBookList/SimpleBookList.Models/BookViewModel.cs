@@ -47,12 +47,14 @@
         /// Gets or sets number of pages in this Book
         /// </summary>
         [Display(Name = "Pages")]
+        [Range(1, Int32.MaxValue, ErrorMessage ="Page number cannot be 0 or less.")]
         public int Pages { get; set; }
 
         /// <summary>
         /// Gets or sets Book rating
         /// </summary>
         [Display(Name = "Rating")]
+        [Range(0,10, ErrorMessage ="Rating is must be between 0 and 10")]
         public int Rating { get; set; }
 
         /// <summary>
@@ -72,11 +74,21 @@
         {
             get
             {
-                
+
                 StringBuilder names = new StringBuilder();
-                foreach (var item in Authors.Select(n => n.Name))
+                foreach (var item in Authors)
                 {
-                    names.Append(item);
+                    StringBuilder link = new StringBuilder("<a href='/authors/details/");
+                    link.Append(item.Id);
+                    link.Append("-");
+                    link.Append(item.FirstName);
+                    link.Append("_");
+                    link.Append(item.LastName);
+                    link.Append("'>");
+                    link.Append(item.Name);
+                    link.Append("</a>");
+
+                    names.Append(link);
                     names.Append(", ");
 
                 }

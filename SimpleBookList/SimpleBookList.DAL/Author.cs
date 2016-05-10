@@ -26,5 +26,11 @@ namespace SimpleBookList.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
+
+        public int BooksNumber { get
+            {
+                return Books.Count;
+            }
+        }
     }
 }

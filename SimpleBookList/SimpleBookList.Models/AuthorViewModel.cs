@@ -31,7 +31,7 @@ namespace SimpleBookList.Models
         /// <summary>
         /// 
         /// </summary>
-        public int BooksNumber { get; }
+        public int BooksNumber { get; private set; }
 
         /// <summary>
         /// 
@@ -42,5 +42,6 @@ namespace SimpleBookList.Models
                 return this.FirstName + " " + this.LastName;
             }
         }
+
     }
 }
