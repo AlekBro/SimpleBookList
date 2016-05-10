@@ -284,6 +284,8 @@
     <Content Include="Views\Authors\Index.cshtml" />
     <Content Include="Views\Authors\Details.cshtml" />
     <Content Include="Views\Authors\Create.cshtml" />
+    <Content Include="Views\Authors\Edit.cshtml" />
+    <Content Include="Views\Authors\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

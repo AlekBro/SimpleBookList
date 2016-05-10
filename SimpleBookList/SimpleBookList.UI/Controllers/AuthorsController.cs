@@ -34,28 +34,19 @@ namespace SimpleBookList.UI.Controllers
         }
 
         // GET: Authors/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            string[] idArray = id.Split('-');
 
-            if (idArray.Count() != 0)
+            try
             {
-                string idNumber = idArray[0];
-                if (string.IsNullOrWhiteSpace(idNumber) == false)
-                {
-                    try
-                    {
-                        int authorId = Convert.ToInt32(idNumber);
-                        AuthorViewModel currentAuthor = Service.GetOneAuthor(authorId);
-                        return View(currentAuthor);
-                    }
-                    catch (Exception ex)
-                    {
+                int authorId = Convert.ToInt32(id);
+                AuthorViewModel currentAuthor = Service.GetOneAuthor(authorId);
+                return View(currentAuthor);
+            }
+            catch (Exception ex)
+            {
 
-                        throw;
-                    }
-
-                }
+                throw;
             }
 
 
@@ -63,6 +54,7 @@ namespace SimpleBookList.UI.Controllers
         }
 
         // GET: Authors/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -70,6 +62,7 @@ namespace SimpleBookList.UI.Controllers
 
         // POST: Authors/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(AuthorViewModel author)
         {
             if (ModelState.IsValid)
@@ -89,46 +82,86 @@ namespace SimpleBookList.UI.Controllers
         }
 
         // GET: Authors/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            AuthorViewModel author = null;
+
+            author = this.Service.GetOneAuthor(id);
+
+            if (author != null)
+            {
+                // Success!
+                return this.View("Edit", author);
+            }
+            else
+            {
+                throw new Exception("Such author is not found in the database!");
+            }
         }
 
         // POST: Authors/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AuthorViewModel author)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                try
+                {
+                    // Success!
+                    this.Service.UpdateAuthor(author);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(author);
         }
 
         // GET: Authors/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            AuthorViewModel author = null;
+
+            author = this.Service.GetOneAuthor(id);
+            if (author != null)
+            {
+                // Success!
+                return this.View("Delete", author);
+            }
+            else
+            {
+                throw new Exception("Such author is not found in the database!");
+            }
         }
 
         // POST: Authors/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAuthor(int id)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                try
+                {
+                    // Success!
+                    this.Service.DeleteAuthor(id);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
-            catch
+            else
             {
-                return View();
+                // ModelState.IsValid  False!
+                throw new Exception();
             }
         }
     }

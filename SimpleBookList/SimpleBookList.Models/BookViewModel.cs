@@ -80,7 +80,7 @@
                 {
                     StringBuilder link = new StringBuilder("<a href='/authors/details/");
                     link.Append(item.Id);
-                    link.Append("-");
+                    link.Append("/");
                     link.Append(item.FirstName);
                     link.Append("_");
                     link.Append(item.LastName);
