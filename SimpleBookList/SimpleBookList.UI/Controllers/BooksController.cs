@@ -15,14 +15,14 @@
 
 
         /// <summary>
-        /// EventService class property
+        /// BookService class property
         /// </summary>
         private IBookListService Service;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventsController" /> class.
+        /// Initializes a new instance of the <see cref="BooksController" /> class.
         /// </summary>
-        /// <param name="service">implementation instance of IEventService interface</param>
+        /// <param name="service">implementation instance of IBookService interface</param>
         public BooksController(IBookListService service)
         {
             this.Service = service;
@@ -132,7 +132,114 @@
             return Json(new { error = ex.Message });
         }
     }
-    
+
+
+        //-------------------------------------------------------------------------
+
+        
+        [HttpGet]
+        public ActionResult Create()
+        {
+            MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name");
+
+            ViewBag.AuthorsList = authorsList;
+
+            return this.PartialView("Create");
+        }
+
+        /// <summary>
+        /// Post new BookModel for saving in Database
+        /// </summary>
+        /// <param name="newBook">BookModel with new Book</param>
+        /// <returns>BookModel or Exception</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(BookViewModel newBook)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Success!
+                    foreach (int authorId in newBook.AuthorsIds)
+                    {
+                        newBook.Authors.Add(this.Service.GetOneAuthor(authorId));
+                    }
+                    newBook = this.Service.CreateBook(newBook);
+                    return this.Json(newBook, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                // ModelState.IsValid  False!
+                throw new CustomException(ViewData.ModelState);
+            }
+        }
+        //-------------------------------------------------------------------------
+
+
+        /// <summary>
+        /// Get PartialView with Book for Edit
+        /// </summary>
+        /// <param name="id">Book Id</param>
+        /// <returns>PartialView for Editing or Exception</returns>
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            BookViewModel bookForEdit = null;
+            try
+            {
+                bookForEdit = this.Service.GetOneBook(id);
+
+                if (bookForEdit != null)
+                {
+                    // Success!
+                    return this.PartialView("Edit", bookForEdit);
+                }
+                else
+                {
+                    throw new Exception("Such an Book is not found in the database!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Post BookModel with updated data for saving in database
+        /// </summary>
+        /// <param name="bookForUpdate">updated BookModel</param>
+        /// <returns>BookModel or Exception</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(BookViewModel bookForUpdate)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Success!
+                    this.Service.UpdateBook(bookForUpdate);
+                    return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                // ModelState.IsValid  False!
+                throw new CustomException(ViewData.ModelState);
+            }
+        }
+
 
         //-------------------------------------------------------------------------
 
@@ -143,49 +250,8 @@
             return View();
         }
 
-        // GET: Books/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Books/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Books/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Books/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
+        
 
         // GET: Books/Delete/5
         public ActionResult Delete(int id)

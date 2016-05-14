@@ -57,6 +57,9 @@
         [Range(0,10, ErrorMessage ="Rating is must be between 0 and 10")]
         public int Rating { get; set; }
 
+
+
+
         /// <summary>
         /// Gets or sets all authors of this book
         /// </summary>
@@ -69,6 +72,8 @@
         {
             Authors = new List<AuthorViewModel>();
         }
+
+        public List<int> AuthorsIds { get; set; }
 
         public string AuthorsNames
         {

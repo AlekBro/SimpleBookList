@@ -5,12 +5,58 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1 id="booksTitle">SimpleBookList</h1>
+<h2>Books List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table" id="BookListTable">
+<hr />
+<div id="dialogContainer"></div>
+<hr />
+
+<p><button id="CreateNewBookButton">Add New Book</button></p>
+
+
+<script>
+    $(function () {
+        $("#CreateNewBookButton").click(function () {
+            getRequest("@Url.Action("Create")");
+        });
+
+    });
+
+    function editFunc(obj, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var value = obj.getAttribute('value');
+
+        getRequest("@Url.Action("Edit")", { Id: value });
+
+    };
+
+    function deleteFunc(obj, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var value = obj.getAttribute('value');
+
+        getRequest("@Url.Action("Delete")", { Id: value });
+    };
+
+    function getRequest(urlString, dataString) {
+        $.ajax({
+            url: urlString,
+            data: dataString,
+            type: "GET",
+            success: function (response) {
+                $("#dialogContainer").html(response);
+                window.scrollTo(0, 0);
+            }
+        });
+    };
+
+</script>
+
+<table class="table" id="BooksListTable" cellspacing="0" style="width:100%;">
     <thead>
         <tr>
             <th>

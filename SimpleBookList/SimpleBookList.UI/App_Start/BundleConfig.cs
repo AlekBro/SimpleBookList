@@ -11,17 +11,32 @@ namespace SimpleBookList.UI
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
+            "~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryValidate").Include(
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/jquery.unobtrusive*"
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryMultiSelect").Include(
+                        "~/Scripts/jquery.multi-select.js",
+                        "~/Scripts/jquery.quicksearch.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryDatatables").Include(
                         "~/Scripts/jquery.dataTables*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/App").Include(
-                        "~/Scripts/App/*.js"));
 
 
+
+            // Custom JavaScripts
+            bundles.Add(new ScriptBundle("~/bundles/forBooks").Include(
+                        "~/Scripts/App/Books*"));
+
+            // Custom JavaScript for RequiredIfAttribute
+            bundles.Add(new ScriptBundle("~/bundles/BooksValidation").Include(
+                        "~/Scripts/App/Validation.js"));
 
 
 
@@ -37,7 +52,8 @@ namespace SimpleBookList.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/css/*.css"
+                      "~/Content/css/*.css",
+                      "~/Content/themes/base/*.css"
                       ));
         }
     }
