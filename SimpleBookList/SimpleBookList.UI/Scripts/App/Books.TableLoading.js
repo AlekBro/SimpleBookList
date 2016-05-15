@@ -44,7 +44,7 @@ $(document).ready(function () {
  
 
 
-    var eventTable = $('#BooksListTable').DataTable({
+    var booksTable = $('#BooksListTable').DataTable({
 
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side

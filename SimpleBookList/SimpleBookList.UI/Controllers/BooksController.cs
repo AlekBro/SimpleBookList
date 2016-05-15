@@ -7,7 +7,7 @@
     using System.Web.Mvc;
 
     using BLL.Interfaces;
-    using SimpleBookList.Models;
+    using Models;
     using Utils;
 
     public class BooksController : Controller
@@ -30,8 +30,11 @@
 
 
 
-
-        // GET: Books
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult Index()
         {
             //IEnumerable<BookViewModel> allBooks = this.Service.GetAllBooks();
@@ -39,104 +42,56 @@
             return View();
         }
 
-        [HttpPost]
-        public JsonResult LoadData()
-        {
-
-            //Get parameters
-
-            // get Start (paging start index) and length (page size for paging)
-            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            var start = Request.Form.GetValues("start").FirstOrDefault();
-            var length = Request.Form.GetValues("length").FirstOrDefault();
-
-            //Get Sort columns value
-            var r1 = Request.Form.GetValues("order[0][column]").FirstOrDefault();
-
-            //columns[0][name]
-            // col = "columns[1][name]"
-            string col = "columns[" + r1 + "][name]";
-
-            // [8] = "columns[1][name]"
-            var sortColumn = Request.Form.GetValues(col).FirstOrDefault();
-
-
-
-            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-
-            //var res = Request.Form.AllKeys.GetValue()
-
-            int pageSize = length != null ? Convert.ToInt32(length) : 0;
-            int skip = start != null ? Convert.ToInt32(start) : 0;
-            int totalRecords = 0;
-
-
-            IEnumerable<BookViewModel> allBooks = this.Service.GetAllBooks();
-
-            var v = (from a in allBooks select a);
-
-            //Sorting
-            /*
-            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-            {
-                v = v.OrderBy(sortColumn + " " + sortColumnDir);
-            }
-            */
-
-            totalRecords = v.Count();
-            var data = v.Skip(skip).Take(pageSize).ToList();
-            return Json(new { draw = draw, recordsFiltered = totalRecords, recordsTotal = totalRecords, data = data }, JsonRequestBehavior.AllowGet);
-
-
-            //return View(allBooks);
-        }
-
 
 
 
         //---------------------------------------------------------------------------------
 
-   
-    
 
-        
-    public JsonResult DataHandler(DTParameters param)
-    {
-        try
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public JsonResult DataHandler(DTParameters param)
         {
-
-            List<BookViewModel> allBooks = this.Service.GetAllBooks().ToList();
-
-            List<string> columnSearch = new List<string>();
-
-            foreach (var col in param.Columns)
+            try
             {
-                columnSearch.Add(col.Search.Value);
+
+                List<BookViewModel> allBooks = this.Service.GetAllBooks().ToList();
+
+                List<string> columnSearch = new List<string>();
+
+                foreach (var col in param.Columns)
+                {
+                    columnSearch.Add(col.Search.Value);
+                }
+
+                List<BookViewModel> data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allBooks, columnSearch);
+
+                int count = new BookResultSet().Count(param.Search.Value, allBooks, columnSearch);
+
+                DTResult<BookViewModel> result = new DTResult<BookViewModel>
+                {
+                    draw = param.Draw,
+                    data = data,
+                    recordsFiltered = count,
+                    recordsTotal = count
+                };
+                return Json(result);
             }
-
-            List<BookViewModel> data = new ResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allBooks, columnSearch);
-
-            int count = new ResultSet().Count(param.Search.Value, allBooks, columnSearch);
-
-            DTResult<BookViewModel> result = new DTResult<BookViewModel>
+            catch (Exception ex)
             {
-                draw = param.Draw,
-                data = data,
-                recordsFiltered = count,
-                recordsTotal = count
-            };
-            return Json(result);
+                return Json(new { error = ex.Message });
+            }
         }
-        catch (Exception ex)
-        {
-            return Json(new { error = ex.Message });
-        }
-    }
 
 
         //-------------------------------------------------------------------------
 
-        
+
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -197,6 +152,33 @@
 
                 if (bookForEdit != null)
                 {
+
+                    //MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name");
+                    /*
+                    List<SelectListItem> authorsListitems = new List<SelectListItem>();
+                    foreach (AuthorViewModel autor in Service.GetAllAuthors())
+                    {
+                        SelectListItem authorItem = new SelectListItem();
+                        authorItem.Value = autor.Id.ToString();
+                        authorItem.Text = autor.Name;
+                        if (bookForEdit.Authors.FirstOrDefault(x => x.Id == autor.Id) != null)
+                        {
+                            authorItem.Selected = true;
+                        }
+                        authorsListitems.Add(authorItem);
+                    }
+                    */
+
+                    List<string> authorsIds = bookForEdit.Authors.Select(x => x.Id.ToString()).ToList();
+
+                    MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name", authorsIds);
+
+                    //MultiSelectList authorsList = new MultiSelectList(authorsListitems);
+
+
+
+                    ViewBag.AuthorsList = authorsList;
+
                     // Success!
                     return this.PartialView("Edit", bookForEdit);
                 }
@@ -224,6 +206,13 @@
             {
                 try
                 {
+
+                    bookForUpdate.Authors = new HashSet<AuthorViewModel>();
+                    foreach (int authorId in bookForUpdate.AuthorsIds)
+                    {
+                        bookForUpdate.Authors.Add(this.Service.GetOneAuthor(authorId));
+                    }
+
                     // Success!
                     this.Service.UpdateBook(bookForUpdate);
                     return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);
@@ -250,29 +239,117 @@
             return View();
         }
 
-        
-        
 
-        // GET: Books/Delete/5
+
+
+
+
+
+
+        /// <summary>
+        /// Get PartialView with Book for Delete
+        /// </summary>
+        /// <param name="id">Book Id</param>
+        /// <returns>PartialView for Deleting or Exception</returns>
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Books/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            BookViewModel bookForDelete = null;
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                bookForDelete = this.Service.GetOneBook(id);
+                if (bookForDelete != null)
+                {
+                    // Success!
+                    return this.PartialView("Delete", bookForDelete);
+                }
+                else
+                {
+                    throw new Exception("Such an Book is not found in the database!");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
         }
+
+        /// <summary>
+        /// Post Book id and deleting Book by Id
+        /// </summary>
+        /// <param name="id">Book Id</param>
+        /// <returns>BookModel or Exception</returns>
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteBook(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Success!
+                    this.Service.DeleteBook(id);
+                    return this.Json(id, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                // ModelState.IsValid  False!
+                throw new CustomException(ViewData.ModelState);
+            }
+        }
+
+        /// <summary>
+        /// Exception handling
+        /// </summary>
+        /// <param name="filterContext">Exception context</param>
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+
+            filterContext.ExceptionHandled = true;
+
+            if (ex is CustomException)
+            {
+                CustomException bookException = ex as CustomException;
+
+                filterContext.HttpContext.Response.StatusCode = 500;
+                filterContext.Result = new JsonResult
+                {
+                    Data = new { error = filterContext.Exception.Message },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+            else
+            {
+                TempDataDictionary tempDataDictionary = new TempDataDictionary();
+
+                if (string.IsNullOrWhiteSpace(ex.Message) == false)
+                {
+                    tempDataDictionary.Add("errorMessage", ex.Message);
+                }
+                else
+                {
+                    tempDataDictionary.Add("errorMessage", "Error while processing your request!");
+                }
+
+                ViewResult result = new ViewResult
+                {
+                    ViewName = "Error",
+                    TempData = tempDataDictionary
+                };
+
+                filterContext.Result = result;
+            }
+        }
+
+
+
+
     }
 }

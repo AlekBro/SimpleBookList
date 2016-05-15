@@ -34,6 +34,10 @@ namespace SimpleBookList.UI
             bundles.Add(new ScriptBundle("~/bundles/forBooks").Include(
                         "~/Scripts/App/Books*"));
 
+            // Custom JavaScripts
+            bundles.Add(new ScriptBundle("~/bundles/forAuthors").Include(
+                        "~/Scripts/App/Authors*"));
+
             // Custom JavaScript for RequiredIfAttribute
             bundles.Add(new ScriptBundle("~/bundles/BooksValidation").Include(
                         "~/Scripts/App/Validation.js"));

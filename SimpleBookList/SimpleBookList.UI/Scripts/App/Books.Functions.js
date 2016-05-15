@@ -1,9 +1,9 @@
-﻿// Add a new row to the table and send a message about the successful creation of Event.
+﻿// Add a new row to the table and send a message about the successful creation of Book.
 function OnCreateSuccess(response) {
     var booksTable = $('#BooksListTable').dataTable();
     booksTable.fnAddData(response);
 
-    alert("Event has been created!");
+    alert("Book has been created!");
     $("#dialogContainer").html("");
 }
 
@@ -25,7 +25,7 @@ function OnEditSuccess(response) {
 
     $("#dialogContainer").html("");
 
-    alert("Event has been changed!");
+    alert("Book has been changed!");
 };
 
 
@@ -40,7 +40,7 @@ function OnDeleteSuccess(response) {
     booksTable.fnDeleteRow($(row).get(0));
 
     $("#dialogContainer").html("");
-    alert("Event has been deleted!");
+    alert("Book has been deleted!");
 
 }
 

@@ -97,7 +97,11 @@
                     names.Append(", ");
 
                 }
-                names.Remove(names.Length - 2, 2);
+                if (names.Length > 0)
+                {
+                    names.Remove(names.Length - 2, 2);
+                }
+                
                 return names.ToString();
             }
         }

@@ -36,7 +36,8 @@ namespace SimpleBookList.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Name {
+        public string Name
+        {
             get
             {
                 return this.FirstName + " " + this.LastName;

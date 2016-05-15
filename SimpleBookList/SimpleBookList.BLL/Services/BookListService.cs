@@ -2,6 +2,7 @@
 namespace SimpleBookList.BLL.Services
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
 
     using AutoMapper;
@@ -100,8 +101,96 @@ namespace SimpleBookList.BLL.Services
         /// <param name="bookViewModel">Book model for update</param>
         public void UpdateBook(BookViewModel bookViewModel)
         {
+            //Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookViewModel.Id);
+
+            //Book bookItem = Mapper.Map<Book>(bookViewModel);
+
+            /*
+            List<int> authorIds = new List<int>();
+            foreach (Author item in bookItem.Authors)
+            {
+                authorIds.Add(item.Id);
+            }
+            */
+            //bookItem.Authors = new List<Author>();
+
+            //Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookViewModel.Id);
             Book bookItem = Mapper.Map<Book>(bookViewModel);
+
+            bool stop = true;
+
+            List<Author> currentAuthors =
+                this.UnitOfWorkProperty.AuthorsRepository.GetAll().Where(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
+
+
+            //bookItem.Authors = currentAuthors;
+
+
             this.UnitOfWorkProperty.BooksRepository.Update(bookItem);
+
+            /*
+            List<Author> authorsFromDB =
+                this.UnitOfWorkProperty.AuthorsRepository.Find(x => x.Books.Contains(bookItem)).ToList();
+
+
+            
+            List<Author> neizmennie = authorsFromDB.Intersect(currentAuthors).ToList();
+
+            List<Author> toDelete = authorsFromDB.Except(neizmennie).ToList();
+
+            List<Author> toAdd = currentAuthors.Except(neizmennie).ToList();
+
+
+            toDelete.ForEach(author =>
+            {
+                author.Books.Remove(bookItem);
+                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
+            });
+
+            toAdd.ForEach(author =>
+            {
+                author.Books.Add(bookItem);
+                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
+            });
+
+            /*
+            foreach (Author author in authorsFromDB)
+            {
+
+                if (bookViewModel.AuthorsIds.Contains(author.Id))
+                {
+
+                    author.Books.Add(bookItem);
+                }
+                else
+                {
+                    author.Books.Remove(bookItem);
+                }
+                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
+            }
+            */
+
+
+            /*
+            if (bookViewModel.AuthorsIds != null)
+            {
+
+                foreach (int authorId in bookViewModel.AuthorsIds)
+                {
+                    Author author = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
+                    author.Books.Add(bookItem);
+
+
+
+                    //bookItem.Authors.Add(author);
+
+                    this.UnitOfWorkProperty.AuthorsRepository.Update(author);
+                }
+            }
+            */
+
+
+
             this.UnitOfWorkProperty.Save();
         }
 
@@ -149,6 +238,7 @@ namespace SimpleBookList.BLL.Services
         public void UpdateAuthor(AuthorViewModel authorViewModel)
         {
             Author authorItem = Mapper.Map<Author>(authorViewModel);
+
             this.UnitOfWorkProperty.AuthorsRepository.Update(authorItem);
             this.UnitOfWorkProperty.Save();
         }

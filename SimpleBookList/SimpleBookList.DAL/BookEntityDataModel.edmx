@@ -101,7 +101,7 @@
           <End Role="Authors" Type="Self.Author" Multiplicity="*" />
           <End Role="Books" Type="Self.Book" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <AssociationSet Name="BookAuthors" Association="Self.BookAuthors">
@@ -114,7 +114,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="DatabaseModel.Author">
               <MappingFragment StoreEntitySet="Authors">

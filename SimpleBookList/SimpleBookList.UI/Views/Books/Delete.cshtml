@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.AuthorsNames)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AuthorsNames)
+            @Html.Raw(Model.AuthorsNames)
         </dd>
     </dl>
 @using (Ajax.BeginForm("Delete",

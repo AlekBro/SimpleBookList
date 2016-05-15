@@ -4,10 +4,9 @@ namespace SimpleBookList.DAL.Repositories
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Linq;
 
-    //using EF;
-    //using Entities;
     using Interfaces;
 
     /// <summary>
@@ -18,13 +17,13 @@ namespace SimpleBookList.DAL.Repositories
         /// <summary>
         /// Context for interacting with Database
         /// </summary>
-        private DatabaseEntities context;
+        private Entities context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookRepository" /> class.
         /// </summary>
         /// <param name="context">Context for interacting with Database</param>
-        public BookRepository(DatabaseEntities context)
+        public BookRepository(Entities context)
         {
             this.context = context;
         }
@@ -75,7 +74,9 @@ namespace SimpleBookList.DAL.Repositories
         /// <param name="item">Book for update</param>
         public void Update(Book item)
         {
-            this.context.Entry(item).State = EntityState.Modified;
+            //this.context.Set<Book>().Attach(item);
+            //this.context.Books.Attach(item);
+            this.context.Entry<Book>(item).State = EntityState.Modified;
         }
 
         /// <summary>

@@ -3,7 +3,7 @@
 @Scripts.Render("~/bundles/BooksValidation")
 
 
-@using (Ajax.BeginForm("Edit", "Events", null,
+@using (Ajax.BeginForm("Edit", "Books", null,
                                                                 new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "CreateEventForm" }))
 {
 

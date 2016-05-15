@@ -12,19 +12,19 @@ namespace SimpleBookList.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
-    public partial class DatabaseEntities : DbContext
+    
+    public partial class Entities : DbContext
     {
-        public DatabaseEntities()
-            : base("name=DatabaseEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseEntities" /> class.
+        /// Initializes a new instance of the <see cref="Entities" /> class.
         /// </summary>
         /// <param name="connectingString">String with settings for connection to the Database</param>
-        public DatabaseEntities(string connectingString)
+        public Entities(string connectingString)
             : base(connectingString)
         {
         }

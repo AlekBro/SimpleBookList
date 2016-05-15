@@ -7,7 +7,7 @@ namespace SimpleBookList.UI.Utils
     using System.Linq;
     using System.Web.UI.WebControls; //For SortBy method
 
-    public class ResultSet
+    public class BookResultSet
     {
         public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length,
             List<BookViewModel> dtResult, List<string> columnFilters)
