@@ -13,7 +13,6 @@
     public class BooksController : Controller
     {
 
-
         /// <summary>
         /// BookService class property
         /// </summary>
@@ -28,8 +27,6 @@
             this.Service = service;
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -42,13 +39,6 @@
             return View();
         }
 
-
-
-
-        //---------------------------------------------------------------------------------
-
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -58,7 +48,6 @@
         {
             try
             {
-
                 List<BookViewModel> allBooks = this.Service.GetAllBooks().ToList();
 
                 List<string> columnSearch = new List<string>();
@@ -87,11 +76,10 @@
             }
         }
 
-
-        //-------------------------------------------------------------------------
-
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Create()
         {
@@ -116,10 +104,7 @@
                 try
                 {
                     // Success!
-                    foreach (int authorId in newBook.AuthorsIds)
-                    {
-                        newBook.Authors.Add(this.Service.GetOneAuthor(authorId));
-                    }
+
                     newBook = this.Service.CreateBook(newBook);
                     return this.Json(newBook, JsonRequestBehavior.AllowGet);
                 }
@@ -134,9 +119,7 @@
                 throw new CustomException(ViewData.ModelState);
             }
         }
-        //-------------------------------------------------------------------------
-
-
+  
         /// <summary>
         /// Get PartialView with Book for Edit
         /// </summary>
@@ -152,30 +135,9 @@
 
                 if (bookForEdit != null)
                 {
-
-                    //MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name");
-                    /*
-                    List<SelectListItem> authorsListitems = new List<SelectListItem>();
-                    foreach (AuthorViewModel autor in Service.GetAllAuthors())
-                    {
-                        SelectListItem authorItem = new SelectListItem();
-                        authorItem.Value = autor.Id.ToString();
-                        authorItem.Text = autor.Name;
-                        if (bookForEdit.Authors.FirstOrDefault(x => x.Id == autor.Id) != null)
-                        {
-                            authorItem.Selected = true;
-                        }
-                        authorsListitems.Add(authorItem);
-                    }
-                    */
-
                     List<string> authorsIds = bookForEdit.Authors.Select(x => x.Id.ToString()).ToList();
 
                     MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name", authorsIds);
-
-                    //MultiSelectList authorsList = new MultiSelectList(authorsListitems);
-
-
 
                     ViewBag.AuthorsList = authorsList;
 
@@ -206,13 +168,6 @@
             {
                 try
                 {
-
-                    bookForUpdate.Authors = new HashSet<AuthorViewModel>();
-                    foreach (int authorId in bookForUpdate.AuthorsIds)
-                    {
-                        bookForUpdate.Authors.Add(this.Service.GetOneAuthor(authorId));
-                    }
-
                     // Success!
                     this.Service.UpdateBook(bookForUpdate);
                     return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);

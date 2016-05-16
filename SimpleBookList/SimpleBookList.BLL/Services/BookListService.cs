@@ -16,22 +16,6 @@ namespace SimpleBookList.BLL.Services
     /// </summary>
     public class BookListService : IBookListService
     {
-        /// <summary>
-        /// Initializes static members of the <see cref="BookListService" /> class.
-        /// </summary>
-        static BookListService()
-        {
-
-
-            /*
-            MapperConfiguration bookToBookViewModelConfig = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookViewModel>());
-            MapperBookToBookViewModel = bookToBookViewModelConfig.CreateMapper();
-
-            MapperConfiguration BookViewModelToBookConfig = new MapperConfiguration(cfg => cfg.CreateMap<BookViewModel, Book>());
-            MapperBookViewModelToBook = BookViewModelToBookConfig.CreateMapper();
-            */
-        }
-
         protected IMapper Mapper
         {
             get
@@ -49,7 +33,6 @@ namespace SimpleBookList.BLL.Services
             this.UnitOfWorkProperty = unitOfWork;
 
         }
-
 
         /// <summary>
         /// Gets or sets UnitOfWork class
@@ -88,6 +71,10 @@ namespace SimpleBookList.BLL.Services
         public BookViewModel CreateBook(BookViewModel bookViewModel)
         {
             Book newBook = Mapper.Map<Book>(bookViewModel);
+
+            newBook.Authors =
+                this.UnitOfWorkProperty.AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
+
             newBook = this.UnitOfWorkProperty.BooksRepository.Create(newBook);
             this.UnitOfWorkProperty.Save();
 
@@ -101,94 +88,21 @@ namespace SimpleBookList.BLL.Services
         /// <param name="bookViewModel">Book model for update</param>
         public void UpdateBook(BookViewModel bookViewModel)
         {
-            //Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookViewModel.Id);
 
-            //Book bookItem = Mapper.Map<Book>(bookViewModel);
-
-            /*
-            List<int> authorIds = new List<int>();
-            foreach (Author item in bookItem.Authors)
-            {
-                authorIds.Add(item.Id);
-            }
-            */
-            //bookItem.Authors = new List<Author>();
-
-            //Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookViewModel.Id);
             Book bookItem = Mapper.Map<Book>(bookViewModel);
 
-            bool stop = true;
-
-            List<Author> currentAuthors =
-                this.UnitOfWorkProperty.AuthorsRepository.GetAll().Where(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
-
-
-            //bookItem.Authors = currentAuthors;
+            if (bookViewModel.AuthorsIds != null)
+            {
+                bookItem.Authors =
+                this.UnitOfWorkProperty.AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
+            }
+            else
+            {
+                bookItem.Authors = new List<Author>();
+            }
 
 
             this.UnitOfWorkProperty.BooksRepository.Update(bookItem);
-
-            /*
-            List<Author> authorsFromDB =
-                this.UnitOfWorkProperty.AuthorsRepository.Find(x => x.Books.Contains(bookItem)).ToList();
-
-
-            
-            List<Author> neizmennie = authorsFromDB.Intersect(currentAuthors).ToList();
-
-            List<Author> toDelete = authorsFromDB.Except(neizmennie).ToList();
-
-            List<Author> toAdd = currentAuthors.Except(neizmennie).ToList();
-
-
-            toDelete.ForEach(author =>
-            {
-                author.Books.Remove(bookItem);
-                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
-            });
-
-            toAdd.ForEach(author =>
-            {
-                author.Books.Add(bookItem);
-                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
-            });
-
-            /*
-            foreach (Author author in authorsFromDB)
-            {
-
-                if (bookViewModel.AuthorsIds.Contains(author.Id))
-                {
-
-                    author.Books.Add(bookItem);
-                }
-                else
-                {
-                    author.Books.Remove(bookItem);
-                }
-                this.UnitOfWorkProperty.AuthorsRepository.Update(author);
-            }
-            */
-
-
-            /*
-            if (bookViewModel.AuthorsIds != null)
-            {
-
-                foreach (int authorId in bookViewModel.AuthorsIds)
-                {
-                    Author author = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
-                    author.Books.Add(bookItem);
-
-
-
-                    //bookItem.Authors.Add(author);
-
-                    this.UnitOfWorkProperty.AuthorsRepository.Update(author);
-                }
-            }
-            */
-
 
 
             this.UnitOfWorkProperty.Save();

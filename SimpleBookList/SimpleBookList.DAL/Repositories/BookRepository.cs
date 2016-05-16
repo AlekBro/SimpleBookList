@@ -74,8 +74,6 @@ namespace SimpleBookList.DAL.Repositories
         /// <param name="item">Book for update</param>
         public void Update(Book item)
         {
-            //this.context.Set<Book>().Attach(item);
-            //this.context.Books.Attach(item);
             this.context.Entry<Book>(item).State = EntityState.Modified;
         }
 
