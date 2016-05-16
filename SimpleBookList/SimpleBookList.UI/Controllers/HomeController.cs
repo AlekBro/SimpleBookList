@@ -8,18 +8,18 @@
     public class HomeController : Controller
     {
         /// <summary>
-        /// 
+        /// Information about this Application
         /// </summary>
-        /// <returns></returns>
+        /// <returns>View with Information about this Application</returns>
         public ActionResult About()
         {
             return this.View();
         }
 
         /// <summary>
-        /// 
+        /// Contacts data
         /// </summary>
-        /// <returns></returns>
+        /// <returns>View with Contacts data</returns>
         public ActionResult Contact()
         {
             return this.View();

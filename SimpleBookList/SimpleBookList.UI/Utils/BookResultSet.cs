@@ -7,7 +7,7 @@
     using Models;
 
     /// <summary>
-    /// 
+    /// Book List sorting, searching and filtering
     /// </summary>
     public class BookResultSet
     {

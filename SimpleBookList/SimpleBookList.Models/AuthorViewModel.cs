@@ -27,12 +27,12 @@
         public string LastName { get; set; }
 
         /// <summary>
-        /// Number of Books of this Author
+        /// Gets Number of Books of this Author
         /// </summary>
         public int BooksNumber { get; private set; }
 
         /// <summary>
-        /// Author full name
+        /// Gets Author full name
         /// </summary>
         public string Name
         {

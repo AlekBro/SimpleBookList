@@ -208,7 +208,7 @@
         /// Author deleting by his Id
         /// </summary>
         /// <param name="id">Author Id</param>
-        /// <returns></returns>
+        /// <returns>Form for Author deleting</returns>
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

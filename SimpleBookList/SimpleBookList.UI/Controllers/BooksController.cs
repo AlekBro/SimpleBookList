@@ -30,9 +30,9 @@
         }
 
         /// <summary>
-        /// 
+        /// Get main page with Book List
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Book List</returns>
         [HttpGet]
         public ActionResult Index()
         {
@@ -40,10 +40,10 @@
         }
 
         /// <summary>
-        /// 
+        /// Get JSON with Book List
         /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
+        /// <param name="param">searching and filtering parameters</param>
+        /// <returns>JSON with Book List</returns>
         public JsonResult DataHandler(DTParameters param)
         {
             try
@@ -77,9 +77,9 @@
         }
 
         /// <summary>
-        /// 
+        /// Create new Book
         /// </summary>
-        /// <returns></returns>
+        /// <returns>From for creating new Book</returns>
         [HttpGet]
         public ActionResult Create()
         {

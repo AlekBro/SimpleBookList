@@ -11,7 +11,7 @@
     public class MappingProfile : Profile
     {
         /// <summary>
-        /// Configurating Automapper
+        /// Creating maps for Automapper
         /// </summary>
         protected override void Configure()
         {

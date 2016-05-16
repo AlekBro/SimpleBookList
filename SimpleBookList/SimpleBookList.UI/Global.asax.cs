@@ -7,12 +7,12 @@
     using BLL.Infrastructure;
 
     /// <summary>
-    /// 
+    /// Main class for Application
     /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
         /// <summary>
-        /// 
+        /// Application Start
         /// </summary>
         protected void Application_Start()
         {

@@ -8,12 +8,12 @@
     public static class AutoMapperConfig
     {
         /// <summary>
-        /// 
+        /// Gets or Sets Automapper Configuration
         /// </summary>
         public static MapperConfiguration Configuration { get; private set; }
 
         /// <summary>
-        /// 
+        /// Register Mappings Configuration
         /// </summary>
         public static void RegisterMappings()
         {

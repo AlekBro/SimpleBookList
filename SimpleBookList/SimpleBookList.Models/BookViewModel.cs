@@ -70,12 +70,12 @@
         public virtual ICollection<AuthorViewModel> Authors { get; set; }
 
         /// <summary>
-        /// All Authors Ids
+        /// Gets or sets All Authors Ids
         /// </summary>
         public List<int> AuthorsIds { get; set; }
 
         /// <summary>
-        /// All Authors Links
+        /// Gets All Authors Links
         /// </summary>
         public string AuthorsNames
         {

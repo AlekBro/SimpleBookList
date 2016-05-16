@@ -7,7 +7,7 @@
     using Models;
 
     /// <summary>
-    /// 
+    /// Author List sorting, searching and filtering
     /// </summary>
     public class AuthorResultSet
     {

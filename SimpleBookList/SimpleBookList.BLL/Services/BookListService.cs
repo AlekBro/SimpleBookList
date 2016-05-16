@@ -26,7 +26,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Gets Automapper Configuration
         /// </summary>
         protected IMapper Mapper
         {

@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="EventException.cs" company="Apriorit">
-//     apriorit.com. All rights reserved.
-// </copyright>
-// <author>Brova Aleksandr</author>
-// -----------------------------------------------------------------------
-namespace SimpleBookList.Models
+﻿namespace SimpleBookList.Models
 {
     using System;
     using System.Text;
