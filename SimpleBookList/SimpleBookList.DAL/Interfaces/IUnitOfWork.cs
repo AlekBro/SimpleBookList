@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.DAL.Interfaces
+﻿// -----------------------------------------------------------------------
+// <copyright file="IUnitOfWork.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.DAL.Interfaces
 {
     using System;
 

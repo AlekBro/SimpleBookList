@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// <copyright file="NinjectWebCommon.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SimpleBookList.UI.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SimpleBookList.UI.App_Start.NinjectWebCommon), "Stop")]
 

@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.DAL.Repositories
+﻿// -----------------------------------------------------------------------
+// <copyright file="BookRepository.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.DAL.Repositories
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.BLL.Interfaces
+﻿// -----------------------------------------------------------------------
+// <copyright file="IBookListService.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.BLL.Interfaces
 {
     using System.Collections.Generic;
 

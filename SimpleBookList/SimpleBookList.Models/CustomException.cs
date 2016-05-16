@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.Models
+﻿// -----------------------------------------------------------------------
+// <copyright file="CustomException.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.Models
 {
     using System;
     using System.Text;

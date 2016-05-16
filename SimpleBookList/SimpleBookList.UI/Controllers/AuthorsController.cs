@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthorsController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +13,7 @@
 
     using BLL.Interfaces;
     using Models;
+    using Models.DataTableModels;
     using Utils;
 
     /// <summary>
@@ -20,7 +27,7 @@
         private IBookListService service;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventsController" /> class.
+        /// Initializes a new instance of the <see cref="AuthorsController" /> class.
         /// </summary>
         /// <param name="service">implementation instance of IEventService interface</param>
         public AuthorsController(IBookListService service)
@@ -62,10 +69,10 @@
 
                 DTResult<AuthorViewModel> result = new DTResult<AuthorViewModel>
                 {
-                    draw = param.Draw,
-                    data = data,
-                    recordsFiltered = count,
-                    recordsTotal = count
+                    Draw = param.Draw,
+                    Data = data,
+                    RecordsFiltered = count,
+                    RecordsTotal = count
                 };
                 return this.Json(result);
             }
@@ -91,10 +98,8 @@
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
-
-            return this.RedirectToAction("Index");
         }
 
         /// <summary>

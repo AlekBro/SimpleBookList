@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.DAL.Repositories
+﻿// -----------------------------------------------------------------------
+// <copyright file="UnitOfWork.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.DAL.Repositories
 {
     using System;
 
@@ -37,9 +43,6 @@
         public UnitOfWork(string connectionString)
         {
             this.context = new Entities(connectionString);
-
-            // http://stackoverflow.com/questions/1412863/how-do-i-view-the-sql-generated-by-the-entity-framework
-            // context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         /// <summary>

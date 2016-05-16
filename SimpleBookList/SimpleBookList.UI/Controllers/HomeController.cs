@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="HomeController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System.Web.Mvc;
 

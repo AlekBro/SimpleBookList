@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.BLL.Infrastructure
+﻿// -----------------------------------------------------------------------
+// <copyright file="ServiceModule.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.BLL.Infrastructure
 {
     using DAL.Interfaces;
     using DAL.Repositories;

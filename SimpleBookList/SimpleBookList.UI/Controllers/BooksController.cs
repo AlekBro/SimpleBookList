@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="BooksController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +14,7 @@
 
     using BLL.Interfaces;
     using Models;
+    using Models.DataTableModels;
     using Utils;
 
     /// <summary>
@@ -63,10 +70,10 @@
 
                 DTResult<BookViewModel> result = new DTResult<BookViewModel>
                 {
-                    draw = param.Draw,
-                    data = data,
-                    recordsFiltered = count,
-                    recordsTotal = count
+                    Draw = param.Draw,
+                    Data = data,
+                    RecordsFiltered = count,
+                    RecordsTotal = count
                 };
                 return this.Json(result);
             }
