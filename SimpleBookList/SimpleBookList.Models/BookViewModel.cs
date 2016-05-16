@@ -2,12 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.ComponentModel.DataAnnotations;
+    using System.Text;
 
+    /// <summary>
+    /// Book View Model
+    /// </summary>
     public class BookViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BookViewModel" /> class
+        /// </summary>
+        public BookViewModel()
+        {
+            this.Authors = new List<AuthorViewModel>();
+        }
 
         /// <summary>
         /// Gets or sets the primary key property
@@ -33,7 +42,6 @@
         /// <summary>
         /// Gets From date string
         /// </summary>
-
         public string FormattedReleaseDate
         {
             get
@@ -42,23 +50,19 @@
             }
         }
 
-
         /// <summary>
         /// Gets or sets number of pages in this Book
         /// </summary>
         [Display(Name = "Pages")]
-        [Range(1, Int32.MaxValue, ErrorMessage ="Page number cannot be 0 or less.")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Page number cannot be 0 or less.")]
         public int Pages { get; set; }
 
         /// <summary>
         /// Gets or sets Book rating
         /// </summary>
         [Display(Name = "Rating")]
-        [Range(0,10, ErrorMessage ="Rating is must be between 0 and 10")]
+        [Range(0, 10, ErrorMessage = "Rating is must be between 0 and 10")]
         public int Rating { get; set; }
-
-
-
 
         /// <summary>
         /// Gets or sets all authors of this book
@@ -66,22 +70,19 @@
         public virtual ICollection<AuthorViewModel> Authors { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BookViewModel" /> class
+        /// All Authors Ids
         /// </summary>
-        public BookViewModel()
-        {
-            Authors = new List<AuthorViewModel>();
-        }
-
         public List<int> AuthorsIds { get; set; }
 
+        /// <summary>
+        /// All Authors Links
+        /// </summary>
         public string AuthorsNames
         {
             get
             {
-
                 StringBuilder names = new StringBuilder();
-                foreach (var item in Authors)
+                foreach (var item in this.Authors)
                 {
                     StringBuilder link = new StringBuilder("<a href='/authors/details/");
                     link.Append(item.Id);
@@ -101,11 +102,9 @@
                 {
                     names.Remove(names.Length - 2, 2);
                 }
-                
+
                 return names.ToString();
             }
         }
-
-
     }
 }

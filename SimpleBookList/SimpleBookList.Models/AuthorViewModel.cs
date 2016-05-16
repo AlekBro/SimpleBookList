@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleBookList.Models
+﻿namespace SimpleBookList.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
+    /// <summary>
+    /// Author View Model
+    /// </summary>
     public class AuthorViewModel
     {
         /// <summary>
@@ -29,12 +27,12 @@ namespace SimpleBookList.Models
         public string LastName { get; set; }
 
         /// <summary>
-        /// 
+        /// Number of Books of this Author
         /// </summary>
         public int BooksNumber { get; private set; }
 
         /// <summary>
-        /// 
+        /// Author full name
         /// </summary>
         public string Name
         {
@@ -43,6 +41,5 @@ namespace SimpleBookList.Models
                 return this.FirstName + " " + this.LastName;
             }
         }
-
     }
 }

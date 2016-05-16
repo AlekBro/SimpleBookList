@@ -1,5 +1,4 @@
-﻿
-namespace SimpleBookList.BLL.Interfaces
+﻿namespace SimpleBookList.BLL.Interfaces
 {
     using System.Collections.Generic;
 
@@ -26,23 +25,21 @@ namespace SimpleBookList.BLL.Interfaces
         /// <summary>
         /// Create new Book
         /// </summary>
-        /// <param name="BookViewModel">new Book model</param>
+        /// <param name="bookViewModel">new Book model</param>
         /// <returns>New Book model item</returns>
-        BookViewModel CreateBook(BookViewModel BookViewModel);
+        BookViewModel CreateBook(BookViewModel bookViewModel);
 
         /// <summary>
         /// Update existing Book
         /// </summary>
-        /// <param name="BookViewModel">Book model for update</param>
-        void UpdateBook(BookViewModel BookViewModel);
+        /// <param name="bookViewModel">Book model for update</param>
+        void UpdateBook(BookViewModel bookViewModel);
 
         /// <summary>
         /// Delete existing Book
         /// </summary>
         /// <param name="bookId">Book Id for delete</param>
         void DeleteBook(int bookId);
-
-        //===============================================================================================
 
         /// <summary>
         ///  Get collection of all Authors
@@ -67,7 +64,7 @@ namespace SimpleBookList.BLL.Interfaces
         /// <summary>
         /// Update existing Author
         /// </summary>
-        /// <param name="AuthorViewModel">Author model for update</param>
+        /// <param name="authorViewModel">Author model for update</param>
         void UpdateAuthor(AuthorViewModel authorViewModel);
 
         /// <summary>
@@ -75,8 +72,6 @@ namespace SimpleBookList.BLL.Interfaces
         /// </summary>
         /// <param name="authorId">Author Id for delete</param>
         void DeleteAuthor(int authorId);
-
-
 
         /// <summary>
         /// Free any objects here.

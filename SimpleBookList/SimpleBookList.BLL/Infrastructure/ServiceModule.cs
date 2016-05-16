@@ -1,5 +1,4 @@
-﻿
-namespace SimpleBookList.BLL.Infrastructure
+﻿namespace SimpleBookList.BLL.Infrastructure
 {
     using DAL.Interfaces;
     using DAL.Repositories;
@@ -30,7 +29,6 @@ namespace SimpleBookList.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(this.connectionString);
-            
         }
     }
 }

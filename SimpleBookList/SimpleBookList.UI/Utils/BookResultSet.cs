@@ -1,26 +1,51 @@
-﻿
-namespace SimpleBookList.UI.Utils
+﻿namespace SimpleBookList.UI.Utils
 {
-    using Models;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.UI.WebControls; //For SortBy method
+    using System.Web.UI.WebControls; // For SortBy method
 
+    using Models;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class BookResultSet
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
         public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length,
             List<BookViewModel> dtResult, List<string> columnFilters)
         {
-            return FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
+            return this.FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
         public int Count(string search, List<BookViewModel> dtResult, List<string> columnFilters)
         {
-            return FilterResult(search, dtResult, columnFilters).Count();
+            return this.FilterResult(search, dtResult, columnFilters).Count();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
         private IQueryable<BookViewModel> FilterResult(string search, List<BookViewModel> dtResult, List<string> columnFilters)
         {
             IQueryable<BookViewModel> results = dtResult.AsQueryable();
@@ -36,14 +61,9 @@ namespace SimpleBookList.UI.Utils
                 && (columnFilters[1] == null || (p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(columnFilters[1].ToLower())))
                 && (columnFilters[2] == null || (p.Pages.ToString().ToLower().Contains(columnFilters[2].ToLower())))
                 && (columnFilters[3] == null || (p.Rating.ToString().ToLower().Contains(columnFilters[3].ToLower())))
-                && (columnFilters[4] == null || (p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(columnFilters[4].ToLower())))
-
-                )
-                ));
+                && (columnFilters[4] == null || (p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(columnFilters[4].ToLower()))))));
 
             return results;
         }
     }
 }
-
-

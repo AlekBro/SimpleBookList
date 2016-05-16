@@ -13,9 +13,16 @@ namespace SimpleBookList.UI.App_Start
     using Ninject.Modules;
     using Ninject.Web.Common;
     using Utils;
+
+    /// <summary>
+    /// Ninject Configuration
+    /// </summary>
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        /// <summary>
+        /// Bootstrapper property
+        /// </summary>
+        private static readonly Bootstrapper BootstrapperProperty = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -24,7 +31,7 @@ namespace SimpleBookList.UI.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            BootstrapperProperty.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -32,7 +39,7 @@ namespace SimpleBookList.UI.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            BootstrapperProperty.ShutDown();
         }
         
         /// <summary>

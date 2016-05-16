@@ -1,29 +1,21 @@
-﻿
-namespace SimpleBookList.BLL.Services
+﻿namespace SimpleBookList.BLL.Services
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
-
+    using System.Linq;
+    
     using AutoMapper;
     using DAL;
     using DAL.Interfaces;
+    using Infrastructure;
     using Interfaces;
     using Models;
-    using Infrastructure;
+
     /// <summary>
     /// Implement IBookListService - used for working with Books
     /// </summary>
     public class BookListService : IBookListService
     {
-        protected IMapper Mapper
-        {
-            get
-            {
-                return AutoMapperConfig.Configuration.CreateMapper();
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BookListService" /> class.
         /// </summary>
@@ -31,7 +23,17 @@ namespace SimpleBookList.BLL.Services
         public BookListService(IUnitOfWork unitOfWork)
         {
             this.UnitOfWorkProperty = unitOfWork;
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IMapper Mapper
+        {
+            get
+            {
+                return AutoMapperConfig.Configuration.CreateMapper();
+            }
         }
 
         /// <summary>
@@ -47,8 +49,7 @@ namespace SimpleBookList.BLL.Services
         {
             IEnumerable<Book> allBooks = this.UnitOfWorkProperty.BooksRepository.GetAll();
 
-            // !MY! Exception on starting!
-            return Mapper.Map<IEnumerable<BookViewModel>>(allBooks);
+            return this.Mapper.Map<IEnumerable<BookViewModel>>(allBooks);
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace SimpleBookList.BLL.Services
         {
             Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookId);
 
-            return Mapper.Map<BookViewModel>(bookItem);
+            return this.Mapper.Map<BookViewModel>(bookItem);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace SimpleBookList.BLL.Services
         /// <returns>New Book model item</returns>
         public BookViewModel CreateBook(BookViewModel bookViewModel)
         {
-            Book newBook = Mapper.Map<Book>(bookViewModel);
+            Book newBook = this.Mapper.Map<Book>(bookViewModel);
 
             newBook.Authors =
                 this.UnitOfWorkProperty.AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
@@ -78,7 +79,7 @@ namespace SimpleBookList.BLL.Services
             newBook = this.UnitOfWorkProperty.BooksRepository.Create(newBook);
             this.UnitOfWorkProperty.Save();
 
-            BookViewModel newBookViewModel = Mapper.Map<BookViewModel>(newBook);
+            BookViewModel newBookViewModel = this.Mapper.Map<BookViewModel>(newBook);
             return newBookViewModel;
         }
 
@@ -88,22 +89,26 @@ namespace SimpleBookList.BLL.Services
         /// <param name="bookViewModel">Book model for update</param>
         public void UpdateBook(BookViewModel bookViewModel)
         {
+            Book bookItem = this.UnitOfWorkProperty.BooksRepository.Get(bookViewModel.Id);
 
-            Book bookItem = Mapper.Map<Book>(bookViewModel);
+            bookItem = this.Mapper.Map(bookViewModel, bookItem);
+
+            bookItem.Authors.Clear();
 
             if (bookViewModel.AuthorsIds != null)
             {
-                bookItem.Authors =
-                this.UnitOfWorkProperty.AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
+                foreach (Author item in this.UnitOfWorkProperty
+                    .AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList())
+                {
+                    bookItem.Authors.Add(item);
+                } 
             }
             else
             {
                 bookItem.Authors = new List<Author>();
             }
 
-
             this.UnitOfWorkProperty.BooksRepository.Update(bookItem);
-
 
             this.UnitOfWorkProperty.Save();
         }
@@ -127,39 +132,61 @@ namespace SimpleBookList.BLL.Services
             }
         }
 
-
+        /// <summary>
+        /// Get All Authors from Database
+        /// </summary>
+        /// <returns>List of AuthorViewModel</returns>
         public IEnumerable<AuthorViewModel> GetAllAuthors()
         {
             IEnumerable<Author> allAuthors = this.UnitOfWorkProperty.AuthorsRepository.GetAll();
-            return Mapper.Map<IEnumerable<AuthorViewModel>>(allAuthors);
+            return this.Mapper.Map<IEnumerable<AuthorViewModel>>(allAuthors);
         }
 
+        /// <summary>
+        /// Get one Author by his Id
+        /// </summary>
+        /// <param name="authorId">Author Id</param>
+        /// <returns>AuthorViewModel</returns>
         public AuthorViewModel GetOneAuthor(int authorId)
         {
             Author author = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
-            return Mapper.Map<AuthorViewModel>(author);
+            return this.Mapper.Map<AuthorViewModel>(author);
         }
 
+        /// <summary>
+        /// Create new Author
+        /// </summary>
+        /// <param name="authorViewModel">new Author View Model</param>
+        /// <returns>>new Author View Model</returns>
         public AuthorViewModel CreateAuthor(AuthorViewModel authorViewModel)
         {
-            Author author = Mapper.Map<Author>(authorViewModel);
+            Author author = this.Mapper.Map<Author>(authorViewModel);
             author = this.UnitOfWorkProperty.AuthorsRepository.Create(author);
             this.UnitOfWorkProperty.Save();
 
-            return Mapper.Map<AuthorViewModel>(author);
+            return this.Mapper.Map<AuthorViewModel>(author);
         }
 
+        /// <summary>
+        /// Update exist Author
+        /// </summary>
+        /// <param name="authorViewModel">Author View Model for update</param>
         public void UpdateAuthor(AuthorViewModel authorViewModel)
         {
-            Author authorItem = Mapper.Map<Author>(authorViewModel);
+            Author authorItem = this.UnitOfWorkProperty.AuthorsRepository.Get(authorViewModel.Id);
+
+            authorItem = this.Mapper.Map(authorViewModel, authorItem);
 
             this.UnitOfWorkProperty.AuthorsRepository.Update(authorItem);
             this.UnitOfWorkProperty.Save();
         }
 
+        /// <summary>
+        /// Delete exist Author by his Id
+        /// </summary>
+        /// <param name="authorId">Author Id</param>
         public void DeleteAuthor(int authorId)
         {
-
             Author authorItem = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
 
             if (authorItem != null)
@@ -169,14 +196,9 @@ namespace SimpleBookList.BLL.Services
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new Exception("Such an Author is not found in the database!");
             }
-
         }
-
-
-
-
 
         /// <summary>
         /// Free any objects here.
@@ -185,8 +207,5 @@ namespace SimpleBookList.BLL.Services
         {
             this.UnitOfWorkProperty.Dispose();
         }
-
-
-
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace SimpleBookList.UI.Utils
+﻿namespace SimpleBookList.UI.Utils
 {
     using System;
     using System.Collections.Generic;

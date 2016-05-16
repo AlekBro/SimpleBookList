@@ -1,9 +1,7 @@
-﻿
-namespace SimpleBookList.DAL.Repositories
+﻿namespace SimpleBookList.DAL.Repositories
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -74,7 +72,7 @@ namespace SimpleBookList.DAL.Repositories
         /// <param name="item">Book for update</param>
         public void Update(Book item)
         {
-            this.context.Entry<Book>(item).State = EntityState.Modified;
+            this.context.Books.AddOrUpdate(item);
         }
 
         /// <summary>

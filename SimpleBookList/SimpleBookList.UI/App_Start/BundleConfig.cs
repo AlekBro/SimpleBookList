@@ -1,11 +1,16 @@
-﻿using System.Web;
-using System.Web.Optimization;
-
-namespace SimpleBookList.UI
+﻿namespace SimpleBookList.UI
 {
+    using System.Web.Optimization;
+
+    /// <summary>
+    /// Bundle Config
+    /// </summary>
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// </summary>
+        /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -16,19 +21,14 @@ namespace SimpleBookList.UI
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryValidate").Include(
                         "~/Scripts/jquery.validate*",
-                        "~/Scripts/jquery.unobtrusive*"
-                        ));
+                        "~/Scripts/jquery.unobtrusive*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryMultiSelect").Include(
                         "~/Scripts/jquery.multi-select.js",
-                        "~/Scripts/jquery.quicksearch.js"
-                        ));
+                        "~/Scripts/jquery.quicksearch.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryDatatables").Include(
                         "~/Scripts/jquery.dataTables*"));
-
-
-
 
             // Custom JavaScripts
             bundles.Add(new ScriptBundle("~/bundles/forBooks").Include(
@@ -41,8 +41,6 @@ namespace SimpleBookList.UI
             // Custom JavaScript for RequiredIfAttribute
             bundles.Add(new ScriptBundle("~/bundles/BooksValidation").Include(
                         "~/Scripts/App/Validation.js"));
-
-
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -57,8 +55,7 @@ namespace SimpleBookList.UI
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/css/*.css",
-                      "~/Content/themes/base/*.css"
-                      ));
+                      "~/Content/themes/base/*.css"));
         }
     }
 }

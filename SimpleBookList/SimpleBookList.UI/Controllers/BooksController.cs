@@ -10,13 +10,15 @@
     using Models;
     using Utils;
 
+    /// <summary>
+    /// Books Controller
+    /// </summary>
     public class BooksController : Controller
     {
-
         /// <summary>
         /// BookService class property
         /// </summary>
-        private IBookListService Service;
+        private IBookListService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BooksController" /> class.
@@ -24,7 +26,7 @@
         /// <param name="service">implementation instance of IBookService interface</param>
         public BooksController(IBookListService service)
         {
-            this.Service = service;
+            this.service = service;
         }
 
         /// <summary>
@@ -34,9 +36,7 @@
         [HttpGet]
         public ActionResult Index()
         {
-            //IEnumerable<BookViewModel> allBooks = this.Service.GetAllBooks();
-            //return View(allBooks);
-            return View();
+            return this.View();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@
         {
             try
             {
-                List<BookViewModel> allBooks = this.Service.GetAllBooks().ToList();
+                List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
 
                 List<string> columnSearch = new List<string>();
 
@@ -68,11 +68,11 @@
                     recordsFiltered = count,
                     recordsTotal = count
                 };
-                return Json(result);
+                return this.Json(result);
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return this.Json(new { error = ex.Message });
             }
         }
 
@@ -83,7 +83,7 @@
         [HttpGet]
         public ActionResult Create()
         {
-            MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name");
+            MultiSelectList authorsList = new MultiSelectList(this.service.GetAllAuthors(), "Id", "Name");
 
             ViewBag.AuthorsList = authorsList;
 
@@ -104,8 +104,7 @@
                 try
                 {
                     // Success!
-
-                    newBook = this.Service.CreateBook(newBook);
+                    newBook = this.service.CreateBook(newBook);
                     return this.Json(newBook, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -119,7 +118,7 @@
                 throw new CustomException(ViewData.ModelState);
             }
         }
-  
+
         /// <summary>
         /// Get PartialView with Book for Edit
         /// </summary>
@@ -131,14 +130,12 @@
             BookViewModel bookForEdit = null;
             try
             {
-                bookForEdit = this.Service.GetOneBook(id);
+                bookForEdit = this.service.GetOneBook(id);
 
                 if (bookForEdit != null)
                 {
                     List<string> authorsIds = bookForEdit.Authors.Select(x => x.Id.ToString()).ToList();
-
-                    MultiSelectList authorsList = new MultiSelectList(Service.GetAllAuthors(), "Id", "Name", authorsIds);
-
+                    MultiSelectList authorsList = new MultiSelectList(this.service.GetAllAuthors(), "Id", "Name", authorsIds);
                     ViewBag.AuthorsList = authorsList;
 
                     // Success!
@@ -169,7 +166,7 @@
                 try
                 {
                     // Success!
-                    this.Service.UpdateBook(bookForUpdate);
+                    this.service.UpdateBook(bookForUpdate);
                     return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -184,23 +181,6 @@
             }
         }
 
-
-        //-------------------------------------------------------------------------
-
-
-        // GET: Books/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-
-
-
-
-
-
-
         /// <summary>
         /// Get PartialView with Book for Delete
         /// </summary>
@@ -212,7 +192,7 @@
             BookViewModel bookForDelete = null;
             try
             {
-                bookForDelete = this.Service.GetOneBook(id);
+                bookForDelete = this.service.GetOneBook(id);
                 if (bookForDelete != null)
                 {
                     // Success!
@@ -244,7 +224,7 @@
                 try
                 {
                     // Success!
-                    this.Service.DeleteBook(id);
+                    this.service.DeleteBook(id);
                     return this.Json(id, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
@@ -302,9 +282,5 @@
                 filterContext.Result = result;
             }
         }
-
-
-
-
     }
 }

@@ -1,9 +1,8 @@
-﻿
-namespace SimpleBookList.DAL.Repositories
+﻿namespace SimpleBookList.DAL.Repositories
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Linq;
 
     using Interfaces;
@@ -73,17 +72,7 @@ namespace SimpleBookList.DAL.Repositories
         /// <param name="item">Author for update</param>
         public void Update(Author item)
         {
-            /*
-            var local = this.context.Set<Author>()
-                         .Local
-                         .FirstOrDefault(f => f.Id == item.Id);
-            if (local != null)
-            {
-                this.context.Entry(local).State = EntityState.Detached;
-            }
-            */
-
-            this.context.Entry(item).State = EntityState.Modified;
+            this.context.Authors.AddOrUpdate(item);
         }
 
         /// <summary>

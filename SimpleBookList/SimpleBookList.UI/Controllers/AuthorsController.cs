@@ -3,20 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
-    using Models;
     using BLL.Interfaces;
+    using Models;
     using Utils;
 
+    /// <summary>
+    /// Authors Controller
+    /// </summary>
     public class AuthorsController : Controller
     {
-
         /// <summary>
         /// EventService class property
         /// </summary>
-        private IBookListService Service;
+        private IBookListService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventsController" /> class.
@@ -24,36 +25,29 @@
         /// <param name="service">implementation instance of IEventService interface</param>
         public AuthorsController(IBookListService service)
         {
-            this.Service = service;
+            this.service = service;
         }
 
-
-        // GET: Authors
+        /// <summary>
+        /// Get List with all Authors
+        /// </summary>
+        /// <returns>List with all Authors</returns>
         [HttpGet]
         public ActionResult Index()
         {
-            //return View(Service.GetAllAuthors());
-            return View();
+            return this.View();
         }
 
-
-
-
-        //---------------------------------------------------------------------------------
-
-
-
         /// <summary>
-        /// 
+        /// Get JSON with Author List
         /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
+        /// <param name="param">sorting and searching parameters</param>
+        /// <returns>JSON with Author List</returns>
         public JsonResult DataHandler(DTParameters param)
         {
             try
             {
-
-                List<AuthorViewModel> allAuthors = this.Service.GetAllAuthors().ToList();
+                List<AuthorViewModel> allAuthors = this.service.GetAllAuthors().ToList();
 
                 List<string> columnSearch = new List<string>();
 
@@ -73,50 +67,51 @@
                     recordsFiltered = count,
                     recordsTotal = count
                 };
-                return Json(result);
+                return this.Json(result);
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return this.Json(new { error = ex.Message });
             }
         }
 
-
-        //-------------------------------------------------------------------------
-
-
-
-
-
-        // GET: Authors/Details/5
+        /// <summary>
+        /// Get Author details
+        /// </summary>
+        /// <param name="id">Author Id</param>
+        /// <returns>Form with Author details</returns>
         [HttpGet]
         public ActionResult Details(int id)
         {
-
             try
             {
                 int authorId = Convert.ToInt32(id);
-                AuthorViewModel currentAuthor = Service.GetOneAuthor(authorId);
-                return View(currentAuthor);
+                AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
+                return this.View(currentAuthor);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 
-
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
-        // GET: Authors/Create
+        /// <summary>
+        /// Create new Author
+        /// </summary>
+        /// <returns>Form for creating</returns>
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
-        // POST: Authors/Create
+        /// <summary>
+        /// Create new Author
+        /// </summary>
+        /// <param name="author">Author View Model</param>
+        /// <returns>Creating result</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuthorViewModel author)
@@ -126,24 +121,29 @@
                 try
                 {
                     // Success!
-                    Service.CreateAuthor(author);
-                    return RedirectToAction("Index");
+                    this.service.CreateAuthor(author);
+                    return this.RedirectToAction("Index");
                 }
                 catch
                 {
-                    return View(author);
+                    return this.View(author);
                 }
             }
-            return View(author);
+
+            return this.View(author);
         }
 
-        // GET: Authors/Edit/5
+        /// <summary>
+        /// Update Author
+        /// </summary>
+        /// <param name="id">Author Id</param>
+        /// <returns>Form for updating</returns>
         [HttpGet]
         public ActionResult Edit(int id)
         {
             AuthorViewModel author = null;
 
-            author = this.Service.GetOneAuthor(id);
+            author = this.service.GetOneAuthor(id);
 
             if (author != null)
             {
@@ -156,7 +156,11 @@
             }
         }
 
-        // POST: Authors/Edit/5
+        /// <summary>
+        /// Update Author
+        /// </summary>
+        /// <param name="author">Author View Model</param>
+        /// <returns>Updating result</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AuthorViewModel author)
@@ -166,24 +170,29 @@
                 try
                 {
                     // Success!
-                    this.Service.UpdateAuthor(author);
-                    return RedirectToAction("Index");
+                    this.service.UpdateAuthor(author);
+                    return this.RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     throw new Exception(ex.Message);
                 }
             }
-            return View(author);
+
+            return this.View(author);
         }
 
-        // GET: Authors/Delete/5
+        /// <summary>
+        /// Delete Author by Id
+        /// </summary>
+        /// <param name="id">Author Id</param>
+        /// <returns>Form for deleting</returns>
         [HttpGet]
         public ActionResult Delete(int id)
         {
             AuthorViewModel author = null;
 
-            author = this.Service.GetOneAuthor(id);
+            author = this.service.GetOneAuthor(id);
             if (author != null)
             {
                 // Success!
@@ -195,7 +204,11 @@
             }
         }
 
-        // POST: Authors/Delete/5
+        /// <summary>
+        /// Author deleting by his Id
+        /// </summary>
+        /// <param name="id">Author Id</param>
+        /// <returns></returns>
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -206,8 +219,8 @@
                 try
                 {
                     // Success!
-                    this.Service.DeleteAuthor(id);
-                    return RedirectToAction("Index");
+                    this.service.DeleteAuthor(id);
+                    return this.RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {

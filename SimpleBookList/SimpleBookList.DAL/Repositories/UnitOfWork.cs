@@ -37,6 +37,9 @@
         public UnitOfWork(string connectionString)
         {
             this.context = new Entities(connectionString);
+
+            // http://stackoverflow.com/questions/1412863/how-do-i-view-the-sql-generated-by-the-entity-framework
+            // context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         /// <summary>
@@ -78,7 +81,6 @@
                 return this.authorRepository;
             }
         }
-
 
         /// <summary>
         /// Save all changes in Database

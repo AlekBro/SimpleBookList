@@ -1,26 +1,50 @@
-﻿
-namespace SimpleBookList.UI.Utils
-{
-    using Models;
-    using System;
+﻿namespace SimpleBookList.UI.Utils
+{    
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.UI.WebControls; //For SortBy method
+    using System.Web.UI.WebControls; // For SortBy method
 
+    using Models;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class AuthorResultSet
     {
-        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length,
-            List<AuthorViewModel> dtResult, List<string> columnFilters)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
+        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length, List<AuthorViewModel> dtResult, List<string> columnFilters)
         {
-            return FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
+            return this.FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
         public int Count(string search, List<AuthorViewModel> dtResult, List<string> columnFilters)
         {
-            return FilterResult(search, dtResult, columnFilters).Count();
+            return this.FilterResult(search, dtResult, columnFilters).Count();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="dtResult"></param>
+        /// <param name="columnFilters"></param>
+        /// <returns></returns>
         private IQueryable<AuthorViewModel> FilterResult(string search, List<AuthorViewModel> dtResult, List<string> columnFilters)
         {
             IQueryable<AuthorViewModel> results = dtResult.AsQueryable();
@@ -32,14 +56,9 @@ namespace SimpleBookList.UI.Utils
 
                 && (columnFilters[0] == null || (p.FirstName != null && p.FirstName.ToLower().Contains(columnFilters[0].ToLower())))
                 && (columnFilters[1] == null || (p.LastName != null && p.LastName.ToLower().Contains(columnFilters[1].ToLower())))
-                && (columnFilters[2] == null || (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower())))
-
-                )
-                ));
+                && (columnFilters[2] == null || (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower()))))));
 
             return results;
         }
     }
 }
-
-
