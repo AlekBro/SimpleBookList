@@ -7,7 +7,7 @@
     /// <summary>
     /// Custom Exception for Event
     /// </summary>
-    public class CustomException : Exception
+    public class CustomException : ApplicationException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomException" /> class.

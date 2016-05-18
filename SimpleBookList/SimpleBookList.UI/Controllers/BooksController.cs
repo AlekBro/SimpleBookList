@@ -13,7 +13,7 @@
     /// <summary>
     /// Books Controller
     /// </summary>
-    public class BooksController : Controller
+    public class BooksController : MainController
     {
         /// <summary>
         /// BookService class property
@@ -101,16 +101,9 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    newBook = this.service.CreateBook(newBook);
-                    return this.Json(newBook, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                // Success!
+                newBook = this.service.CreateBook(newBook);
+                return this.Json(newBook, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -128,27 +121,20 @@
         public ActionResult Edit(int id)
         {
             BookViewModel bookForEdit = null;
-            try
+            bookForEdit = this.service.GetOneBook(id);
+
+            if (bookForEdit != null)
             {
-                bookForEdit = this.service.GetOneBook(id);
+                List<string> authorsIds = bookForEdit.Authors.Select(x => x.Id.ToString()).ToList();
+                MultiSelectList authorsList = new MultiSelectList(this.service.GetAllAuthors(), "Id", "Name", authorsIds);
+                ViewBag.AuthorsList = authorsList;
 
-                if (bookForEdit != null)
-                {
-                    List<string> authorsIds = bookForEdit.Authors.Select(x => x.Id.ToString()).ToList();
-                    MultiSelectList authorsList = new MultiSelectList(this.service.GetAllAuthors(), "Id", "Name", authorsIds);
-                    ViewBag.AuthorsList = authorsList;
-
-                    // Success!
-                    return this.PartialView("Edit", bookForEdit);
-                }
-                else
-                {
-                    throw new Exception("Such an Book is not found in the database!");
-                }
+                // Success!
+                return this.PartialView("Edit", bookForEdit);
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                throw new Exception("Such an Book is not found in the database!");
             }
         }
 
@@ -163,16 +149,9 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.UpdateBook(bookForUpdate);
-                    return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                // Success!
+                this.service.UpdateBook(bookForUpdate);
+                return this.Json(bookForUpdate, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -190,22 +169,15 @@
         public ActionResult Delete(int id)
         {
             BookViewModel bookForDelete = null;
-            try
+            bookForDelete = this.service.GetOneBook(id);
+            if (bookForDelete != null)
             {
-                bookForDelete = this.service.GetOneBook(id);
-                if (bookForDelete != null)
-                {
-                    // Success!
-                    return this.PartialView("Delete", bookForDelete);
-                }
-                else
-                {
-                    throw new Exception("Such an Book is not found in the database!");
-                }
+                // Success!
+                return this.PartialView("Delete", bookForDelete);
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                throw new Exception("Such an Book is not found in the database!");
             }
         }
 
@@ -221,16 +193,9 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.DeleteBook(id);
-                    return this.Json(id, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                // Success!
+                this.service.DeleteBook(id);
+                return this.Json(id, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -239,48 +204,6 @@
             }
         }
 
-        /// <summary>
-        /// Exception handling
-        /// </summary>
-        /// <param name="filterContext">Exception context</param>
-        protected override void OnException(ExceptionContext filterContext)
-        {
-            Exception ex = filterContext.Exception;
 
-            filterContext.ExceptionHandled = true;
-
-            if (ex is CustomException)
-            {
-                CustomException bookException = ex as CustomException;
-
-                filterContext.HttpContext.Response.StatusCode = 500;
-                filterContext.Result = new JsonResult
-                {
-                    Data = new { error = filterContext.Exception.Message },
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                };
-            }
-            else
-            {
-                TempDataDictionary tempDataDictionary = new TempDataDictionary();
-
-                if (string.IsNullOrWhiteSpace(ex.Message) == false)
-                {
-                    tempDataDictionary.Add("errorMessage", ex.Message);
-                }
-                else
-                {
-                    tempDataDictionary.Add("errorMessage", "Error while processing your request!");
-                }
-
-                ViewResult result = new ViewResult
-                {
-                    ViewName = "Error",
-                    TempData = tempDataDictionary
-                };
-
-                filterContext.Result = result;
-            }
-        }
     }
 }

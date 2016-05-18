@@ -41,7 +41,23 @@ $(document).ready(function () {
         return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="deleteFunc(this, event)">Delete</a>';
     };
 
- 
+
+
+    var getAuthorLinksList = function (data, type, full, meta) {
+
+        //console.log(data);
+
+        var blkstr = [];
+        $.each(data, function (index, element) {
+            var str = "<a href='/authors/details/" + element.Id + "/" + element.Name + "/'>" + element.Name + "</a>";
+            blkstr.push(str);
+        });
+        var res = blkstr.join(", ");
+        console.log(res);
+
+        return res;
+    };
+
 
 
     var booksTable = $('#BooksListTable').DataTable({
@@ -68,7 +84,7 @@ $(document).ready(function () {
             { "data": "FormattedReleaseDate", "render": getDataForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Pages", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Rating", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
-            { "data": "AuthorsNames", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
+            { "data": "Authors", "render": getAuthorLinksList, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
 

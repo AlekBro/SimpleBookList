@@ -24,6 +24,10 @@
         public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length,
             List<BookViewModel> dtResult, List<string> columnFilters)
         {
+            if (sortOrder.Contains("Authors"))
+            {
+                sortOrder = sortOrder.Replace("Authors", "AuthorsNames");
+            }
             return this.FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
         }
 

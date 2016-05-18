@@ -12,7 +12,7 @@
     /// <summary>
     /// Authors Controller
     /// </summary>
-    public class AuthorsController : Controller
+    public class AuthorsController : MainController
     {
         /// <summary>
         /// EventService class property
@@ -83,18 +83,9 @@
         [HttpGet]
         public ActionResult Details(int id)
         {
-            try
-            {
-                int authorId = Convert.ToInt32(id);
-                AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
-                return this.View(currentAuthor);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
-            return this.RedirectToAction("Index");
+            int authorId = Convert.ToInt32(id);
+            AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
+            return this.View(currentAuthor);
         }
 
         /// <summary>
@@ -118,16 +109,9 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.CreateAuthor(author);
-                    return this.RedirectToAction("Index");
-                }
-                catch
-                {
-                    return this.View(author);
-                }
+                // Success!
+                this.service.CreateAuthor(author);
+                return this.RedirectToAction("Index");
             }
 
             return this.View(author);
@@ -167,16 +151,9 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.UpdateAuthor(author);
-                    return this.RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                // Success!
+                this.service.UpdateAuthor(author);
+                return this.RedirectToAction("Index");
             }
 
             return this.View(author);
@@ -216,21 +193,14 @@
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.DeleteAuthor(id);
-                    return this.RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                // Success!
+                this.service.DeleteAuthor(id);
+                return this.RedirectToAction("Index");
             }
             else
             {
                 // ModelState.IsValid  False!
-                throw new Exception();
+                throw new Exception("The author with such Id does not exist!");
             }
         }
     }
