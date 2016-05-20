@@ -1,15 +1,9 @@
 ﻿namespace SimpleBookList.UI.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
-    using BLL.Interfaces;
     using Models;
-    using Utils;
-
 
     public class MainController: Controller
     {
@@ -23,9 +17,9 @@
 
             filterContext.ExceptionHandled = true;
 
-            if (ex is CustomException)
+            if (ex is ModelException)
             {
-                CustomException bookException = ex as CustomException;
+                ModelException bookException = ex as ModelException;
 
                 filterContext.HttpContext.Response.StatusCode = 500;
                 filterContext.Result = new JsonResult

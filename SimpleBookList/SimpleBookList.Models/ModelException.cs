@@ -7,13 +7,13 @@
     /// <summary>
     /// Custom Exception for Event
     /// </summary>
-    public class CustomException : ApplicationException
+    public class ModelException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomException" /> class.
+        /// Initializes a new instance of the <see cref="ModelException" /> class.
         /// </summary>
         /// <param name="modelStateDictionary">Model state dictionary</param>
-        public CustomException(ModelStateDictionary modelStateDictionary) : base(BuildMessage(modelStateDictionary))
+        public ModelException(ModelStateDictionary modelStateDictionary) : base(BuildMessage(modelStateDictionary))
         {
         }
 

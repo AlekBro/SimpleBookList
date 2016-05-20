@@ -108,7 +108,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 
@@ -134,7 +134,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -156,7 +156,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 
@@ -177,7 +177,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -200,7 +200,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 

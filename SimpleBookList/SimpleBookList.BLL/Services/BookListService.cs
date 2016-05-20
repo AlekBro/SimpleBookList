@@ -128,7 +128,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -196,7 +196,7 @@
             }
             else
             {
-                throw new Exception("Such an Author is not found in the database!");
+                throw new ArgumentException("Such Author is not found in the database!");
             }
         }
 
