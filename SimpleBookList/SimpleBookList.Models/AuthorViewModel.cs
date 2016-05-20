@@ -1,13 +1,6 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AuthorViewModel.cs" company="AlekBro">
-//     AlekBro. All rights reserved.
-// </copyright>
-// <author>AlekBro</author>
-// -----------------------------------------------------------------------
-namespace SimpleBookList.Models
+﻿namespace SimpleBookList.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     /// <summary>
     /// Author View Model
@@ -45,10 +38,7 @@ namespace SimpleBookList.Models
         {
             get
             {
-                StringBuilder line = new StringBuilder(this.FirstName);
-                line.Append(' ');
-                line.Append(this.LastName);
-                return line.ToString();
+                return string.Format("{0} {1}", this.FirstName, this.LastName);
             }
         }
     }

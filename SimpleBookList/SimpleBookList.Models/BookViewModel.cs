@@ -81,7 +81,7 @@ namespace SimpleBookList.Models
         public List<int> AuthorsIds { get; set; }
 
         /// <summary>
-        /// Gets All Authors Links
+        /// Gets All Authors Names for search
         /// </summary>
         public string AuthorsNames
         {
@@ -90,17 +90,7 @@ namespace SimpleBookList.Models
                 StringBuilder names = new StringBuilder();
                 foreach (var item in this.Authors)
                 {
-                    StringBuilder link = new StringBuilder("<a href='/authors/details/");
-                    link.Append(item.Id);
-                    link.Append("/");
-                    link.Append(item.FirstName);
-                    link.Append("_");
-                    link.Append(item.LastName);
-                    link.Append("'>");
-                    link.Append(item.Name);
-                    link.Append("</a>");
-
-                    names.Append(link);
+                    names.Append(item.Name);
                     names.Append(", ");
                 }
 

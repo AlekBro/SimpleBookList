@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AuthorsController.cs" company="AlekBro">
-//     AlekBro. All rights reserved.
-// </copyright>
-// <author>AlekBro</author>
-// -----------------------------------------------------------------------
-namespace SimpleBookList.UI.Controllers
+﻿namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -13,13 +7,12 @@ namespace SimpleBookList.UI.Controllers
 
     using BLL.Interfaces;
     using Models;
-    using Models.DataTableModels;
     using Utils;
 
     /// <summary>
     /// Authors Controller
     /// </summary>
-    public class AuthorsController : Controller
+    public class AuthorsController : MainController
     {
         /// <summary>
         /// EventService class property
@@ -27,7 +20,7 @@ namespace SimpleBookList.UI.Controllers
         private IBookListService service;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorsController" /> class.
+        /// Initializes a new instance of the <see cref="EventsController" /> class.
         /// </summary>
         /// <param name="service">implementation instance of IEventService interface</param>
         public AuthorsController(IBookListService service)
@@ -69,10 +62,10 @@ namespace SimpleBookList.UI.Controllers
 
                 DTResult<AuthorViewModel> result = new DTResult<AuthorViewModel>
                 {
-                    Draw = param.Draw,
-                    Data = data,
-                    RecordsFiltered = count,
-                    RecordsTotal = count
+                    draw = param.Draw,
+                    data = data,
+                    recordsFiltered = count,
+                    recordsTotal = count
                 };
                 return this.Json(result);
             }
@@ -90,16 +83,9 @@ namespace SimpleBookList.UI.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            try
-            {
-                int authorId = Convert.ToInt32(id);
-                AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
-                return this.View(currentAuthor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            int authorId = Convert.ToInt32(id);
+            AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
+            return this.View(currentAuthor);
         }
 
         /// <summary>
@@ -123,16 +109,9 @@ namespace SimpleBookList.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.CreateAuthor(author);
-                    return this.RedirectToAction("Index");
-                }
-                catch
-                {
-                    return this.View(author);
-                }
+                // Success!
+                this.service.CreateAuthor(author);
+                return this.RedirectToAction("Index");
             }
 
             return this.View(author);
@@ -157,7 +136,7 @@ namespace SimpleBookList.UI.Controllers
             }
             else
             {
-                throw new Exception("Such author is not found in the database!");
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
 
@@ -172,16 +151,9 @@ namespace SimpleBookList.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.UpdateAuthor(author);
-                    return this.RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                // Success!
+                this.service.UpdateAuthor(author);
+                return this.RedirectToAction("Index");
             }
 
             return this.View(author);
@@ -205,7 +177,7 @@ namespace SimpleBookList.UI.Controllers
             }
             else
             {
-                throw new Exception("Such author is not found in the database!");
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
 
@@ -221,21 +193,14 @@ namespace SimpleBookList.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // Success!
-                    this.service.DeleteAuthor(id);
-                    return this.RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                // Success!
+                this.service.DeleteAuthor(id);
+                return this.RedirectToAction("Index");
             }
             else
             {
                 // ModelState.IsValid  False!
-                throw new Exception();
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
     }

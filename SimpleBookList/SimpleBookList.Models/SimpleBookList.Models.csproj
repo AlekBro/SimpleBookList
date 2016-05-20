@@ -72,14 +72,8 @@
   <ItemGroup>
     <Compile Include="AuthorViewModel.cs" />
     <Compile Include="BookViewModel.cs" />
-    <Compile Include="CustomException.cs" />
-    <Compile Include="DataTableModels\DTOrderDir.cs" />
-    <Compile Include="DataTableModels\DTColumn.cs" />
-    <Compile Include="DataTableModels\DTOrder.cs" />
-    <Compile Include="DataTableModels\DTParameters.cs" />
-    <Compile Include="DataTableModels\DTResult.cs" />
-    <Compile Include="DataTableModels\DTRow.cs" />
-    <Compile Include="DataTableModels\DTSearch.cs" />
+    <Compile Include="ModelException.cs" />
+    <Compile Include="DataTableModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
