@@ -70,9 +70,9 @@
                 };
                 return this.Json(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return this.Json(new { error = ex.Message });
+                return this.Json(new { error = "Error while processing your request!" });
             }
         }
 

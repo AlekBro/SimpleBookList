@@ -5,7 +5,7 @@
 
     using Models;
 
-    public class MainController: Controller
+    public class MainController : Controller
     {
         /// <summary>
         /// Exception handling
@@ -32,14 +32,7 @@
             {
                 TempDataDictionary tempDataDictionary = new TempDataDictionary();
 
-                if (string.IsNullOrWhiteSpace(ex.Message) == false)
-                {
-                    tempDataDictionary.Add("errorMessage", ex.Message);
-                }
-                else
-                {
-                    tempDataDictionary.Add("errorMessage", "Error while processing your request!");
-                }
+                tempDataDictionary.Add("errorMessage", "Error while processing your request!");
 
                 ViewResult result = new ViewResult
                 {
