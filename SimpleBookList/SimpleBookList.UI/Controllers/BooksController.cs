@@ -70,10 +70,10 @@ namespace SimpleBookList.UI.Controllers
 
                 DTResult<BookViewModel> result = new DTResult<BookViewModel>
                 {
-                    Draw = param.Draw,
-                    Data = data,
-                    RecordsFiltered = count,
-                    RecordsTotal = count
+                    draw = param.Draw,
+                    data = data,
+                    recordsFiltered = count,
+                    recordsTotal = count
                 };
                 return this.Json(result);
             }
