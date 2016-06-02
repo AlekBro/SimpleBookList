@@ -1,1 +1,3 @@
-SELECT * FROM dbo.СoAuthorsBookRaiting('Galloway')
+SELECT *
+FROM [dbo].СoAuthorsBookRaiting
+     (N'Galloway');
