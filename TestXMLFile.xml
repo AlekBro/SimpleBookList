@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Book>
+    <Name>First Test Book</Name>
+    <ReleaseDate>4/17/2015</ReleaseDate>
+    <Pages>128</Pages>
+    <Rating>7</Rating>
+    <Authors>
+      <Author>
+        <FirstName>Adam</FirstName>
+        <LastName>Freeman</LastName>
+      </Author>
+      <Author>
+        <FirstName>Test2</FirstName>
+        <LastName>Petrov</LastName>
+      </Author>
+    </Authors>
+  </Book>
+  <Book>
+    <Name>Second Test Book</Name>
+    <ReleaseDate>3/21/2016</ReleaseDate>
+    <Pages>435</Pages>
+    <Rating>8</Rating>
+    <Authors>
+      <Author>
+        <FirstName>Test1</FirstName>
+        <LastName>Ivanov</LastName>
+      </Author>
+      <Author>
+        <FirstName>Test3</FirstName>
+        <LastName>Sidorov</LastName>
+      </Author>
+    </Authors>
+  </Book>
+  <Book>
+    <Name>Pro ASP.NET MVC 5 Platform</Name>
+    <ReleaseDate>4/18/2014</ReleaseDate>
+    <Pages>428</Pages>
+    <Rating>7</Rating>
+    <Authors>
+      <Author>
+        <FirstName>Adam</FirstName>
+        <LastName>Freeman</LastName>
+      </Author>
+    </Authors>
+  </Book>
+</root>
