@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI
+﻿// -----------------------------------------------------------------------
+// <copyright file="Global.asax.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI
 {
     using System.Web.Mvc;
     using System.Web.Optimization;

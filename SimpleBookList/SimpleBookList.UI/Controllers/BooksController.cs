@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="BooksController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +14,7 @@
 
     using BLL.Interfaces;
     using Models;
+    using Models.DataTableModels;
     using Utils;
 
     /// <summary>
@@ -108,7 +115,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 
@@ -134,7 +141,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -156,7 +163,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 
@@ -177,7 +184,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -200,7 +207,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new CustomException(ViewData.ModelState);
+                throw new ModelException(ViewData.ModelState);
             }
         }
 

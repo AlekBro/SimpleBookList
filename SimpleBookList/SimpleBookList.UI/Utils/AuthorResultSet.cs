@@ -1,5 +1,11 @@
-﻿namespace SimpleBookList.UI.Utils
-{    
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthorResultSet.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Utils
+{
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls; // For SortBy method
@@ -12,51 +18,44 @@
     public class AuthorResultSet
     {
         /// <summary>
-        /// 
+        /// Get filtering result
         /// </summary>
-        /// <param name="search"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="start"></param>
-        /// <param name="length"></param>
-        /// <param name="dtResult"></param>
-        /// <param name="columnFilters"></param>
-        /// <returns></returns>
-        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length, List<AuthorViewModel> dtResult, List<string> columnFilters)
+        /// <param name="search">Search text</param>
+        /// <param name="sortOrder">Sort Order</param>
+        /// <param name="start">Start position</param>
+        /// <param name="length">Row number</param>
+        /// <param name="dataResult">Input Data</param>
+        /// <param name="columnFilters">Column Filters</param>
+        /// <returns>List of Author View Model</returns>
+        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length, List<AuthorViewModel> dataResult, List<string> columnFilters)
         {
-            return this.FilterResult(search, dtResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
+            return this.FilterResult(search, dataResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
         }
 
         /// <summary>
-        /// 
+        /// Counting result
         /// </summary>
-        /// <param name="search"></param>
-        /// <param name="dtResult"></param>
-        /// <param name="columnFilters"></param>
-        /// <returns></returns>
-        public int Count(string search, List<AuthorViewModel> dtResult, List<string> columnFilters)
+        /// <param name="search">search text</param>
+        /// <param name="dataResult">Input Data</param>
+        /// <param name="columnFilters">Column Filters</param>
+        /// <returns>Filter Result Count</returns>
+        public int Count(string search, List<AuthorViewModel> dataResult, List<string> columnFilters)
         {
-            return this.FilterResult(search, dtResult, columnFilters).Count();
+            return this.FilterResult(search, dataResult, columnFilters).Count();
         }
 
         /// <summary>
-        /// 
+        /// Searching in List
         /// </summary>
-        /// <param name="search"></param>
-        /// <param name="dtResult"></param>
-        /// <param name="columnFilters"></param>
-        /// <returns></returns>
-        private IQueryable<AuthorViewModel> FilterResult(string search, List<AuthorViewModel> dtResult, List<string> columnFilters)
+        /// <param name="search">search text</param>
+        /// <param name="dataResult">Input Data</param>
+        /// <param name="columnFilters">Column Filters</param>
+        /// <returns>Searching result List</returns>
+        private IQueryable<AuthorViewModel> FilterResult(string search, List<AuthorViewModel> dataResult, List<string> columnFilters)
         {
-            IQueryable<AuthorViewModel> results = dtResult.AsQueryable();
+            IQueryable<AuthorViewModel> results = dataResult.AsQueryable();
 
-            results = results.Where(p => (search == null ||
-            (p.FirstName != null && p.FirstName.ToLower().Contains(search.ToLower()) ||
-            p.LastName != null && p.LastName.ToLower().Contains(search.ToLower()) ||
-             p.BooksNumber.ToString().ToLower().Contains(search.ToLower())
-
-                && (columnFilters[0] == null || (p.FirstName != null && p.FirstName.ToLower().Contains(columnFilters[0].ToLower())))
-                && (columnFilters[1] == null || (p.LastName != null && p.LastName.ToLower().Contains(columnFilters[1].ToLower())))
-                && (columnFilters[2] == null || (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower()))))));
+            results = results.Where(p => (search == null || (p.FirstName != null && p.FirstName.ToLower().Contains(search.ToLower()) || p.LastName != null && p.LastName.ToLower().Contains(search.ToLower()) || p.BooksNumber.ToString().ToLower().Contains(search.ToLower()) && (columnFilters[0] == null || (p.FirstName != null && p.FirstName.ToLower().Contains(columnFilters[0].ToLower()))) && (columnFilters[1] == null || (p.LastName != null && p.LastName.ToLower().Contains(columnFilters[1].ToLower()))) && (columnFilters[2] == null || (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower()))))));
 
             return results;
         }

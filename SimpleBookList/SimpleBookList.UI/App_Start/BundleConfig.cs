@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI
+﻿// -----------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI
 {
     using System.Web.Optimization;
 

@@ -1,6 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Error</title>
 </head>
@@ -9,5 +14,10 @@
         <h1>Error.</h1>
         <h2>An error occurred while processing your request.</h2>
     </hgroup>
+    <br /><br />
+    @if (TempData["errorMessage"] != null)
+    {
+        <p><b>@Html.Raw(TempData["errorMessage"].ToString())</b></p>
+    }
 </body>
 </html>

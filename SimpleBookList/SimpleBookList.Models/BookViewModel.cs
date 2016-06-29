@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.Models
+﻿// -----------------------------------------------------------------------
+// <copyright file="BookViewModel.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.Models
 {
     using System;
     using System.Collections.Generic;
@@ -87,6 +93,7 @@
                     names.Append(item.Name);
                     names.Append(", ");
                 }
+
                 if (names.Length > 0)
                 {
                     names.Remove(names.Length - 2, 2);

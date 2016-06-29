@@ -7,6 +7,7 @@
 
     using BLL.Interfaces;
     using Models;
+    using Models.DataTableModels;
     using Utils;
 
     /// <summary>
@@ -69,9 +70,9 @@
                 };
                 return this.Json(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return this.Json(new { error = ex.Message });
+                return this.Json(new { error = "Error while processing your request!" });
             }
         }
 
@@ -136,7 +137,7 @@
             }
             else
             {
-                throw new Exception("Such author is not found in the database!");
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
 
@@ -177,7 +178,7 @@
             }
             else
             {
-                throw new Exception("Such author is not found in the database!");
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
 
@@ -200,7 +201,7 @@
             else
             {
                 // ModelState.IsValid  False!
-                throw new Exception("The author with such Id does not exist!");
+                throw new ArgumentException("The author with such Id does not exist!");
             }
         }
     }

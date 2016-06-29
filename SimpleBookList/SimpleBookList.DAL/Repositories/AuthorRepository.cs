@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.DAL.Repositories
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthorRepository.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.DAL.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +24,7 @@
         private Entities context;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BookRepository" /> class.
+        /// Initializes a new instance of the <see cref="AuthorRepository" /> class.
         /// </summary>
         /// <param name="context">Context for interacting with Database</param>
         public AuthorRepository(Entities context)

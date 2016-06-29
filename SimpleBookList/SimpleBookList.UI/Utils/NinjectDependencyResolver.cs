@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Utils
+﻿// -----------------------------------------------------------------------
+// <copyright file="NinjectDependencyResolver.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Utils
 {
     using System;
     using System.Collections.Generic;

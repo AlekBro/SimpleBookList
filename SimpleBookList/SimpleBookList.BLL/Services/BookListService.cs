@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.BLL.Services
+﻿// -----------------------------------------------------------------------
+// <copyright file="BookListService.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.BLL.Services
 {
     using System;
     using System.Collections.Generic;
@@ -128,7 +134,7 @@
             }
             else
             {
-                throw new Exception("Such an Book is not found in the database!");
+                throw new ArgumentException("Such Book is not found in the database!");
             }
         }
 
@@ -146,7 +152,7 @@
         /// Get one Author by his Id
         /// </summary>
         /// <param name="authorId">Author Id</param>
-        /// <returns>AuthorViewModel</returns>
+        /// <returns>Author View Model</returns>
         public AuthorViewModel GetOneAuthor(int authorId)
         {
             Author author = this.UnitOfWorkProperty.AuthorsRepository.Get(authorId);
@@ -196,7 +202,7 @@
             }
             else
             {
-                throw new Exception("Such an Author is not found in the database!");
+                throw new ArgumentException("Such Author is not found in the database!");
             }
         }
 
