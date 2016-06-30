@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.Models", "Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.UI", "SimpleBookList.UI\SimpleBookList.UI.csproj", "{D7E071CA-FEE5-4AE2-9AC3-27FF43D6AB23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WebAPI", "SimpleBookList.WebAPI\SimpleBookList.WebAPI.csproj", "{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D7E071CA-FEE5-4AE2-9AC3-27FF43D6AB23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7E071CA-FEE5-4AE2-9AC3-27FF43D6AB23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7E071CA-FEE5-4AE2-9AC3-27FF43D6AB23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
