@@ -55,6 +55,8 @@ namespace SimpleBookList.UI.Controllers
         {
             try
             {
+                var request = Request;
+
                 List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
 
                 List<string> columnSearch = new List<string>();
