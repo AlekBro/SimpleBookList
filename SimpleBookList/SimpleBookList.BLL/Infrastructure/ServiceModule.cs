@@ -35,6 +35,7 @@ namespace SimpleBookList.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(this.connectionString);
+            //Bind<IClientManager>().To<ClientManager>().WithConstructorArgument(this.connectionString);
         }
     }
 }

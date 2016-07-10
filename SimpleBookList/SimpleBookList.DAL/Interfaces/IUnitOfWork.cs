@@ -7,6 +7,9 @@
 namespace SimpleBookList.DAL.Interfaces
 {
     using System;
+    using System.Threading.Tasks;
+
+    using Identity;
 
     /// <summary>
     /// Unit Of Work Pattern interface
@@ -27,5 +30,12 @@ namespace SimpleBookList.DAL.Interfaces
         /// Save all changes in Database
         /// </summary>
         void Save();
+
+
+        ApplicationUserManager UserManager { get; }
+        IClientManager ClientManager { get; }
+        ApplicationRoleManager RoleManager { get; }
+        Task SaveAsync();
+
     }
 }
