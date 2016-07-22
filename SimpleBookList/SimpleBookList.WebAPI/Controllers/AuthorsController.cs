@@ -99,7 +99,7 @@ namespace SimpleBookList.WebAPI.Controllers
         /// </summary>
         /// <param name="value">AuthorViewModel</param>
         /// <returns>new Author in AuthorViewModel</returns>
-        public HttpResponseMessage Post([FromBody]AuthorViewModel value)
+        public HttpResponseMessage Post(int id, [FromBody]AuthorViewModel value)
         {
             if (ModelState.IsValid)
             {

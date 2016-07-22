@@ -37,7 +37,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("API", "Index", "API Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API Help", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Test API", "Index", "ApiTest", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

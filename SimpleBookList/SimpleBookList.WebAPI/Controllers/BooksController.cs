@@ -119,6 +119,7 @@ namespace SimpleBookList.WebAPI.Controllers
         /// </summary>
         /// <param name="value">BookViewModel</param>
         /// <returns>new Book in BookViewModel</returns>
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Post([FromBody]BookViewModel value)
         {
             if (ModelState.IsValid)
@@ -137,12 +138,12 @@ namespace SimpleBookList.WebAPI.Controllers
         /// <summary>
         /// Edit Book
         /// </summary>
-        /// <param name="id">Book Id</param>
         /// <param name="value">Edited Book in BookViewModel</param>
         /// <returns></returns>
-        public HttpResponseMessage Put(int id, [FromBody]BookViewModel value)
+        //[System.Web.Http.HttpPut]
+        public HttpResponseMessage Put(int Id, BookViewModel value)
         {
-            if (ModelState.IsValid)
+            if (value != null && ModelState.IsValid)
             {
                 // Success!
                 this.service.UpdateBook(value);
@@ -151,7 +152,8 @@ namespace SimpleBookList.WebAPI.Controllers
             else
             {
                 // ModelState.IsValid  False!
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
 
@@ -160,6 +162,7 @@ namespace SimpleBookList.WebAPI.Controllers
         /// </summary>
         /// <param name="id">Book Id</param>
         /// <returns>Ok or Error response</returns>
+        [System.Web.Http.HttpDelete]
         public HttpResponseMessage Delete(int id)
         {
             BookViewModel bookForDelete = null;

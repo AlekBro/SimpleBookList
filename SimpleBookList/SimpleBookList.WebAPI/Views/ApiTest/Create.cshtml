@@ -1,0 +1,35 @@
+﻿@model SimpleBookList.Models.BookViewModel
+@Scripts.Render("~/bundles/BooksValidation")
+
+@using (Ajax.BeginForm("", "", null,
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                Url = "/api/Books",
+                OnSuccess = "OnCreateSuccess",
+                OnFailure = "OnFailure"
+            },
+            new
+            {
+                @id = "CreateBookForm"
+            }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Add new Book</h4>
+        <hr />
+        @{Html.RenderPartial("_partialForm");}
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllAuthors();
+        $(function () {
+            $("#SubmitBookButton").click(function () {
+                $("#CreateBookForm").submit();
+            });
+        });
+    });
+</script>

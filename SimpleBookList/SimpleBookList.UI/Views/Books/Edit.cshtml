@@ -4,13 +4,13 @@
 
 
 @using (Ajax.BeginForm("Edit", "Books", null,
-                                                                new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "CreateEventForm" }))
+new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "CreateBookForm" }))
 {
 
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Edit Event</h4>
+        <h4>Edit Book</h4>
         <hr />
 
 
