@@ -1,0 +1,89 @@
+﻿@using SimpleBookList.Models;
+@model IEnumerable<BookViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 id="booksTitle">SimpleBookList</h1>
+<h2>Books List</h2>
+<hr />
+<div id="dialogContainer"></div>
+<hr />
+<p><button id="CreateNewBookButton">Add New Book</button></p>
+
+<script>
+    $(function () {
+        $("#CreateNewBookButton").click(function () {
+            getRequest("@Url.Action("Create")");
+        });
+    });
+
+    function editFunc(obj, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var value = obj.getAttribute('value');
+
+        getRequest("@Url.Action("Edit")", { Id: value });
+
+    };
+
+    function getRequest(urlString, dataString) {
+        $.ajax({
+            url: urlString,
+            data: dataString,
+            type: "GET",
+            success: function (response) {
+                $("#dialogContainer").html(response);
+                window.scrollTo(0, 0);
+            }
+        });
+    };
+
+
+    $("#delete-dialog-confirm").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: "auto",
+        modal: true
+    });
+
+</script>
+
+<div id="delete-dialog-confirm" title="Deleting Book" style="display:none;">
+    <p>Are you sure you want to delete this Book?</p>
+</div>
+
+<table class="table" id="BooksListTable" cellspacing="0">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                Authors
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+</table>
+
+

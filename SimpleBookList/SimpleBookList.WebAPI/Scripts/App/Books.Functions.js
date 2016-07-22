@@ -146,30 +146,44 @@ function SetMultiselect() {
 function deleteFunc(obj, event) {
     event.preventDefault();
     event.stopPropagation();
-    var Id = obj.getAttribute('value');
 
-    $.ajax({
-        url: "/api/Books/" + Id,
-        type: 'DELETE',
-        contentType: "application/json;charset=utf-8",
-        success: function (resp) {
-            var booksTable = $('#BooksListTable').dataTable();
+    $("#delete-dialog-confirm").dialog({
+         buttons: {
+            "Delete": function () {
+                $(this).dialog("close");
 
-            row = $.grep(booksTable.fnSettings().aoData, function (obj) {
-                return obj._aData.Id == Id;
-            })[0].nTr;
+                var Id = obj.getAttribute('value');
 
-            booksTable.fnDeleteRow($(row).get(0));
+                $.ajax({
+                    url: "/api/Books/" + Id,
+                    type: 'DELETE',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (resp) {
+                        var booksTable = $('#BooksListTable').dataTable();
 
-            $("#dialogContainer").html("");
-            alert("Book has been deleted!");
-        },
-        error: function (response) {
-            alert("!Error!\n" + "Status: " + response.status + "\n"
-                + "Status Text: " + response.statusText + "\n"
-                //+ "Response Text: " + response.responseText
-                );
+                        row = $.grep(booksTable.fnSettings().aoData, function (obj) {
+                            return obj._aData.Id == Id;
+                        })[0].nTr;
+
+                        booksTable.fnDeleteRow($(row).get(0));
+
+                        $("#dialogContainer").html("");
+                        alert("Book has been deleted!");
+                    },
+                    error: function (response) {
+                        alert("!Error!\n" + "Status: " + response.status + "\n"
+                            + "Status Text: " + response.statusText + "\n"
+                            //+ "Response Text: " + response.responseText
+                            );
+                    }
+                });
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
         }
     });
+
+    $("#delete-dialog-confirm").dialog("open");
 
 };

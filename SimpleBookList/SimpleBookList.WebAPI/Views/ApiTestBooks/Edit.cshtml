@@ -1,0 +1,58 @@
+﻿@model SimpleBookList.Models.BookViewModel
+
+@Scripts.Render("~/bundles/BooksValidation")
+
+<form name="EditBookForm" id="EditBookForm">
+    <div class="form-horizontal">
+        <h4>Edit Book</h4>
+        <hr />
+        @Html.HiddenFor(model => model.Id)
+        @{Html.RenderPartial("_partialForm");}
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        getAllAuthors();
+
+        var hiddenId = $('#EditBookForm #Id');
+        var hiddenIdValue = hiddenId.val();
+
+        if (hiddenIdValue && hiddenIdValue != 0) {
+            // Получение книги по ajax-запросу
+            $.ajax({
+                url: '/api/Books/' + hiddenIdValue,
+                type: 'GET',
+                dataType: 'json',
+                success: function (result) {
+                    // Заполнение формы данными о книге:
+                    $('#EditBookForm #Name').val(result.Name);
+                    $('#EditBookForm #ReleaseDate').val(result.FormattedReleaseDate);
+                    $('#EditBookForm #Pages').val(result.Pages);
+                    $('#EditBookForm #Pages').val(result.Pages);
+                    $('#EditBookForm #Rating').val(result.Rating);
+
+                    var dataArray = new Array(result.Authors.length);
+                    result.Authors.forEach(function (item, i, arr) {
+                        dataArray[i] = item.Id.toString();
+                    });
+
+                    $('.searchableMultiselect').multiSelect('select', dataArray);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        } else {
+            alert('Error!!!');
+        }
+
+        $(function () {
+            $("#SubmitBookButton").click(function () {
+                OnEdit();
+            });
+        });
+
+    });
+</script>
