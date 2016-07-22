@@ -61,6 +61,8 @@ namespace SimpleBookList.UI.Utils
         private void AddBindings()
         {
             this.kernel.Bind<IBookListService>().To<BookListService>();
+
+            this.kernel.Bind<IUserService>().To<UserService>();
         }
     }
 }
