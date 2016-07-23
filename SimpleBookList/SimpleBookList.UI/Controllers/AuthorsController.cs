@@ -21,7 +21,7 @@
         private IBookListService service;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventsController" /> class.
+        /// Initializes a new instance of the <see cref="AuthorsController" /> class.
         /// </summary>
         /// <param name="service">implementation instance of IEventService interface</param>
         public AuthorsController(IBookListService service)
@@ -84,8 +84,7 @@
         [HttpGet]
         public ActionResult Details(int id)
         {
-            int authorId = Convert.ToInt32(id);
-            AuthorViewModel currentAuthor = this.service.GetOneAuthor(authorId);
+            AuthorViewModel currentAuthor = this.service.GetOneAuthor(id);
             return this.View(currentAuthor);
         }
 

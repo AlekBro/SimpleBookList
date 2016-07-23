@@ -298,9 +298,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\App\App.Functions.js" />
     <Content Include="Scripts\App\Authors.TableLoading.js" />
     <Content Include="Scripts\App\Books.Functions.js" />
     <Content Include="Scripts\App\Books.TableLoading.js" />
+    <Content Include="Scripts\App\CancelButton.js" />
     <Content Include="Scripts\App\Validation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -357,6 +359,7 @@
     <Content Include="Scripts\datatables.extensions\TableTools\Readme.txt" />
     <Content Include="Scripts\datatables.extensions\TableTools\swf\copy_csv_xls.swf" />
     <Content Include="Scripts\datatables.extensions\TableTools\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Scripts\App\Authors.Functions.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -403,9 +406,9 @@
     <Content Include="Views\ApiTestBooks\Index.cshtml" />
     <Content Include="Views\ApiTestAuthors\_partialForm.cshtml" />
     <Content Include="Views\ApiTestAuthors\Create.cshtml" />
-    <Content Include="Views\ApiTestAuthors\Delete.cshtml" />
     <Content Include="Views\ApiTestAuthors\Edit.cshtml" />
     <Content Include="Views\ApiTestAuthors\Index.cshtml" />
+    <Content Include="Views\ApiTestAuthors\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleBookList.BLL\SimpleBookList.BLL.csproj">

@@ -10,7 +10,3 @@ var val = $("#CreateBookForm").validate();
 val.showErrors();
 */
 
-// For work cancel button
-$("#CancelButton").click(function () {
-    $("#dialogContainer").html("");
-});

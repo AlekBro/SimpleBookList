@@ -1,24 +1,14 @@
 ﻿@model SimpleBookList.Models.BookViewModel
-
 @Scripts.Render("~/bundles/BooksValidation")
-
 
 @using (Ajax.BeginForm("Edit", "Books", null,
 new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "CreateBookForm" }))
 {
-
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <h4>Edit Book</h4>
         <hr />
-
-
         @Html.HiddenFor(model => model.Id)
-
-
         @{Html.RenderPartial("_partialForm");}
-
-
     </div>
 }

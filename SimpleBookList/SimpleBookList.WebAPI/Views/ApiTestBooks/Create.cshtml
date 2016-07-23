@@ -1,13 +1,14 @@
 ﻿@model SimpleBookList.Models.BookViewModel
 @Scripts.Render("~/bundles/BooksValidation")
+@Scripts.Render("~/bundles/CancelButton")
 
 @using (Ajax.BeginForm("", "", null,
             new AjaxOptions()
             {
                 HttpMethod = "POST",
                 Url = "/api/Books",
-                OnSuccess = "OnCreateSuccess",
-                OnFailure = "OnFailure"
+                OnSuccess = "OnCreateBookSuccess",
+                OnFailure = "ShowApiError"
             },
             new
             {
@@ -15,14 +16,12 @@
             }))
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <h4>Add new Book</h4>
         <hr />
         @{Html.RenderPartial("_partialForm");}
     </div>
 }
-
 <script type="text/javascript">
     $(document).ready(function () {
         getAllAuthors();

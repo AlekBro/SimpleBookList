@@ -1,6 +1,6 @@
 ﻿@model SimpleBookList.Models.BookViewModel
-
 @Scripts.Render("~/bundles/BooksValidation")
+@Scripts.Render("~/bundles/CancelButton")
 
 <form name="EditBookForm" id="EditBookForm">
     <div class="form-horizontal">
@@ -10,7 +10,6 @@
         @{Html.RenderPartial("_partialForm");}
     </div>
 </form>
-
 <script type="text/javascript">
     $(document).ready(function () {
         
@@ -50,7 +49,7 @@
 
         $(function () {
             $("#SubmitBookButton").click(function () {
-                OnEdit();
+                EditBookFunc();
             });
         });
 

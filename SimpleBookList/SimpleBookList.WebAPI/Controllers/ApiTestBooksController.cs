@@ -19,7 +19,7 @@
         [HttpGet]
         public ActionResult Create()
         {
-            return this.PartialView("Create");
+            return this.PartialView();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@
         {
             BookViewModel book = new BookViewModel();
             book.Id = id;
-            return this.PartialView("Edit", book);
+            return this.PartialView(book);
         }
     }
 }

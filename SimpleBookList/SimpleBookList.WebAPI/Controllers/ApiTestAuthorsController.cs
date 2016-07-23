@@ -19,7 +19,7 @@
         [HttpGet]
         public ActionResult Create()
         {
-            return this.PartialView("Create");
+            return this.PartialView();
         }
 
         /// <summary>
@@ -32,8 +32,20 @@
         {
             AuthorViewModel author = new AuthorViewModel();
             author.Id = id;
-            return this.PartialView("Edit", author);
+            return this.PartialView(author);
         }
 
+        /// <summary>
+        /// Get Author details
+        /// </summary>
+        /// <param name="id">Author Id</param>
+        /// <returns>Empty form for Author details</returns>
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            AuthorViewModel author = new AuthorViewModel();
+            author.Id = id;
+            return this.View(author);
+        }
     }
 }

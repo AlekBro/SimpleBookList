@@ -5,7 +5,6 @@ $(document).ready(function () {
         return new Number(data);
     };
 
-
     var getStringForItem = function (data, type, full, meta) {
         return new String(data);
     };
@@ -30,7 +29,6 @@ $(document).ready(function () {
         return month + '/' + day + '/' + year;
     }
 
-
     // Получаем и форматируем ссылку на редактирование
     var getEditLinkForItem = function (data, type, full, meta) {
         return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="editFunc(this, event)">Edit</a>';
@@ -38,38 +36,29 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на удаление
     var getDeleteLinkForItem = function (data, type, full, meta) {
-        return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="deleteFunc(this, event)">Delete</a>';
+        return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="deleteBookFunc(this, event)">Delete</a>';
     };
 
-
-
+    // Get List with Authors links
     var getAuthorLinksList = function (data, type, full, meta) {
-
-        //console.log(data);
-
         var blkstr = [];
         $.each(data, function (index, element) {
-            var str = "<a href='/authors/details/" + element.Id + "/" + element.Name + "/'>" + element.Name + "</a>";
+            var str = "<a href='/ApiTestAuthors/details/" + element.Id + "/" + element.Name + "/'>" + element.Name + "</a>";
             blkstr.push(str);
         });
         var res = blkstr.join(", ");
-        //console.log(res);
 
         return res;
     };
 
-
-
+    // Get DataTable 
     var booksTable = $('#BooksListTable').DataTable({
-
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
-
         "paging": true, // ??
         "deferRender": true, // ??
-
         "ajax": {
             "url": "/API/Books/",
             "type": "GET",
@@ -77,7 +66,6 @@ $(document).ready(function () {
             "contentType": 'application/json; charset=utf-8',
             //'data': function (data) { return data = JSON.stringify(data); }
         },
-
         "aoColumns": [
             { "data": "Id", "render": getNumberForItem, "visible": false, "searchable": false },
             { "data": "Name", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
@@ -87,13 +75,9 @@ $(document).ready(function () {
             { "data": "Authors", "render": getAuthorLinksList, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
-
         ],
         // Отключить втроенный поиск: (так отключается и фильтрация)
         //"bFilter": false
-
     });
-
-
 
 });

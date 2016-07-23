@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+@Scripts.Render("~/bundles/forBooks")
+
 <h1 id="booksTitle">SimpleBookList</h1>
 <h2>Books List</h2>
 <hr />
@@ -21,11 +23,9 @@
     function editFunc(obj, event) {
         event.preventDefault();
         event.stopPropagation();
-
         var value = obj.getAttribute('value');
 
         getRequest("@Url.Action("Edit")", { Id: value });
-
     };
 
     function getRequest(urlString, dataString) {
@@ -40,7 +40,6 @@
         });
     };
 
-
     $("#delete-dialog-confirm").dialog({
         autoOpen: false,
         resizable: false,
@@ -48,7 +47,6 @@
         width: "auto",
         modal: true
     });
-
 </script>
 
 <div id="delete-dialog-confirm" title="Deleting Book" style="display:none;">

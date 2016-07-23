@@ -84,17 +84,6 @@ namespace SimpleBookList.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        /*
-        /// <summary>
-        /// Get all Books in List
-        /// </summary>
-        /// <returns>BookViewModel list</returns>
-        public IEnumerable<BookViewModel> Get()
-        {
-            return this.service.GetAllBooks().ToList();
-        }
-        */
-
         /// <summary>
         /// Get one Book by his Id
         /// </summary>
@@ -141,8 +130,15 @@ namespace SimpleBookList.WebAPI.Controllers
         /// <param name="value">Edited Book in BookViewModel</param>
         /// <returns></returns>
         //[System.Web.Http.HttpPut]
-        public HttpResponseMessage Put(int Id, BookViewModel value)
+        public HttpResponseMessage Put(int id, BookViewModel value)
         {
+            BookViewModel book = this.service.GetOneBook(id);
+            if (book == null)
+            {
+                var message = string.Format("Book with id = {0} not found", id);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+
             if (value != null && ModelState.IsValid)
             {
                 // Success!

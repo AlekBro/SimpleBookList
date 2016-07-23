@@ -19,14 +19,14 @@ namespace SimpleBookList.WebAPI.Controllers
     public class AuthorsController : ApiController
     {
         /// <summary>
-        /// EventService class property
+        /// IBookListService class property
         /// </summary>
         private IBookListService service;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventsController" /> class.
+        /// Initializes a new instance of the <see cref="AuthorsController" /> class.
         /// </summary>
-        /// <param name="service">implementation instance of IEventService interface</param>
+        /// <param name="service">implementation instance of IBookListService interface</param>
         public AuthorsController(IBookListService service)
         {
             this.service = service;
@@ -99,7 +99,7 @@ namespace SimpleBookList.WebAPI.Controllers
         /// </summary>
         /// <param name="value">AuthorViewModel</param>
         /// <returns>new Author in AuthorViewModel</returns>
-        public HttpResponseMessage Post(int id, [FromBody]AuthorViewModel value)
+        public HttpResponseMessage Post([FromBody]AuthorViewModel value)
         {
             if (ModelState.IsValid)
             {
@@ -122,6 +122,13 @@ namespace SimpleBookList.WebAPI.Controllers
         /// <returns></returns>
         public HttpResponseMessage Put(int id, [FromBody]AuthorViewModel value)
         {
+            AuthorViewModel author = this.service.GetOneAuthor(id);
+            if (author == null)
+            {
+                var message = string.Format("Author with id = {0} not found", id);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+
             if (ModelState.IsValid)
             {
                 // Success!

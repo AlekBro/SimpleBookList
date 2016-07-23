@@ -1,19 +1,21 @@
 ﻿@using SimpleBookList.Models;
-@model IEnumerable<BookViewModel>
+@model IEnumerable<AuthorViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
+@Scripts.Render("~/bundles/forAuthors")
+
 <h1 id="booksTitle">SimpleBookList</h1>
-<h2>Books List</h2>
+<h2>Authors List</h2>
 <hr />
 <div id="dialogContainer"></div>
 <hr />
-<p><button id="CreateNewBookButton">Add New Book</button></p>
+<p><button id="CreateNewAuthorButton">Add New Author</button></p>
 
 <script>
     $(function () {
-        $("#CreateNewBookButton").click(function () {
+        $("#CreateNewAuthorButton").click(function () {
             getRequest("@Url.Action("Create")");
         });
     });
@@ -21,11 +23,17 @@
     function editFunc(obj, event) {
         event.preventDefault();
         event.stopPropagation();
-
         var value = obj.getAttribute('value');
 
         getRequest("@Url.Action("Edit")", { Id: value });
+    };
 
+    function detailsFunc(obj, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var value = obj.getAttribute('value');
+
+        getRequest("@Url.Action("Details")", { id: value });
     };
 
     function getRequest(urlString, dataString) {
@@ -39,34 +47,43 @@
             }
         });
     };
+
+    $("#delete-dialog-confirm").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: "auto",
+        modal: true
+    });
 </script>
 
-<table class="table" id="BooksListTable" cellspacing="0">
+<div id="delete-dialog-confirm" title="Deleting Author" style="display:none;">
+    <p>Are you sure you want to delete this Author?</p>
+</div>
+
+<table class="table" id="AuthorsListTable" cellspacing="0">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pages)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                Authors
+                @Html.DisplayNameFor(model => model.BooksNumber)
             </th>
             <th>
                 Edit
             </th>
             <th>
                 Delete
+            </th>
+            <th>
+                Details
             </th>
         </tr>
     </thead>

@@ -46,6 +46,14 @@ namespace SimpleBookList.WebAPI
                         "~/Scripts/jquery.dataTables*"));
 
             // Custom JavaScripts
+            bundles.Add(new ScriptBundle("~/bundles/AppFunctions").Include(
+                        "~/Scripts/App/App*"));
+
+            // Custom JavaScript for RequiredIfAttribute
+            bundles.Add(new ScriptBundle("~/bundles/CancelButton").Include(
+                        "~/Scripts/App/CancelButton.js"));
+
+            // Custom JavaScripts
             bundles.Add(new ScriptBundle("~/bundles/forBooks").Include(
                         "~/Scripts/App/Books*"));
 
