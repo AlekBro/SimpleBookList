@@ -6,7 +6,6 @@
 
 @Scripts.Render("~/bundles/forBooks")
 
-<h1 id="booksTitle">SimpleBookList</h1>
 <h2>Books List</h2>
 <hr />
 <div id="dialogContainer"></div>
@@ -73,6 +72,12 @@
             </th>
             <th>
                 Authors
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
             </th>
             <th>
                 Edit

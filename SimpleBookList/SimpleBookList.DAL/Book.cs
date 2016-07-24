@@ -25,6 +25,8 @@ namespace SimpleBookList.DAL
         public System.DateTime ReleaseDate { get; set; }
         public int Pages { get; set; }
         public int Rating { get; set; }
+        public string Publisher { get; set; }
+        public string ISBN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Author> Authors { get; set; }

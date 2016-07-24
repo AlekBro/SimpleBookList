@@ -40,6 +40,20 @@
         <dd>
             @Html.Raw(Model.AuthorsNames)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ISBN)
+        </dd>
+
     </dl>
 @using (Ajax.BeginForm("Delete",
                 new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnDeleteSuccess", OnFailure = "OnFailure" }))

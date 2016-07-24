@@ -5,9 +5,12 @@ $(document).ready(function () {
         return new Number(data);
     };
 
-
     var getStringForItem = function (data, type, full, meta) {
-        return new String(data);
+        if (data) {
+            return new String(data);
+        } else {
+            return "-";
+        }
     };
 
     // Получаем и форматируем дату для поля
@@ -74,7 +77,7 @@ $(document).ready(function () {
             "url": "/Books/DataHandler",
             "type": "POST",
             //"datatype": "json"
-            "contentType": 'application/json; charset=utf-8',
+            //"contentType": 'application/json; charset=utf-8',
             'data': function (data) { return data = JSON.stringify(data); }
         },
 
@@ -85,6 +88,8 @@ $(document).ready(function () {
             { "data": "Pages", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Rating", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Authors", "render": getAuthorLinksList, "class": "dt-head-center dt-body-center" },
+            { "data": "Publisher", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
+            { "data": "ISBN", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
 

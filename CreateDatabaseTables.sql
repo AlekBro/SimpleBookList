@@ -43,6 +43,8 @@ CREATE TABLE [dbo].[Books]
              [ReleaseDate] DATETIME NOT NULL,
              [Pages]       INT NOT NULL,
              [Rating]      INT NOT NULL,
+             [Publisher] NVARCHAR(100) NULL,
+             [ISBN] NVARCHAR(20) NULL,
              CONSTRAINT [PK_dbo.Books] PRIMARY KEY CLUSTERED([Id] ASC),
              CONSTRAINT [Name_dbo.Books] UNIQUE([Name])
                           );
@@ -55,3 +57,4 @@ CREATE TABLE [dbo].[BookAuthors]
              CONSTRAINT [FK_dbo.BookAuthors_dbo.Books_Book_Id] FOREIGN KEY([Book_Id]) REFERENCES [dbo].[Books]([Id]) ON DELETE CASCADE,
              CONSTRAINT [FK_dbo.BookAuthors_dbo.Authors_Author_Id] FOREIGN KEY([Author_Id]) REFERENCES [dbo].[Authors]([Id]) ON DELETE CASCADE
                                 );
+

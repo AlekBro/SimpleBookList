@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 namespace SimpleBookList.Models
 {
+    using Attributes.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -69,6 +70,21 @@ namespace SimpleBookList.Models
         [Display(Name = "Rating")]
         [Range(0, 10, ErrorMessage = "Rating is must be between 0 and 10")]
         public int Rating { get; set; }
+
+        /// <summary>
+        /// Gets or sets Publisher name
+        /// </summary>
+        [Display(Name = "Publisher")]
+        [StringLength(100)]
+        public string Publisher { get; set; }
+
+        /// <summary>
+        /// Gets or sets ISBN
+        /// </summary>
+        [Display(Name = "ISBN")]
+        [RequiredIf("Publisher", ErrorMessage = "Please, input \"ISBN\" or delete Publisher name.")]
+        [StringLength(100)]
+        public string ISBN { get; set; }
 
         /// <summary>
         /// Gets or sets all authors of this book

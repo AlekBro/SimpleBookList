@@ -6,7 +6,11 @@ $(document).ready(function () {
     };
 
     var getStringForItem = function (data, type, full, meta) {
-        return new String(data);
+        if (data) {
+            return new String(data);
+        } else {
+            return "-";
+        }
     };
 
     // Получаем и форматируем дату для поля
@@ -54,16 +58,17 @@ $(document).ready(function () {
     // Get DataTable 
     var booksTable = $('#BooksListTable').DataTable({
         "processing": true, // for show progress bar
-        "serverSide": true, // for process server side
+        "serverSide": false, // for process server side
         //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
-        "deferRender": true, // ??
+        //"deferRender": true, // ??
         "ajax": {
             "url": "/API/Books/",
             "type": "GET",
-            //"datatype": "json"
+            "datatype": "json",
             "contentType": 'application/json; charset=utf-8',
+            "dataSrc": "",
             //'data': function (data) { return data = JSON.stringify(data); }
         },
         "aoColumns": [
@@ -73,6 +78,8 @@ $(document).ready(function () {
             { "data": "Pages", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Rating", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": "Authors", "render": getAuthorLinksList, "class": "dt-head-center dt-body-center" },
+            { "data": "Publisher", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
+            { "data": "ISBN", "render": getStringForItem, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
         ],

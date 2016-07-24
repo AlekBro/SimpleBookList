@@ -39,17 +39,23 @@ namespace SimpleBookList.WebAPI.Controllers
             this.service = service;
         }
 
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage Get()
+        {
+            List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, allBooks);
+        }
 
+
+        /*
         /// <summary>
         /// Get JSON with Book List
         /// </summary>
         /// <param name="param">searching and filtering parameters</param>
         /// <returns>JSON with Book List</returns>
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage Get([FromUri]DTParameters param)
+        public HttpResponseMessage Get([FromBody]DTParameters param)
         {
-            var request = Request;
-
             List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
 
             List<string> columnSearch = new List<string>();
@@ -83,12 +89,14 @@ namespace SimpleBookList.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
+        */
 
-        /// <summary>
-        /// Get one Book by his Id
-        /// </summary>
-        /// <param name="id">Book Id</param>
-        /// <returns>BookViewModel</returns>
+
+            /// <summary>
+            /// Get one Book by his Id
+            /// </summary>
+            /// <param name="id">Book Id</param>
+            /// <returns>BookViewModel</returns>
         public HttpResponseMessage Get(int id)
         {
             BookViewModel book = this.service.GetOneBook(id);
@@ -123,6 +131,8 @@ namespace SimpleBookList.WebAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
+
+        
 
         /// <summary>
         /// Edit Book
