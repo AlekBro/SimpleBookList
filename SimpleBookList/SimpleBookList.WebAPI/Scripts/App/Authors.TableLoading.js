@@ -2,12 +2,7 @@
 $(document).ready(function () {
 
     var getNumberForItem = function (data, type, full, meta) {
-        if (data) {
-            return new Number(data);
-        } else {
-            return 0;
-        }
-        
+        return new Number(data);
     };
 
     var getStringForItem = function (data, type, full, meta) {
@@ -31,7 +26,7 @@ $(document).ready(function () {
     // Get DataTable
     var authorsTable = $('#AuthorsListTable').DataTable({
         "processing": true, // for show progress bar
-        "serverSide": false, // for process server side
+        "serverSide": true, // for process server side
         //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
@@ -41,7 +36,6 @@ $(document).ready(function () {
             "type": "GET",
             //"datatype": "json"
             "contentType": 'application/json; charset=utf-8',
-            "dataSrc": "",
             //'data': function (data) { return data = JSON.stringify(data); }
         },
         "aoColumns": [

@@ -32,7 +32,6 @@ namespace SimpleBookList.WebAPI.Controllers
             this.service = service;
         }
 
-        /*
         /// <summary>
         /// Get JSON with Author List
         /// </summary>
@@ -76,15 +75,6 @@ namespace SimpleBookList.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-        */
-
-        [System.Web.Http.HttpGet]
-        public HttpResponseMessage Get()
-        {
-            List<AuthorViewModel> allAuthors = this.service.GetAllAuthors().ToList();
-            return Request.CreateResponse(HttpStatusCode.OK, allAuthors);
-        }
-
 
         /// <summary>
         /// Get one Author by his Id
