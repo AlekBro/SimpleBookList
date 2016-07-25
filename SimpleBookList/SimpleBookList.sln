@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.UI", "Simple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WebAPI", "SimpleBookList.WebAPI\SimpleBookList.WebAPI.csproj", "{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WcfUI", "SimpleBookList.WcfUI\SimpleBookList.WcfUI.csproj", "{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WcfService", "SimpleBookList.WcfService\SimpleBookList.WcfService.csproj", "{3969394C-64BE-4476-A5B2-DB0EBC8A1553}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3969394C-64BE-4476-A5B2-DB0EBC8A1553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3969394C-64BE-4476-A5B2-DB0EBC8A1553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3969394C-64BE-4476-A5B2-DB0EBC8A1553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3969394C-64BE-4476-A5B2-DB0EBC8A1553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
