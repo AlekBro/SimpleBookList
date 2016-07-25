@@ -3,17 +3,17 @@
 @Scripts.Render("~/bundles/CancelButton")
 
 @using (Ajax.BeginForm("", "", null,
-            new AjaxOptions()
-            {
-                HttpMethod = "POST",
-                Url = "/api/Books",
-                OnSuccess = "OnCreateBookSuccess",
-                OnFailure = "ShowApiError"
-            },
-            new
-            {
-                @id = "CreateBookForm"
-            }))
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            Url = "/api/Books",
+                            OnSuccess = "OnCreateBookSuccess",
+                            OnFailure = "ShowApiError"
+                        },
+                        new
+                        {
+                            @id = "CreateBookForm"
+                        }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -21,7 +21,7 @@
         <hr />
         @{Html.RenderPartial("_partialForm");}
     </div>
-}
+            }
 <script type="text/javascript">
     $(document).ready(function () {
         getAllAuthors();
@@ -30,5 +30,20 @@
                 $("#CreateBookForm").submit();
             });
         });
+
+        // http://stackoverflow.com/questions/15600437/jquery-validate-plugin-one-field-must-be-empty-if-another-is-empty
+        // https://jqueryvalidation.org/validate
+        $('#CreateBookForm').validate({ // initialize the plugin
+            rules: {
+                ISBN: {
+                    required: {
+                        depends: function (element) {
+                            return $("#Publisher").is(":filled");
+                        }
+                    }
+                }
+            }
+        });
+
     });
 </script>

@@ -2,7 +2,7 @@
 @Scripts.Render("~/bundles/BooksValidation")
 
 @using (Ajax.BeginForm("Edit", "Books", null,
-new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "CreateBookForm" }))
+new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "EditBookForm" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -12,3 +12,22 @@ new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure 
         @{Html.RenderPartial("_partialForm");}
     </div>
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // http://stackoverflow.com/questions/15600437/jquery-validate-plugin-one-field-must-be-empty-if-another-is-empty
+        // https://jqueryvalidation.org/validate
+        $('#EditBookForm').validate({ // initialize the plugin
+            rules: {
+                ISBN: {
+                    required: {
+                        depends: function (element) {
+                            return $("#Publisher").is(":filled");
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+</script>
