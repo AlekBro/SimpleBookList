@@ -1,57 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using Ninject;
-using Ninject.Extensions.Wcf;
-
-
-
-namespace SimpleBookList.WcfService
+﻿namespace SimpleBookList.WcfService
 {
-    public class Global : NinjectWcfApplication
+    using Ninject;
+    using Ninject.Extensions.Wcf;
+    using Ninject.Modules;
+    using Ninject.Web.Common;
+    using SimpleBookList.BLL.Infrastructure;
+
+    public class Global : NinjectHttpApplication
     {
 
-        protected void Application_Start(object sender, EventArgs e)
+        // http://stackoverflow.com/questions/32167565/global-asaxs-application-start-method-doesnt-get-called
+        protected override void OnApplicationStarted()
         {
-
+            AutoMapperConfig.RegisterMappings();
         }
-
-        protected void Session_Start(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_End(object sender, EventArgs e)
-        {
-
-        }
-
+        
         protected override IKernel CreateKernel()
         {
-            return new StandardKernel(new WCFNinjectModule());
+            // Establish a connection string
+            var modules = new INinjectModule[] { new ServiceModule("DefaultConnection"), new WCFNinjectModule() };
+            var kernel = new StandardKernel(modules);
+
+            return kernel;
         }
     }
 }

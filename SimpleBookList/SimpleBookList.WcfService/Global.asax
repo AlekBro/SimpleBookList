@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="wcf_ninject.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SimpleBookList.WcfService.Global" Language="C#" %>

@@ -10,6 +10,7 @@ namespace SimpleBookList.WcfService
 {
     public class WCFNinjectModule : NinjectModule
     {
+
         public override void Load()
         {
             //Injects the constructors of all DI-ed objects 

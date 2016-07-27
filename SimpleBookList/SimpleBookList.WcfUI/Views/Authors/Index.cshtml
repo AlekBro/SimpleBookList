@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SimpleBookList.Models.AuthorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of All Authors</h2>
+
+<p>
+    @Html.ActionLink("Add New Author", "Create")
+</p>
+<table class="table" id="AuthorsListTable" cellspacing="0" style="width:100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BooksNumber)
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+    </thead>
+<tbody></tbody>
+
+</table>

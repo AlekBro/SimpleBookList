@@ -1,0 +1,38 @@
+﻿@model SimpleBookList.Models.BookViewModel
+@Scripts.Render("~/bundles/SetDatepicker")
+@Scripts.Render("~/bundles/CancelButton")
+
+<script type="text/javascript">
+
+    // Enable validation manually:
+    $.validator.unobtrusive.parse($('#EditBookForm'));
+    var val = $("#EditBookForm").validate();
+    val.showErrors();
+
+</script>
+
+@using (Ajax.BeginForm("Edit", "Books", null,
+            new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnEditSuccess", OnFailure = "OnFailure" }, new { @id = "EditBookForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Edit Book</h4>
+        <hr />
+        @Html.HiddenFor(model => model.Id)
+        @{Html.RenderPartial("_partialForm");}
+    </div>
+            }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#EditBookForm #ISBN").rules("add", {
+            required: {
+                depends: function (element) {
+                    return $("#Publisher").is(":filled");
+                }
+            }
+        });
+
+    });
+</script>

@@ -100,5 +100,83 @@ namespace SimpleBookList.WcfService
                 return null;
             }
         }
+
+
+
+
+        public List<AuthorViewModel> GetAuthorList()
+        {
+            List<AuthorViewModel> allAuthors = this._service.GetAllAuthors().ToList();
+
+            return allAuthors;
+        }
+
+        public AuthorViewModel GetAuthorById(int authorId)
+        {
+            AuthorViewModel author = this._service.GetOneAuthor(authorId);
+
+            return author;
+        }
+
+        public int? AddNewAuthor(AuthorViewModel newAuthor)
+        {
+            try
+            {
+                newAuthor = this._service.CreateAuthor(newAuthor);
+
+                return newAuthor.Id;
+            }
+            catch (Exception Ex)
+            {
+                return null;
+            }
+        }
+
+        public bool DeleteAuthorById(int authorId)
+        {
+            AuthorViewModel author = this._service.GetOneAuthor(authorId);
+
+            if (author != null)
+            {
+                try
+                {
+                    this._service.DeleteAuthor(authorId);
+                }
+                catch (Exception Ex)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public AuthorViewModel EditAuthor(AuthorViewModel inputAuthor)
+        {
+            AuthorViewModel author = this._service.GetOneAuthor(inputAuthor.Id);
+            if (author != null)
+            {
+                try
+                {
+                    this._service.UpdateAuthor(inputAuthor);
+                }
+                catch (Exception Ex)
+                {
+                    return null;
+                }
+
+                return inputAuthor;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
     }
 }

@@ -27,6 +27,22 @@ namespace SimpleBookList.WcfService
 
         [OperationContract]
         BookViewModel EditBook(BookViewModel inputBook);
+
+
+        [OperationContract]
+        List<AuthorViewModel> GetAuthorList();
+
+        [OperationContract]
+        AuthorViewModel GetAuthorById(int id);
+
+        [OperationContract]
+        int? AddNewAuthor(AuthorViewModel newAuthor);
+
+        [OperationContract]
+        bool DeleteAuthorById(int authorId);
+
+        [OperationContract]
+        AuthorViewModel EditAuthor(AuthorViewModel inputAuthor);
     }
 
 
