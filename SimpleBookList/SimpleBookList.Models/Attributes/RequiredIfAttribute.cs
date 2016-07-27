@@ -69,7 +69,7 @@ namespace SimpleBookList.Attributes.Models
             PropertyInfo property = validationContext.ObjectInstance.GetType().GetProperty(DependentPropertyName);
             object dependentPropertyValue = property.GetValue(validationContext.ObjectInstance, null);
 
-            if ((dependentPropertyValue != null && dependentPropertyValue != "") && (value == null || value == ""))
+            if (dependentPropertyValue != null && value == null)
             {
                 return new ValidationResult(string.Format(ErrorMessageString, validationContext.DisplayName));
             }
