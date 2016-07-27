@@ -1,7 +1,4 @@
-﻿
-
-
-// Add a new row to the table and send a message about the successful creation of Book.
+﻿// Add a new row to the table and send a message about the successful creation of Book.
 function OnCreateBookSuccess(response) {
     var booksTable = $('#BooksListTable').dataTable();
     booksTable.fnAddData(response);
@@ -14,34 +11,60 @@ function OnCreateBookSuccess(response) {
 function EditBookFunc() {
 
     var dataFromForm = $('#EditBookForm').serializeObject();
+
     var AuthorsIds = $('#EditBookForm #AuthorsIds').serializeArray();
     var AuthorsIdsArray = new Array(AuthorsIds.length);
     AuthorsIds.forEach(function (item, i, arr) {
         AuthorsIdsArray[i] = item.value.toString();
     });
-
     dataFromForm.AuthorsIds = AuthorsIdsArray;
 
-    $.ajax({
-        url: "/api/Books/" + dataFromForm.Id,
-        type: 'PUT',
-        data: JSON.stringify(dataFromForm),
-        contentType: "application/json;charset=utf-8",
-        success: function (resp) {
-            var booksTable = $('#BooksListTable').dataTable();
+    var book = new Object();
+    book.Id = $('#EditBookForm #Id').val();
+    book.Name = $('#EditBookForm #Name').val();
+    book.ReleaseDate = $('#EditBookForm #ReleaseDate').val();
+    book.Pages = $('#EditBookForm #Pages').val();
+    book.Rating = $('#EditBookForm #Rating').val();
+    var Publisher = $('#EditBookForm #Publisher').val();
+    if (Publisher) {
+        book.Publisher = Publisher;
+    }
+    var ISBN = $('#EditBookForm #ISBN').val();
+    if (ISBN) {
+        book.ISBN = ISBN;
+    }
 
-            row = $.grep(booksTable.fnSettings().aoData, function (obj) {
-                return obj._aData.Id == dataFromForm.Id;
-            })[0].nTr;
+    book.AuthorsIds = AuthorsIdsArray;
 
-            booksTable.fnUpdate(dataFromForm, $(row).get(0));
-            $("#dialogContainer").html("");
-            alert('Book Updated Successfully');
-        },
-        error: function (response) {
-            ShowApiError(response);
-        }
-    });
+    var jsonBook = JSON.stringify(book);
+
+    // Manual Validation
+    $.validator.unobtrusive.parse($('#EditBookForm'));
+    $('#EditBookForm').validate();
+
+    if ($('#EditBookForm').valid()) {
+        $.ajax({
+            url: "/api/Books/" + dataFromForm.Id,
+            type: 'PUT',
+            data: jsonBook,
+            contentType: "application/json;charset=utf-8",
+            success: function (resp) {
+                var booksTable = $('#BooksListTable').dataTable();
+
+                row = $.grep(booksTable.fnSettings().aoData, function (obj) {
+                    return obj._aData.Id == dataFromForm.Id;
+                })[0].nTr;
+
+                booksTable.fnUpdate(dataFromForm, $(row).get(0));
+                $("#dialogContainer").html("");
+                alert('Book Updated Successfully');
+            },
+            error: function (response) {
+                ShowApiError(response);
+            }
+        });
+    }
+
 };
 
 // DeleteBook and send a message about the this successful operation.

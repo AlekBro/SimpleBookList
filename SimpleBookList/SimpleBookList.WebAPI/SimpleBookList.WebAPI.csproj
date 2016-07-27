@@ -185,7 +185,6 @@
     <Compile Include="Controllers\ApiTestBooksController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
-    <Compile Include="Controllers\DataTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -304,7 +303,7 @@
     <Content Include="Scripts\App\Books.Functions.js" />
     <Content Include="Scripts\App\Books.TableLoading.js" />
     <Content Include="Scripts\App\CancelButton.js" />
-    <Content Include="Scripts\App\Validation.js" />
+    <Content Include="Scripts\App\SetDatepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

@@ -39,22 +39,23 @@ namespace SimpleBookList.WebAPI.Controllers
             this.service = service;
         }
 
+        /*
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Get()
         {
             List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
             return Request.CreateResponse(HttpStatusCode.OK, allBooks);
         }
-
-
-        /*
+        */
+    
+        
         /// <summary>
         /// Get JSON with Book List
         /// </summary>
         /// <param name="param">searching and filtering parameters</param>
         /// <returns>JSON with Book List</returns>
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage Get([FromBody]DTParameters param)
+        public HttpResponseMessage Get([FromUri]DTParameters param)
         {
             List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
 
@@ -89,7 +90,7 @@ namespace SimpleBookList.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-        */
+        
 
 
             /// <summary>

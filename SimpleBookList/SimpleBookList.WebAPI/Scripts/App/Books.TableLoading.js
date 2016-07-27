@@ -11,6 +11,7 @@ $(document).ready(function () {
         } else {
             return "-";
         }
+        return new String(data);
     };
 
     // Получаем и форматируем дату для поля
@@ -58,17 +59,18 @@ $(document).ready(function () {
     // Get DataTable 
     var booksTable = $('#BooksListTable').DataTable({
         "processing": true, // for show progress bar
-        "serverSide": false, // for process server side
+        "serverSide": true, // for process server side
         //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
-        //"deferRender": true, // ??
+        "deferRender": true, // ??
+        "stateSave": true, // restore table state on page reload.
         "ajax": {
             "url": "/API/Books/",
             "type": "GET",
-            "datatype": "json",
+            //"datatype": "json",
             "contentType": 'application/json; charset=utf-8',
-            "dataSrc": "",
+            //"dataSrc": "",
             //'data': function (data) { return data = JSON.stringify(data); }
         },
         "aoColumns": [

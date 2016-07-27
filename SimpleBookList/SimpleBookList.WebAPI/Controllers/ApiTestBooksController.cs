@@ -32,7 +32,7 @@
         {
             BookViewModel book = new BookViewModel();
             book.Id = id;
-            return this.PartialView(book);
+            return this.PartialView();
         }
     }
 }

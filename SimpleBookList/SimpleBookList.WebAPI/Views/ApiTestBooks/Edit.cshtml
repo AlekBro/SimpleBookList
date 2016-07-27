@@ -1,8 +1,15 @@
 ﻿@model SimpleBookList.Models.BookViewModel
-@Scripts.Render("~/bundles/BooksValidation")
+@Scripts.Render("~/bundles/SetDatepicker")
 @Scripts.Render("~/bundles/CancelButton")
 
-<form name="EditBookForm" id="EditBookForm">
+<script type="text/javascript">
+    // Enable validation manually:
+    $.validator.unobtrusive.parse($('#EditBookForm'));
+    var val = $("#EditBookForm").validate();
+    val.showErrors();
+</script>
+
+<form name="EditBookForm" id="EditBookForm" data-ajax="true" >
     <div class="form-horizontal">
         <h4>Edit Book</h4>
         <hr />
@@ -10,9 +17,27 @@
         @{Html.RenderPartial("_partialForm");}
     </div>
 </form>
+
 <script type="text/javascript">
     $(document).ready(function () {
+
+          $("#EditBookForm #ISBN").rules("add", {
+            required: {
+                depends: function (element) {
+                    return $("#Publisher").is(":filled");
+                }
+            },
+            messages: {
+                required: "The ISBN field is required when Publisher was entered."
+            }
+        });
         
+        $(function () {
+            $("#SubmitBookButton").click(function () {
+                EditBookFunc();
+            });
+        });
+
         getAllAuthors();
 
         var hiddenId = $('#EditBookForm #Id');
@@ -24,13 +49,20 @@
                 url: '/api/Books/' + hiddenIdValue,
                 type: 'GET',
                 dataType: 'json',
+                async: false,
                 success: function (result) {
                     // Заполнение формы данными о книге:
-                    $('#EditBookForm #Name').val(result.Name);
-                    $('#EditBookForm #ReleaseDate').val(result.FormattedReleaseDate);
-                    $('#EditBookForm #Pages').val(result.Pages);
-                    $('#EditBookForm #Pages').val(result.Pages);
-                    $('#EditBookForm #Rating').val(result.Rating);
+                    $('#EditBookForm #Name').val(result.Name).change();
+                    $('#EditBookForm #ReleaseDate').val(result.FormattedReleaseDate).change();
+                    $('#EditBookForm #Pages').val(result.Pages).change();
+                    $('#EditBookForm #Rating').val(result.Rating).change();
+
+                    if (result.Publisher) {
+                        $('#EditBookForm #Publisher').val(result.Publisher).change();
+                    }
+                    if (result.ISBN) {
+                        $('#EditBookForm #ISBN').val(result.ISBN).change();
+                    }
 
                     var dataArray = new Array(result.Authors.length);
                     result.Authors.forEach(function (item, i, arr) {
@@ -46,26 +78,6 @@
         } else {
             alert('Error!!!');
         }
-
-        $(function () {
-            $("#SubmitBookButton").click(function () {
-                EditBookFunc();
-            });
-        });
-
-        // http://stackoverflow.com/questions/15600437/jquery-validate-plugin-one-field-must-be-empty-if-another-is-empty
-        // https://jqueryvalidation.org/validate
-        $('#EditBookForm').validate({ // initialize the plugin
-            rules: {
-                ISBN: {
-                    required: {
-                        depends: function (element) {
-                            return $("#Publisher").is(":filled");
-                        }
-                    }
-                }
-            }
-        });
-
+        
     });
 </script>
