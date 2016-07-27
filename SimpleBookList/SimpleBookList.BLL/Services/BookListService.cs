@@ -78,10 +78,12 @@ namespace SimpleBookList.BLL.Services
         public BookViewModel CreateBook(BookViewModel bookViewModel)
         {
             Book newBook = this.Mapper.Map<Book>(bookViewModel);
-
-            newBook.Authors =
+            if (bookViewModel.AuthorsIds != null)
+            {
+                newBook.Authors =
                 this.UnitOfWorkProperty.AuthorsRepository.Find(x => bookViewModel.AuthorsIds.Contains(x.Id)).ToList();
-
+            }
+            
             newBook = this.UnitOfWorkProperty.BooksRepository.Create(newBook);
             this.UnitOfWorkProperty.Save();
 
