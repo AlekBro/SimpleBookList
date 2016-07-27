@@ -44,9 +44,14 @@ namespace SimpleBookList.UI
             bundles.Add(new ScriptBundle("~/bundles/forAuthors").Include(
                         "~/Scripts/App/Authors*"));
 
-            // Custom JavaScript for RequiredIfAttribute
-            bundles.Add(new ScriptBundle("~/bundles/BooksValidation").Include(
-                        "~/Scripts/App/Validation.js"));
+            // Custom JavaScript for set datepicker
+            bundles.Add(new ScriptBundle("~/bundles/SetDatepicker").Include(
+                        "~/Scripts/App/SetDatepicker.js"));
+
+            // Custom JavaScript for working Cancel button
+            bundles.Add(new ScriptBundle("~/bundles/CancelButton").Include(
+                        "~/Scripts/App/CancelButton.js"));
+
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

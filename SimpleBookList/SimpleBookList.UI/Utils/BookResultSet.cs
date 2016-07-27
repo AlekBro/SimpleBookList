@@ -65,7 +65,10 @@
                 && (columnFilters[1] == null || (p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(columnFilters[1].ToLower())))
                 && (columnFilters[2] == null || (p.Pages.ToString().ToLower().Contains(columnFilters[2].ToLower())))
                 && (columnFilters[3] == null || (p.Rating.ToString().ToLower().Contains(columnFilters[3].ToLower())))
-                && (columnFilters[4] == null || (p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(columnFilters[4].ToLower()))))));
+                && (columnFilters[4] == null || (p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(columnFilters[4].ToLower())))
+                && (columnFilters[5] == null || (p.Publisher.ToLower().Contains(columnFilters[5].ToLower())))
+                && (columnFilters[6] == null || (p.ISBN.ToLower().Contains(columnFilters[6].ToLower())))
+                )));
 
             return results;
         }

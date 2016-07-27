@@ -1,5 +1,14 @@
 ﻿@model SimpleBookList.Models.BookViewModel
-@Scripts.Render("~/bundles/BooksValidation")
+@Scripts.Render("~/bundles/SetDatepicker")
+@Scripts.Render("~/bundles/CancelButton")
+
+<script type="text/javascript">
+    // Works for CREATE
+    // Enable validation manually:
+    $.validator.unobtrusive.parse($('#CreateBookForm'));
+    var val = $("#CreateBookForm").validate();
+    val.showErrors();
+</script>
 
 @using (Ajax.BeginForm("Create", "Books", null,
                             new AjaxOptions() { HttpMethod = "POST", OnSuccess = "OnCreateSuccess", OnFailure = "OnFailure" }, new { @id = "CreateBookForm" }))
@@ -10,21 +19,15 @@
         <hr />
         @{Html.RenderPartial("_partialForm");}
     </div>
-}
+            }
 
 <script type="text/javascript">
     $(document).ready(function () {
 
-        // http://stackoverflow.com/questions/15600437/jquery-validate-plugin-one-field-must-be-empty-if-another-is-empty
-        // https://jqueryvalidation.org/validate
-        $('#CreateBookForm').validate({ // initialize the plugin
-            rules: {
-                ISBN: {
-                    required: {
-                        depends: function (element) {
-                            return $("#Publisher").is(":filled");
-                        }
-                    }
+        $("#CreateBookForm #ISBN").rules("add", {
+            required: {
+                depends: function (element) {
+                    return $("#Publisher").is(":filled");
                 }
             }
         });

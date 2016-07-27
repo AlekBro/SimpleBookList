@@ -288,7 +288,8 @@
     <Content Include="Scripts\App\Authors.TableLoading.js" />
     <Content Include="Scripts\App\Books.Functions.js" />
     <Content Include="Scripts\App\Books.TableLoading.js" />
-    <Content Include="Scripts\App\Validation.js" />
+    <Content Include="Scripts\App\CancelButton.js" />
+    <Content Include="Scripts\App\SetDatepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\js\dataTables.autoFill.js" />
