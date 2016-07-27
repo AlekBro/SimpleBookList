@@ -8,7 +8,7 @@
     using BLL.Interfaces;
     using Models;
     using Models.DataTableModels;
-    using Utils;
+    using Models.Utils;
 
     /// <summary>
     /// Authors Controller

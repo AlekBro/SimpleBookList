@@ -4,7 +4,7 @@
 // </copyright>
 // <author>AlekBro</author>
 // -----------------------------------------------------------------------
-namespace SimpleBookList.UI.Utils
+namespace SimpleBookList.Models.Utils
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -1,11 +1,11 @@
-﻿namespace SimpleBookList.UI.Utils
+﻿namespace SimpleBookList.Models.Utils
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls; // For SortBy method
 
-    using SimpleBookList.WcfUI.BooksListServiceReference;
     using Models;
+
     /// <summary>
     /// Book List sorting, searching and filtering
     /// </summary>
@@ -59,7 +59,9 @@
             p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(search.ToLower()) ||
              p.Pages.ToString().ToLower().Contains(search.ToLower()) ||
              p.Rating.ToString().ToLower().Contains(search.ToLower()) ||
-                p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(search.ToLower())
+                p.AuthorsNames != null && p.AuthorsNames.ToLower().Contains(search.ToLower()) ||
+                p.Publisher != null && p.Publisher.ToLower().Contains(search.ToLower()) ||
+                p.ISBN != null && p.ISBN.ToLower().Contains(search.ToLower())
 
                 && (columnFilters[0] == null || (p.Name != null && p.Name.ToLower().Contains(columnFilters[0].ToLower())))
                 && (columnFilters[1] == null || (p.ReleaseDate != null && p.ReleaseDate.ToString().ToLower().Contains(columnFilters[1].ToLower())))

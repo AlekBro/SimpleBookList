@@ -8,7 +8,7 @@
 
     using Models;
     using Models.DataTableModels;
-    using Utils;
+    using Models.Utils;
     using WcfUI.BooksListServiceReference;
     /// <summary>
     /// Authors Controller
@@ -22,7 +22,7 @@
         /// </summary>
         public AuthorsController()
         {
-            ServiceClient serviceClient = new ServiceClient();
+            this.serviceClient = new ServiceClient();
         }
 
         /// <summary>

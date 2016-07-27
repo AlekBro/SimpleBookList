@@ -14,7 +14,7 @@ namespace SimpleBookList.WcfUI.Controllers
     using Models;    //using Models;
     using Models.DataTableModels;
     using SimpleBookList.WcfUI.BooksListServiceReference;
-    using UI.Utils;
+    using Models.Utils;
     /// <summary>
     /// Books Controller
     /// </summary>

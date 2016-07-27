@@ -18,7 +18,7 @@ namespace SimpleBookList.WebAPI.Controllers
     using BLL.Interfaces;
     using Models;
     using Models.DataTableModels;
-    using Utils;
+    using Models.Utils;
 
     /// <summary>
     /// Books Controller
