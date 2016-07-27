@@ -4,6 +4,13 @@
 }
 @Scripts.Render("~/bundles/CancelButton")
 
+<script type="text/javascript">
+    // Enable validation manually:
+    $.validator.unobtrusive.parse($('#CreateAuthorForm'));
+    var val = $("#CreateAuthorForm").validate();
+    val.showErrors();
+</script>
+
 @using (Ajax.BeginForm("", "", null,
                                     new AjaxOptions()
                                     {

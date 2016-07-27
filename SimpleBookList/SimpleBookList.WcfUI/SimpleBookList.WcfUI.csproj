@@ -318,6 +318,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Authors\Create.cshtml" />
+    <Content Include="Views\Authors\Delete.cshtml" />
+    <Content Include="Views\Authors\Details.cshtml" />
+    <Content Include="Views\Authors\Edit.cshtml" />
+    <Content Include="Views\Authors\Index.cshtml" />
+    <Content Include="Views\Books\_partialForm.cshtml" />
+    <Content Include="Views\Books\Create.cshtml" />
+    <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Books\Edit.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
     <None Include="Service References\BooksListServiceReference\Service.wsdl" />
     <None Include="Service References\BooksListServiceReference\Service.xsd">
       <SubType>Designer</SubType>
@@ -331,16 +341,9 @@
     <None Include="Service References\BooksListServiceReference\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Authors\Create.cshtml" />
-    <Content Include="Views\Authors\Delete.cshtml" />
-    <Content Include="Views\Authors\Details.cshtml" />
-    <Content Include="Views\Authors\Edit.cshtml" />
-    <Content Include="Views\Authors\Index.cshtml" />
-    <Content Include="Views\Books\_partialForm.cshtml" />
-    <Content Include="Views\Books\Create.cshtml" />
-    <Content Include="Views\Books\Delete.cshtml" />
-    <Content Include="Views\Books\Edit.cshtml" />
-    <Content Include="Views\Books\Index.cshtml" />
+    <None Include="Service References\BooksListServiceReference\Service4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

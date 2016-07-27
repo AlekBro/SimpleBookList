@@ -7,6 +7,8 @@ using System.ServiceModel.Web;
 using System.Text;
 using SimpleBookList.BLL.Interfaces;
 using SimpleBookList.Models;
+using SimpleBookList.Models.DataTableModels;
+using SimpleBookList.Models.Utils;
 
 namespace SimpleBookList.WcfService
 {
@@ -34,6 +36,35 @@ namespace SimpleBookList.WcfService
 
             return allBooks;
         }
+
+
+
+        public DTResult<BookViewModel> GetBooks(DTParameters param)
+        {
+
+            List<string> columnSearch = new List<string>();
+
+            foreach (var col in param.Columns)
+            {
+                columnSearch.Add(col.Search.Value);
+            }
+
+            List<BookViewModel> data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, this._service.GetAllBooks(), columnSearch);
+
+            int count = new BookResultSet().Count(param.Search.Value, this._service.GetAllBooks(), columnSearch);
+
+            DTResult<BookViewModel> result = new DTResult<BookViewModel>
+            {
+                draw = param.Draw,
+                data = data,
+                recordsFiltered = count,
+                recordsTotal = count
+            };
+
+
+            return result;
+        }
+
 
         public BookViewModel GetBookById(int bookId)
         {
@@ -110,6 +141,32 @@ namespace SimpleBookList.WcfService
 
             return allAuthors;
         }
+
+        public DTResult<AuthorViewModel> GetAuthors(DTParameters param)
+        {
+            List<string> columnSearch = new List<string>();
+
+            foreach (var col in param.Columns)
+            {
+                columnSearch.Add(col.Search.Value);
+            }
+
+            List<AuthorViewModel> data = new AuthorResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, this._service.GetAllAuthors(), columnSearch);
+
+            int count = new AuthorResultSet().Count(param.Search.Value, this._service.GetAllAuthors(), columnSearch);
+
+            DTResult<AuthorViewModel> result = new DTResult<AuthorViewModel>
+            {
+                draw = param.Draw,
+                data = data,
+                recordsFiltered = count,
+                recordsTotal = count
+            };
+
+            return result;
+
+        }
+
 
         public AuthorViewModel GetAuthorById(int authorId)
         {

@@ -1,42 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="anyType" nillable="true" type="xs:anyType" />
-  <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
-  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
-  <xs:element name="boolean" nillable="true" type="xs:boolean" />
-  <xs:element name="byte" nillable="true" type="xs:byte" />
-  <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
-  <xs:element name="decimal" nillable="true" type="xs:decimal" />
-  <xs:element name="double" nillable="true" type="xs:double" />
-  <xs:element name="float" nillable="true" type="xs:float" />
-  <xs:element name="int" nillable="true" type="xs:int" />
-  <xs:element name="long" nillable="true" type="xs:long" />
-  <xs:element name="QName" nillable="true" type="xs:QName" />
-  <xs:element name="short" nillable="true" type="xs:short" />
-  <xs:element name="string" nillable="true" type="xs:string" />
-  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
-  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
-  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
-  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
-  <xs:element name="char" nillable="true" type="tns:char" />
-  <xs:simpleType name="char">
-    <xs:restriction base="xs:int" />
-  </xs:simpleType>
-  <xs:element name="duration" nillable="true" type="tns:duration" />
-  <xs:simpleType name="duration">
-    <xs:restriction base="xs:duration">
-      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
-      <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
-      <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="guid" nillable="true" type="tns:guid" />
-  <xs:simpleType name="guid">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SimpleBookList.Models.DataTableModels" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models.DataTableModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:59730/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" />
+  <xs:complexType name="DTParameters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Columns" nillable="true" type="tns:ArrayOfDTColumn" />
+      <xs:element minOccurs="0" name="Draw" type="xs:int" />
+      <xs:element minOccurs="0" name="Length" type="xs:int" />
+      <xs:element minOccurs="0" name="Order" nillable="true" type="tns:ArrayOfDTOrder" />
+      <xs:element minOccurs="0" name="Search" nillable="true" type="tns:DTSearch" />
+      <xs:element minOccurs="0" name="Start" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTParameters" nillable="true" type="tns:DTParameters" />
+  <xs:complexType name="ArrayOfDTColumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DTColumn" nillable="true" type="tns:DTColumn" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDTColumn" nillable="true" type="tns:ArrayOfDTColumn" />
+  <xs:complexType name="DTColumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orderable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Search" nillable="true" type="tns:DTSearch" />
+      <xs:element minOccurs="0" name="Searchable" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTColumn" nillable="true" type="tns:DTColumn" />
+  <xs:complexType name="DTSearch">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Regex" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTSearch" nillable="true" type="tns:DTSearch" />
+  <xs:complexType name="ArrayOfDTOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DTOrder" nillable="true" type="tns:DTOrder" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDTOrder" nillable="true" type="tns:ArrayOfDTOrder" />
+  <xs:complexType name="DTOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Column" type="xs:int" />
+      <xs:element minOccurs="0" name="Dir" type="tns:DTOrderDir" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTOrder" nillable="true" type="tns:DTOrder" />
+  <xs:simpleType name="DTOrderDir">
     <xs:restriction base="xs:string">
-      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+      <xs:enumeration value="ASC" />
+      <xs:enumeration value="DESC" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:attribute name="FactoryType" type="xs:QName" />
-  <xs:attribute name="Id" type="xs:ID" />
-  <xs:attribute name="Ref" type="xs:IDREF" />
+  <xs:element name="DTOrderDir" nillable="true" type="tns:DTOrderDir" />
+  <xs:complexType name="DTResultOfBookViewModelHci1iHm9">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="DTResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models.DataTableModels" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="BookViewModel" Namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" minOccurs="0" name="data" nillable="true" type="q1:ArrayOfBookViewModel" />
+      <xs:element minOccurs="0" name="draw" type="xs:int" />
+      <xs:element minOccurs="0" name="recordsFiltered" type="xs:int" />
+      <xs:element minOccurs="0" name="recordsTotal" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTResultOfBookViewModelHci1iHm9" nillable="true" type="tns:DTResultOfBookViewModelHci1iHm9" />
+  <xs:complexType name="DTResultOfAuthorViewModelHci1iHm9">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="DTResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models.DataTableModels" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="AuthorViewModel" Namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" minOccurs="0" name="data" nillable="true" type="q2:ArrayOfAuthorViewModel" />
+      <xs:element minOccurs="0" name="draw" type="xs:int" />
+      <xs:element minOccurs="0" name="recordsFiltered" type="xs:int" />
+      <xs:element minOccurs="0" name="recordsTotal" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DTResultOfAuthorViewModelHci1iHm9" nillable="true" type="tns:DTResultOfAuthorViewModelHci1iHm9" />
 </xs:schema>

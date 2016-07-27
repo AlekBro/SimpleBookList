@@ -1,20 +1,16 @@
 ﻿
 namespace SimpleBookList.WebAPI.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Http;
-    using System.Web.Mvc;
 
     using BLL.Interfaces;
     using Models;
     using Models.DataTableModels;
     using Models.Utils;
-
 
     public class AuthorsController : ApiController
     {
@@ -163,6 +159,5 @@ namespace SimpleBookList.WebAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
         }
-
     }
 }

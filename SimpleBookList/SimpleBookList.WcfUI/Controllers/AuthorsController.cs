@@ -44,8 +44,7 @@
         {
             try
             {
-                List<AuthorViewModel> allAuthors = this.serviceClient.GetAuthorList().ToList();
-
+                /*
                 List<string> columnSearch = new List<string>();
 
                 foreach (var col in param.Columns)
@@ -53,9 +52,9 @@
                     columnSearch.Add(col.Search.Value);
                 }
 
-                List<AuthorViewModel> data = new AuthorResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allAuthors, columnSearch);
+                List<AuthorViewModel> data = new AuthorResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, this.serviceClient.GetAuthorList(), columnSearch);
 
-                int count = new AuthorResultSet().Count(param.Search.Value, allAuthors, columnSearch);
+                int count = new AuthorResultSet().Count(param.Search.Value, this.serviceClient.GetAuthorList(), columnSearch);
 
                 DTResult<AuthorViewModel> result = new DTResult<AuthorViewModel>
                 {
@@ -64,6 +63,9 @@
                     recordsFiltered = count,
                     recordsTotal = count
                 };
+                */
+                DTResult<AuthorViewModel> result = this.serviceClient.GetAuthors(param);
+
                 return this.Json(result);
             }
             catch (Exception)

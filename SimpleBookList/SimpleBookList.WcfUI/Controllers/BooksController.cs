@@ -50,10 +50,7 @@ namespace SimpleBookList.WcfUI.Controllers
         {
             try
             {
-                var request = Request;
-
-                List<BookViewModel> allBooks = this.serviceClient.GetBookList().ToList();
-
+                /*
                 List<string> columnSearch = new List<string>();
 
                 foreach (var col in param.Columns)
@@ -61,9 +58,9 @@ namespace SimpleBookList.WcfUI.Controllers
                     columnSearch.Add(col.Search.Value);
                 }
 
-                List<BookViewModel> data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allBooks, columnSearch);
+                List<BookViewModel> data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, this.serviceClient.GetBookList(), columnSearch);
 
-                int count = new BookResultSet().Count(param.Search.Value, allBooks, columnSearch);
+                int count = new BookResultSet().Count(param.Search.Value, this.serviceClient.GetBookList(), columnSearch);
 
                 DTResult<BookViewModel> result = new DTResult<BookViewModel>
                 {
@@ -72,6 +69,10 @@ namespace SimpleBookList.WcfUI.Controllers
                     recordsFiltered = count,
                     recordsTotal = count
                 };
+                */
+
+                DTResult<BookViewModel> result = this.serviceClient.GetBooks(param);
+
                 return this.Json(result);
             }
             catch (Exception ex)

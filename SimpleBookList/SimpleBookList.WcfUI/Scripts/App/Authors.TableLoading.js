@@ -26,15 +26,11 @@ $(document).ready(function () {
         return '<a href="/Authors/Details/' + data.Id + '" value="' + data.Id + '">Details</a>';
     };
 
-
-
     var authorsTable = $('#AuthorsListTable').DataTable({
-
         "processing": true, // for show progress bar
         "serverSide": true, // for process server side
         //"filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
-
         "paging": true, // ??
         "deferRender": true, // ??
 

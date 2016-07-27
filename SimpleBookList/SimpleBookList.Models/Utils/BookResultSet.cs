@@ -22,7 +22,7 @@
         /// <param name="columnFilters"></param>
         /// <returns></returns>
         public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length,
-            List<BookViewModel> dtResult, List<string> columnFilters)
+            IEnumerable<BookViewModel> dtResult, List<string> columnFilters)
         {
             if (sortOrder.Contains("Authors"))
             {
@@ -38,7 +38,7 @@
         /// <param name="dtResult"></param>
         /// <param name="columnFilters"></param>
         /// <returns></returns>
-        public int Count(string search, List<BookViewModel> dtResult, List<string> columnFilters)
+        public int Count(string search, IEnumerable<BookViewModel> dtResult, List<string> columnFilters)
         {
             return this.FilterResult(search, dtResult, columnFilters).Count();
         }
@@ -50,7 +50,7 @@
         /// <param name="dtResult"></param>
         /// <param name="columnFilters"></param>
         /// <returns></returns>
-        private IQueryable<BookViewModel> FilterResult(string search, List<BookViewModel> dtResult, List<string> columnFilters)
+        private IQueryable<BookViewModel> FilterResult(string search, IEnumerable<BookViewModel> dtResult, List<string> columnFilters)
         {
             IQueryable<BookViewModel> results = dtResult.AsQueryable();
 

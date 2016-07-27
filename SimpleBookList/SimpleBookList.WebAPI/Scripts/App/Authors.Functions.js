@@ -13,26 +13,32 @@ function EditAuthorFunc() {
 
 	var dataFromForm = $('#EditAuthorForm').serializeObject();
 
-	$.ajax({
-	    url: "/api/Authors/" + dataFromForm.Id,
-	    type: 'PUT',
-	    data: JSON.stringify(dataFromForm),
-		contentType: "application/json;charset=utf-8",
-		success: function (resp) {
-			var authorsTable = $('#AuthorsListTable').dataTable();
+    // Manual Validation
+	$.validator.unobtrusive.parse($('#EditAuthorForm'));
+	$('#EditAuthorForm').validate();
 
-			row = $.grep(authorsTable.fnSettings().aoData, function (obj) {
-				return obj._aData.Id == dataFromForm.Id;
-			})[0].nTr;
+	if ($('#EditAuthorForm').valid()) {
+	    $.ajax({
+	        url: "/api/Authors/" + dataFromForm.Id,
+	        type: 'PUT',
+	        data: JSON.stringify(dataFromForm),
+	        contentType: "application/json;charset=utf-8",
+	        success: function (resp) {
+	            var authorsTable = $('#AuthorsListTable').dataTable();
 
-			authorsTable.fnUpdate(dataFromForm, $(row).get(0));
-			$("#dialogContainer").html("");
-			alert('Author Updated Successfully');
-		},
-		error: function (response) {
-		    ShowApiError(response);
-		}
-	});
+	            row = $.grep(authorsTable.fnSettings().aoData, function (obj) {
+	                return obj._aData.Id == dataFromForm.Id;
+	            })[0].nTr;
+
+	            authorsTable.fnUpdate(dataFromForm, $(row).get(0));
+	            $("#dialogContainer").html("");
+	            alert('Author Updated Successfully');
+	        },
+	        error: function (response) {
+	            ShowApiError(response);
+	        }
+	    });
+	}
 };
 
 // DeleteAuthor and send a message about the this successful operation.

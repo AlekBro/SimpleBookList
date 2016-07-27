@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using SimpleBookList.Models;
+using SimpleBookList.Models.DataTableModels;
 
 namespace SimpleBookList.WcfService
 {
@@ -15,6 +16,11 @@ namespace SimpleBookList.WcfService
     {
         [OperationContract]
         List<BookViewModel> GetBookList();
+
+
+        [OperationContract]
+        DTResult<BookViewModel> GetBooks(DTParameters param);
+
 
         [OperationContract]
         BookViewModel GetBookById(int id);
@@ -28,9 +34,20 @@ namespace SimpleBookList.WcfService
         [OperationContract]
         BookViewModel EditBook(BookViewModel inputBook);
 
-
+        /// <summary>
+        /// Old Version
+        /// </summary>
+        /// <returns></returns>
         [OperationContract]
         List<AuthorViewModel> GetAuthorList();
+
+        /// <summary>
+        /// New version - for filtering on server
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        [OperationContract]
+        DTResult<AuthorViewModel> GetAuthors(DTParameters param);
 
         [OperationContract]
         AuthorViewModel GetAuthorById(int id);

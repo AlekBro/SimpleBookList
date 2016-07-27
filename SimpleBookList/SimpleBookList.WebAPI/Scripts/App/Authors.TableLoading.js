@@ -31,6 +31,7 @@ $(document).ready(function () {
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
         "deferRender": true, // ??
+        "stateSave": true, // restore table state on page reload.
         "ajax": {
             "url": "/API/Authors/",
             "type": "GET",

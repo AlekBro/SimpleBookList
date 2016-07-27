@@ -39,16 +39,6 @@ namespace SimpleBookList.WebAPI.Controllers
             this.service = service;
         }
 
-        /*
-        [System.Web.Http.HttpGet]
-        public HttpResponseMessage Get()
-        {
-            List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
-            return Request.CreateResponse(HttpStatusCode.OK, allBooks);
-        }
-        */
-    
-        
         /// <summary>
         /// Get JSON with Book List
         /// </summary>
@@ -57,7 +47,7 @@ namespace SimpleBookList.WebAPI.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Get([FromUri]DTParameters param)
         {
-            List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
+            
 
             List<string> columnSearch = new List<string>();
             List<BookViewModel> data = null;
@@ -70,13 +60,13 @@ namespace SimpleBookList.WebAPI.Controllers
                     columnSearch.Add(col.Search.Value);
                 }
 
-                data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, allBooks, columnSearch);
-                count = new BookResultSet().Count(param.Search.Value, allBooks, columnSearch);
+                data = new BookResultSet().GetResult(param.Search.Value, param.SortOrder, param.Start, param.Length, this.service.GetAllBooks(), columnSearch);
+                count = new BookResultSet().Count(param.Search.Value, this.service.GetAllBooks(), columnSearch);
                 draw = param.Draw;
             }
             else
             {
-                data = allBooks;
+                data = this.service.GetAllBooks().ToList();
                 count = data.Count();
             }
 
@@ -90,14 +80,12 @@ namespace SimpleBookList.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-        
 
-
-            /// <summary>
-            /// Get one Book by his Id
-            /// </summary>
-            /// <param name="id">Book Id</param>
-            /// <returns>BookViewModel</returns>
+        /// <summary>
+        /// Get one Book by his Id
+        /// </summary>
+        /// <param name="id">Book Id</param>
+        /// <returns>BookViewModel</returns>
         public HttpResponseMessage Get(int id)
         {
             BookViewModel book = this.service.GetOneBook(id);
@@ -132,8 +120,6 @@ namespace SimpleBookList.WebAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
-
-        
 
         /// <summary>
         /// Edit Book

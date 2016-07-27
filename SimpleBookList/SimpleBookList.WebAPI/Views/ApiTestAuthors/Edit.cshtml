@@ -4,7 +4,14 @@
     ViewBag.Title = "Edit Author:" + Model.Name;
 }
 
-<form name="EditAuthorForm" id="EditAuthorForm">
+<script type="text/javascript">
+    // Enable validation manually:
+    $.validator.unobtrusive.parse($('#CreateAuthorForm'));
+    var val = $("#CreateAuthorForm").validate();
+    val.showErrors();
+</script>
+
+<form name="EditAuthorForm" id="EditAuthorForm" data-ajax="true" >
     <div class="form-horizontal">
         <h4>@ViewBag.Title</h4>
         <hr />

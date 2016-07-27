@@ -29,7 +29,7 @@
         /// <summary>
         /// Gets Number of Books of this Author
         /// </summary>
-        public int BooksNumber { get; private set; }
+        public int BooksNumber { get; set; }
 
         /// <summary>
         /// Gets Author full name

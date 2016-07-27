@@ -27,7 +27,7 @@ namespace SimpleBookList.Models.Utils
         /// <param name="dataResult">Input Data</param>
         /// <param name="columnFilters">Column Filters</param>
         /// <returns>List of Author View Model</returns>
-        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length, List<AuthorViewModel> dataResult, List<string> columnFilters)
+        public List<AuthorViewModel> GetResult(string search, string sortOrder, int start, int length, IEnumerable<AuthorViewModel> dataResult, List<string> columnFilters)
         {
             return this.FilterResult(search, dataResult, columnFilters).SortBy(sortOrder).Skip(start).Take(length).ToList();
         }
@@ -39,7 +39,7 @@ namespace SimpleBookList.Models.Utils
         /// <param name="dataResult">Input Data</param>
         /// <param name="columnFilters">Column Filters</param>
         /// <returns>Filter Result Count</returns>
-        public int Count(string search, List<AuthorViewModel> dataResult, List<string> columnFilters)
+        public int Count(string search, IEnumerable<AuthorViewModel> dataResult, List<string> columnFilters)
         {
             return this.FilterResult(search, dataResult, columnFilters).Count();
         }
@@ -51,7 +51,7 @@ namespace SimpleBookList.Models.Utils
         /// <param name="dataResult">Input Data</param>
         /// <param name="columnFilters">Column Filters</param>
         /// <returns>Searching result List</returns>
-        private IQueryable<AuthorViewModel> FilterResult(string search, List<AuthorViewModel> dataResult, List<string> columnFilters)
+        private IQueryable<AuthorViewModel> FilterResult(string search, IEnumerable<AuthorViewModel> dataResult, List<string> columnFilters)
         {
             IQueryable<AuthorViewModel> results = dataResult.AsQueryable();
 

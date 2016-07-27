@@ -21,6 +21,12 @@ namespace SimpleBookList.WcfUI.BooksListServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetBookList", ReplyAction="http://tempuri.org/IService/GetBookListResponse")]
         System.Threading.Tasks.Task<SimpleBookList.Models.BookViewModel[]> GetBookListAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetBooks", ReplyAction="http://tempuri.org/IService/GetBooksResponse")]
+        SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.BookViewModel> GetBooks(SimpleBookList.Models.DataTableModels.DTParameters param);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetBooks", ReplyAction="http://tempuri.org/IService/GetBooksResponse")]
+        System.Threading.Tasks.Task<SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.BookViewModel>> GetBooksAsync(SimpleBookList.Models.DataTableModels.DTParameters param);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetBookById", ReplyAction="http://tempuri.org/IService/GetBookByIdResponse")]
         SimpleBookList.Models.BookViewModel GetBookById(int id);
         
@@ -50,6 +56,12 @@ namespace SimpleBookList.WcfUI.BooksListServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetAuthorList", ReplyAction="http://tempuri.org/IService/GetAuthorListResponse")]
         System.Threading.Tasks.Task<SimpleBookList.Models.AuthorViewModel[]> GetAuthorListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetAuthors", ReplyAction="http://tempuri.org/IService/GetAuthorsResponse")]
+        SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.AuthorViewModel> GetAuthors(SimpleBookList.Models.DataTableModels.DTParameters param);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetAuthors", ReplyAction="http://tempuri.org/IService/GetAuthorsResponse")]
+        System.Threading.Tasks.Task<SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.AuthorViewModel>> GetAuthorsAsync(SimpleBookList.Models.DataTableModels.DTParameters param);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetAuthorById", ReplyAction="http://tempuri.org/IService/GetAuthorByIdResponse")]
         SimpleBookList.Models.AuthorViewModel GetAuthorById(int id);
@@ -111,6 +123,14 @@ namespace SimpleBookList.WcfUI.BooksListServiceReference {
             return base.Channel.GetBookListAsync();
         }
         
+        public SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.BookViewModel> GetBooks(SimpleBookList.Models.DataTableModels.DTParameters param) {
+            return base.Channel.GetBooks(param);
+        }
+        
+        public System.Threading.Tasks.Task<SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.BookViewModel>> GetBooksAsync(SimpleBookList.Models.DataTableModels.DTParameters param) {
+            return base.Channel.GetBooksAsync(param);
+        }
+        
         public SimpleBookList.Models.BookViewModel GetBookById(int id) {
             return base.Channel.GetBookById(id);
         }
@@ -149,6 +169,14 @@ namespace SimpleBookList.WcfUI.BooksListServiceReference {
         
         public System.Threading.Tasks.Task<SimpleBookList.Models.AuthorViewModel[]> GetAuthorListAsync() {
             return base.Channel.GetAuthorListAsync();
+        }
+        
+        public SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.AuthorViewModel> GetAuthors(SimpleBookList.Models.DataTableModels.DTParameters param) {
+            return base.Channel.GetAuthors(param);
+        }
+        
+        public System.Threading.Tasks.Task<SimpleBookList.Models.DataTableModels.DTResult<SimpleBookList.Models.AuthorViewModel>> GetAuthorsAsync(SimpleBookList.Models.DataTableModels.DTParameters param) {
+            return base.Channel.GetAuthorsAsync(param);
         }
         
         public SimpleBookList.Models.AuthorViewModel GetAuthorById(int id) {

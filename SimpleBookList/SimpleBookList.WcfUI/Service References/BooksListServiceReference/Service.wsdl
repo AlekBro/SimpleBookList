@@ -6,6 +6,7 @@
       <xsd:import schemaLocation="http://localhost:59730/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:59730/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models" />
       <xsd:import schemaLocation="http://localhost:59730/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:59730/Service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/SimpleBookList.Models.DataTableModels" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService_GetBookList_InputMessage">
@@ -13,6 +14,12 @@
   </wsdl:message>
   <wsdl:message name="IService_GetBookList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetBookListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksResponse" />
   </wsdl:message>
   <wsdl:message name="IService_GetBookById_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBookById" />
@@ -44,6 +51,12 @@
   <wsdl:message name="IService_GetAuthorList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAuthorListResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_GetAuthors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthors" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetAuthors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorsResponse" />
+  </wsdl:message>
   <wsdl:message name="IService_GetAuthorById_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAuthorById" />
   </wsdl:message>
@@ -73,6 +86,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetBookList" message="tns:IService_GetBookList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GetBookListResponse" message="tns:IService_GetBookList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetBooks" message="tns:IService_GetBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetBooksResponse" message="tns:IService_GetBooks_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetBookById">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetBookById" message="tns:IService_GetBookById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GetBookByIdResponse" message="tns:IService_GetBookById_OutputMessage" />
@@ -92,6 +109,10 @@
     <wsdl:operation name="GetAuthorList">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetAuthorList" message="tns:IService_GetAuthorList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GetAuthorListResponse" message="tns:IService_GetAuthorList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetAuthors" message="tns:IService_GetAuthors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetAuthorsResponse" message="tns:IService_GetAuthors_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAuthorById">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetAuthorById" message="tns:IService_GetAuthorById_InputMessage" />
@@ -114,6 +135,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetBookList">
       <soap:operation soapAction="http://tempuri.org/IService/GetBookList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBooks">
+      <soap:operation soapAction="http://tempuri.org/IService/GetBooks" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -159,6 +189,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAuthorList">
       <soap:operation soapAction="http://tempuri.org/IService/GetAuthorList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthors">
+      <soap:operation soapAction="http://tempuri.org/IService/GetAuthors" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
