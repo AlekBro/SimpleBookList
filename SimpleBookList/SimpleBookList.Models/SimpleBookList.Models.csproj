@@ -70,7 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Class1.cs" />
     <Compile Include="Attributes\RequiredIfAttribute.cs" />
     <Compile Include="AuthorViewModel.cs" />
     <Compile Include="BookViewModel.cs" />

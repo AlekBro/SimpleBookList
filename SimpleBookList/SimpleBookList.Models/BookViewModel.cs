@@ -82,7 +82,7 @@ namespace SimpleBookList.Models
         /// Gets or sets ISBN
         /// </summary>
         [Display(Name = "ISBN")]
-        [RequiredIf("Publisher", ErrorMessage = "Please, input \"ISBN\" or delete Publisher name.")]
+        [RequiredIf("Publisher", ErrorMessage = "The ISBN field is required when Publisher was entered.")]
         [StringLength(100)]
         public string ISBN { get; set; }
 

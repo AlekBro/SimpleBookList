@@ -37,8 +37,6 @@ namespace SimpleBookList.Attributes.Models
         /// </summary>
         public string DependentPropertyName { get; set; }
 
-
-
         /// <summary>
         /// Get client validation rules
         /// </summary>
@@ -55,22 +53,9 @@ namespace SimpleBookList.Attributes.Models
 
             string depProp = this.BuildDependentPropertyId(metadata, context as ViewContext);
 
-            /*
-            // find the value on the control we depend on;
-            // if it's a bool, format it javascript style 
-            // (the default is True or False!)
-            string targetValue = (this.TargetValue ?? string.Empty).ToString();
-            if (this.TargetValue.GetType() == typeof(bool))
-            {
-                targetValue = targetValue.ToLower();
-            }
-            */
-
             rule.ValidationParameters.Add("dependentproperty", depProp);
-            //rule.ValidationParameters.Add("targetvalue", targetValue);
 
             yield return rule;
-
         }
 
         /// <summary>
@@ -81,45 +66,15 @@ namespace SimpleBookList.Attributes.Models
         /// <returns>Validation result</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            /*
-            // get a reference to the property this validation depends upon
-            var containerType = validationContext.ObjectInstance.GetType();
-            var field = containerType.GetProperty(this.DependentPropertyName);
-
-            if (field != null)
-            {
-                // get the value of the dependent property
-                var dependentvalue = field.GetValue(validationContext.ObjectInstance, null);
-
-                // compare the value against the target value
-                if ((dependentvalue == null && this.TargetValue == null) ||
-                    (dependentvalue != null && dependentvalue.Equals(this.TargetValue)))
-                {
-                    // match => means we should try validating this field
-                    if (!this.innerAttribute.IsValid(value))
-                    {
-                        // validation failed - return an error
-                        return new ValidationResult(this.ErrorMessage, new[] { validationContext.MemberName });
-                    }
-                }
-            }
-
-            return ValidationResult.Success;
-            */
-
-
             PropertyInfo property = validationContext.ObjectInstance.GetType().GetProperty(DependentPropertyName);
             object dependentPropertyValue = property.GetValue(validationContext.ObjectInstance, null);
 
-            if (dependentPropertyValue != null && value == null)
+            if ((dependentPropertyValue != null && dependentPropertyValue != "") && (value == null || value == ""))
             {
                 return new ValidationResult(string.Format(ErrorMessageString, validationContext.DisplayName));
             }
 
-
             return ValidationResult.Success;
-
-
         }
 
         /// <summary>
