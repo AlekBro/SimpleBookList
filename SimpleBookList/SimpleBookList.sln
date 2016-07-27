@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WebAPI", "SimpleBookList.WebAPI\SimpleBookList.WebAPI.csproj", "{5FDFA09E-CD88-45EC-8098-6B3C02C3F28C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WcfUI", "SimpleBookList.WcfUI\SimpleBookList.WcfUI.csproj", "{7DD8C62C-9AEB-4CD2-B41F-14C8386607E2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3969394C-64BE-4476-A5B2-DB0EBC8A1553} = {3969394C-64BE-4476-A5B2-DB0EBC8A1553}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBookList.WcfService", "SimpleBookList.WcfService\SimpleBookList.WcfService.csproj", "{3969394C-64BE-4476-A5B2-DB0EBC8A1553}"
 EndProject
