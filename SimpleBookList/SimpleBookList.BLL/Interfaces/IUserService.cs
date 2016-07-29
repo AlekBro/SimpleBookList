@@ -7,10 +7,16 @@
 
     using SimpleBookList.BLL.Infrastructure;
     using Models;
+    using Models.IdentityModels;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IUserService : IDisposable
     {
-        Task<OperationDetails> Create(LoginModel user);
-        Task<ClaimsIdentity> Authenticate(LoginModel user);
-        Task SetInitialData(LoginModel admin, List<string> roles);
+        Task<OperationDetails> Create(LoginViewModel user);
+        Task<ClaimsIdentity> Authenticate(LoginViewModel user);
+        Task SetInitialData(LoginViewModel admin, List<string> roles);
     }
+    // Через объекты данного интерфейса уровень представления будет взаимодействовать с уровнем доступа к данным. Здесь определены только три метода: Create (создание пользователей), Authenticate (аутентификация пользователей) и SetInitialData (установка начальных данных в БД - админа и списка ролей).
 }

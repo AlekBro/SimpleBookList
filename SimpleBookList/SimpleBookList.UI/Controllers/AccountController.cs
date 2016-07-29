@@ -6,10 +6,13 @@
     using Microsoft.Owin.Security;
     using Microsoft.AspNet.Identity.Owin;
     using System.Threading.Tasks;
-    using SimpleBookList.Models;
     using System.Security.Claims;
-    using SimpleBookList.BLL.Interfaces;
-    using SimpleBookList.BLL.Infrastructure;
+
+
+    using BLL.Interfaces;
+    using BLL.Infrastructure;
+    using Models;
+    using Models.IdentityModels;
 
     public class AccountController : Controller
     {
@@ -17,6 +20,7 @@
         {
             get
             {
+                // Поскольку ранее мы зарегитрировали сервис пользователей через контекст OWIN, то теперь мы можем получить этот сервис с помощью метода
                 return HttpContext.GetOwinContext().GetUserManager<IUserService>();
             }
         }
@@ -36,13 +40,13 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel model)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                LoginModel userDto = new LoginModel { Email = model.Email, Password = model.Password };
-                ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                LoginViewModel user = new LoginViewModel { Email = model.Email, Password = model.Password };
+                ClaimsIdentity claim = await UserService.Authenticate(user);
                 if (claim == null)
                 {
                     ModelState.AddModelError("", "Неверный логин или пароль.");
@@ -73,12 +77,12 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                LoginModel userDto = new LoginModel
+                LoginViewModel user = new LoginViewModel
                 {
                     Email = model.Email,
                     Password = model.Password,
@@ -86,7 +90,7 @@
                     Name = model.Name,
                     Role = "user"
                 };
-                OperationDetails operationDetails = await UserService.Create(userDto);
+                OperationDetails operationDetails = await UserService.Create(user);
                 if (operationDetails.Succedeed)
                     return View("SuccessRegister");
                 else
@@ -94,9 +98,11 @@
             }
             return View(model);
         }
+
+
         private async Task SetInitialDataAsync()
         {
-            await UserService.SetInitialData(new LoginModel
+            LoginViewModel newLogin = new LoginViewModel
             {
                 Email = "somemail@mail.ru",
                 UserName = "somemail@mail.ru",
@@ -104,7 +110,11 @@
                 Name = "Семен Семенович Горбунков",
                 Address = "ул. Спортивная, д.30, кв.75",
                 Role = "admin",
-            }, new List<string> { "user", "admin" });
+            };
+
+            List<string> newRoles = new List<string> { "user", "admin" };
+
+            await UserService.SetInitialData(newLogin, newRoles);
         }
     }
 }

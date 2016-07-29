@@ -48,8 +48,12 @@ namespace SimpleBookList.DAL.Repositories
         {
             this.context = new Entities(connectionString);
 
-            db = new ApplicationContext(connectionString);
+            db = new ApplicationDbContext("IdentityConnection");
+
+            // класс хранилища пользователей - UserStore реализует интерфейс IUserStore.
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+
+            // класс хранилища ролей - RoleStore реализует интерфейс IRoleStore.
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
             clientManager = new ClientManager(db);
         }
@@ -140,9 +144,10 @@ namespace SimpleBookList.DAL.Repositories
         }
 
 
+        // ---------------------------------------------------------------------------------------------------------------
+        // Класс инкапсулирует все менеджеры для работы с сущностями в виде свойств и хранит общий контекст данных.
 
-
-        private ApplicationContext db;
+        private ApplicationDbContext db;
 
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;

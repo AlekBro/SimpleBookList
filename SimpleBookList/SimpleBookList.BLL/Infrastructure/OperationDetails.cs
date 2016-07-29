@@ -18,4 +18,5 @@ namespace SimpleBookList.BLL.Infrastructure
         public string Message { get; private set; }
         public string Property { get; private set; }
     }
+    // Данный класс будет хранить информацию об успешности операции. Свойство Succedeed указывает, успешна ли операция, а свойства Message и Property будут хранить соответственно сообщение об ошибке и свойство, на котормо произошла ошибка.
 }

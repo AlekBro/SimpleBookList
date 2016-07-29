@@ -32,6 +32,7 @@ namespace SimpleBookList.DAL.Interfaces
         void Save();
 
 
+        // Объект UnitOfWork будет содержать ссылки на менеджеры пользователей и ролей, а также на репозиторий пользователей.
         ApplicationUserManager UserManager { get; }
         IClientManager ClientManager { get; }
         ApplicationRoleManager RoleManager { get; }

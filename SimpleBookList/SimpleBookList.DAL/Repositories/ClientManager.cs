@@ -4,10 +4,13 @@
     using IdEntities;
     using Interfaces;
 
+    /// <summary>
+    /// Класс управления профилями
+    /// </summary>
     public class ClientManager : IClientManager
     {
-        public ApplicationContext Database { get; set; }
-        public ClientManager(ApplicationContext db)
+        public ApplicationDbContext Database { get; set; }
+        public ClientManager(ApplicationDbContext db)
         {
             Database = db;
         }

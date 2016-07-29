@@ -2,15 +2,17 @@
 namespace SimpleBookList.BLL.Services
 {
 
-    using SimpleBookList.BLL.Infrastructure;
-    using SimpleBookList.DAL.IdEntities;
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
     using System.Security.Claims;
-    using SimpleBookList.BLL.Interfaces;
-    using SimpleBookList.DAL.Interfaces;
     using System.Collections.Generic;
-    using Models;
+
+    using Infrastructure;
+    using Interfaces;
+    using DAL.IdEntities;
+    using DAL.Interfaces;
+    using Models.IdentityModels;
+
     public class UserService : IUserService
     {
         IUnitOfWork Database { get; set; }
@@ -20,7 +22,7 @@ namespace SimpleBookList.BLL.Services
             Database = uow;
         }
 
-        public async Task<OperationDetails> Create(LoginModel user)
+        public async Task<OperationDetails> Create(LoginViewModel user)
         {
             ApplicationUser appUser = await Database.UserManager.FindByEmailAsync(user.Email);
             if (appUser == null)
@@ -41,7 +43,7 @@ namespace SimpleBookList.BLL.Services
             }
         }
 
-        public async Task<ClaimsIdentity> Authenticate(LoginModel user)
+        public async Task<ClaimsIdentity> Authenticate(LoginViewModel user)
         {
             ClaimsIdentity claim = null;
             // находим пользователя
@@ -54,7 +56,7 @@ namespace SimpleBookList.BLL.Services
         }
 
         // начальная инициализация бд
-        public async Task SetInitialData(LoginModel admin, List<string> roles)
+        public async Task SetInitialData(LoginViewModel admin, List<string> roles)
         {
             foreach (string roleName in roles)
             {
@@ -73,4 +75,5 @@ namespace SimpleBookList.BLL.Services
             Database.Dispose();
         }
     }
+    // С помощью объекта IUnitOfWork сервис будет взаимодействовать с базой данных.
 }

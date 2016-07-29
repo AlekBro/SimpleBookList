@@ -6,7 +6,9 @@ namespace SimpleBookList.DAL.IdEntities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-
+    /// <summary>
+    /// класс профиля пользователя
+    /// </summary>
     public class ClientProfile
     {
         [Key]

@@ -8,8 +8,9 @@ namespace SimpleBookList.BLL.Infrastructure
 {
     using DAL.Interfaces;
     using DAL.Repositories;
+    using Interfaces;
     using Ninject.Modules;
-
+    using Services;
     /// <summary>
     /// Dependency injection for UnitOfWork
     /// </summary>
@@ -35,7 +36,8 @@ namespace SimpleBookList.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(this.connectionString);
-            //Bind<IClientManager>().To<ClientManager>().WithConstructorArgument(this.connectionString);
+
+            Bind<IUserService>().To<UserService>().WithConstructorArgument(this.connectionString);
         }
     }
 }

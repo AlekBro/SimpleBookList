@@ -81,10 +81,10 @@
     <Compile Include="DataTableModels\DTResult.cs" />
     <Compile Include="DataTableModels\DTRow.cs" />
     <Compile Include="DataTableModels\DTSearch.cs" />
-    <Compile Include="LoginModel.cs" />
+    <Compile Include="IdentityModels\UserViewModel.cs" />
     <Compile Include="ModelException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterModel.cs" />
+    <Compile Include="IdentityModels\RegisterModel.cs" />
     <Compile Include="Utils\AuthorResultSet.cs" />
     <Compile Include="Utils\BookResultSet.cs" />
   </ItemGroup>
