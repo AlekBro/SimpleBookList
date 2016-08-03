@@ -19,9 +19,7 @@
 
     @Scripts.Render("~/bundles/forAuthors")
     
-
     @Scripts.Render("~/bundles/jqueryMultiSelect")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,6 +38,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
@@ -50,11 +49,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-
-    
-
-   
 
     @RenderSection("scripts", required: false)
 </body>
