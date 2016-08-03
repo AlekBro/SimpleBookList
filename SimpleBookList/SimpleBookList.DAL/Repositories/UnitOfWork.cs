@@ -8,13 +8,10 @@ namespace SimpleBookList.DAL.Repositories
 {
     using System;
     using System.Threading.Tasks;
-    using Microsoft.AspNet.Identity.EntityFramework;
 
     using DAL;
     using Interfaces;
-    using EF;
-    using Identity;
-    using IdEntities;
+
     /// <summary>
     /// implementation of Unit Of Work Pattern interface 
     /// </summary>
@@ -47,15 +44,6 @@ namespace SimpleBookList.DAL.Repositories
         public UnitOfWork(string connectionString)
         {
             this.context = new Entities(connectionString);
-
-            db = new ApplicationDbContext("IdentityConnection");
-
-            // класс хранилища пользователей - UserStore реализует интерфейс IUserStore.
-            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-
-            // класс хранилища ролей - RoleStore реализует интерфейс IRoleStore.
-            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            clientManager = new ClientManager(db);
         }
 
         /// <summary>
@@ -104,7 +92,6 @@ namespace SimpleBookList.DAL.Repositories
         public void Save()
         {
             this.context.SaveChanges();
-            this.db.SaveChanges();
         }
 
         /// https://msdn.microsoft.com/en-us/library/fs2xkftw%28v=vs.110%29.aspx
@@ -132,49 +119,10 @@ namespace SimpleBookList.DAL.Repositories
             {
                 // Free any other managed objects here.
                 this.context.Dispose();
-
-                this.db.Dispose(); // ??????
-                this.userManager.Dispose();
-                this.roleManager.Dispose();
-                this.clientManager.Dispose();
             }
 
             // Free any unmanaged objects here.
             this.disposed = true;
         }
-
-
-        // ---------------------------------------------------------------------------------------------------------------
-        // Класс инкапсулирует все менеджеры для работы с сущностями в виде свойств и хранит общий контекст данных.
-
-        private ApplicationDbContext db;
-
-        private ApplicationUserManager userManager;
-        private ApplicationRoleManager roleManager;
-        private IClientManager clientManager;
-
-
-        public ApplicationUserManager UserManager
-        {
-            get { return userManager; }
-        }
-
-        public IClientManager ClientManager
-        {
-            get { return clientManager; }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get { return roleManager; }
-        }
-
-        public async Task SaveAsync()
-        {
-            await this.db.SaveChangesAsync();
-            await this.context.SaveChangesAsync(); //
-        }
-
-
     }
 }

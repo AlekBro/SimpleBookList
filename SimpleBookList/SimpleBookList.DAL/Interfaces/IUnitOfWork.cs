@@ -9,8 +9,6 @@ namespace SimpleBookList.DAL.Interfaces
     using System;
     using System.Threading.Tasks;
 
-    using Identity;
-
     /// <summary>
     /// Unit Of Work Pattern interface
     /// </summary>
@@ -30,13 +28,6 @@ namespace SimpleBookList.DAL.Interfaces
         /// Save all changes in Database
         /// </summary>
         void Save();
-
-
-        // Объект UnitOfWork будет содержать ссылки на менеджеры пользователей и ролей, а также на репозиторий пользователей.
-        ApplicationUserManager UserManager { get; }
-        IClientManager ClientManager { get; }
-        ApplicationRoleManager RoleManager { get; }
-        Task SaveAsync();
 
     }
 }
