@@ -4,11 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+<h1 id="booksTitle">SimpleBookList</h1>
 <h2>List of All Authors</h2>
 
-<p>
-    @Html.ActionLink("Add New Author", "Create")
-</p>
+<hr />
+<hr />
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>@Html.ActionLink("Add New Author", "Create")</p>
+}
+
+
 <table class="table" id="AuthorsListTable" cellspacing="0" style="width:100%;">
     <thead>
         <tr>
@@ -35,6 +41,6 @@
             </th>
         </tr>
     </thead>
-<tbody></tbody>
+    <tbody></tbody>
 
 </table>

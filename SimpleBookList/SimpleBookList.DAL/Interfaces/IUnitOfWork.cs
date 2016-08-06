@@ -28,6 +28,5 @@ namespace SimpleBookList.DAL.Interfaces
         /// Save all changes in Database
         /// </summary>
         void Save();
-
     }
 }

@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using SimpleBookList.Models;
-using SimpleBookList.Models.DataTableModels;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="IService.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
 namespace SimpleBookList.WcfService
 {
+    using System.Collections.Generic;
+    using System.ServiceModel;
+
+    using Models;
+    using Models.DataTableModels;
+
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IService

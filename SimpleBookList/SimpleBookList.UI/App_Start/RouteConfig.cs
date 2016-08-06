@@ -25,7 +25,7 @@ namespace SimpleBookList.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}/{*catchall}",
-                defaults: new { controller = "Books", action = "Index", id = UrlParameter.Optional });
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

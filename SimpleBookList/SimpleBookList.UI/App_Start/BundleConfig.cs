@@ -14,7 +14,7 @@ namespace SimpleBookList.UI
     public class BundleConfig
     {
         /// <summary>
-        /// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// Register and config Bundles
         /// </summary>
         /// <param name="bundles">Bundle Collection</param>
         public static void RegisterBundles(BundleCollection bundles)
@@ -36,11 +36,11 @@ namespace SimpleBookList.UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryDatatables").Include(
                         "~/Scripts/jquery.dataTables*"));
 
-            // Custom JavaScripts
+            // Custom JavaScripts for Books
             bundles.Add(new ScriptBundle("~/bundles/forBooks").Include(
                         "~/Scripts/App/Books*"));
 
-            // Custom JavaScripts
+            // Custom JavaScripts for Authors
             bundles.Add(new ScriptBundle("~/bundles/forAuthors").Include(
                         "~/Scripts/App/Authors*"));
 
@@ -51,7 +51,6 @@ namespace SimpleBookList.UI
             // Custom JavaScript for working Cancel button
             bundles.Add(new ScriptBundle("~/bundles/CancelButton").Include(
                         "~/Scripts/App/CancelButton.js"));
-
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

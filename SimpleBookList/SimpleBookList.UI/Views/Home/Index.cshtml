@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "SimpleBookList";
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+    <p class="lead">Thit is test ASP.NET MVC Application</p>
+</div>
+
+@if (!Request.IsAuthenticated)
+{
+<p>To use functions of this site, you need to @Html.ActionLink("register", "Register", "Account") or 
+    @Html.ActionLink("log in", "Login", "Account").</p>
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>You can add new books and authors, edit books and authors. Also, you can delete them.</p>
+}
+
+@if (Request.IsAuthenticated && User.IsInRole("User"))
+{
+    <p>You can browse list of all books and authors. Also, you can search, filter books list or change order.</p>
+}

@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.WebAPI.Utils
+﻿// -----------------------------------------------------------------------
+// <copyright file="NinjectDependencyScope.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.WebAPI.Utils
 {
     using System;
     using System.Web.Http.Dependencies;
@@ -32,6 +38,9 @@
             return resolver.GetAll(serviceType);
         }
 
+        /// <summary>
+        /// Dispose resoures
+        /// </summary>
         public void Dispose()
         {
             IDisposable disposable = resolver as IDisposable;

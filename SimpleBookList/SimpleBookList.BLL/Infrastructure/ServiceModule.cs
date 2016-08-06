@@ -6,11 +6,11 @@
 // -----------------------------------------------------------------------
 namespace SimpleBookList.BLL.Infrastructure
 {
+    using Ninject.Modules;
+
     using DAL.Interfaces;
     using DAL.Repositories;
-    using Interfaces;
-    using Ninject.Modules;
-    using Services;
+    
     /// <summary>
     /// Dependency injection for UnitOfWork
     /// </summary>

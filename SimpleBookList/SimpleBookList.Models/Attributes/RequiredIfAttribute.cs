@@ -25,11 +25,9 @@ namespace SimpleBookList.Attributes.Models
         /// Initializes a new instance of the <see cref="RequiredIfAttribute" /> class.
         /// </summary>
         /// <param name="dependentPropertyName">dependent property</param>
-        /// <param name="targetValue">target value</param>
         public RequiredIfAttribute(string dependentPropertyName)
         {
             this.DependentPropertyName = dependentPropertyName;
-
         }
 
         /// <summary>
@@ -66,7 +64,7 @@ namespace SimpleBookList.Attributes.Models
         /// <returns>Validation result</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            PropertyInfo property = validationContext.ObjectInstance.GetType().GetProperty(DependentPropertyName);
+            PropertyInfo property = validationContext.ObjectInstance.GetType().GetProperty(this.DependentPropertyName);
             object dependentPropertyValue = property.GetValue(validationContext.ObjectInstance, null);
 
             if (dependentPropertyValue != null && value == null)

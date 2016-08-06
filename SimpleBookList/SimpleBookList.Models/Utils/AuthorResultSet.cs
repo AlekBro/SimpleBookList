@@ -55,7 +55,12 @@ namespace SimpleBookList.Models.Utils
         {
             IQueryable<AuthorViewModel> results = dataResult.AsQueryable();
 
-            results = results.Where(p => (search == null || (p.FirstName != null && p.FirstName.ToLower().Contains(search.ToLower()) || p.LastName != null && p.LastName.ToLower().Contains(search.ToLower()) || p.BooksNumber.ToString().ToLower().Contains(search.ToLower()) && (columnFilters[0] == null || (p.FirstName != null && p.FirstName.ToLower().Contains(columnFilters[0].ToLower()))) && (columnFilters[1] == null || (p.LastName != null && p.LastName.ToLower().Contains(columnFilters[1].ToLower()))) && (columnFilters[2] == null || (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower()))))));
+            results = results.Where(p => (search == null || (p.FirstName != null && p.FirstName.ToLower().Contains(search.ToLower())
+            || p.LastName != null && p.LastName.ToLower().Contains(search.ToLower()) ||
+            p.BooksNumber.ToString().ToLower().Contains(search.ToLower()) && (columnFilters[0] == null ||
+            (p.FirstName != null && p.FirstName.ToLower().Contains(columnFilters[0].ToLower()))) && (columnFilters[1] == null ||
+            (p.LastName != null && p.LastName.ToLower().Contains(columnFilters[1].ToLower()))) && (columnFilters[2] == null ||
+            (p.BooksNumber.ToString().ToLower().Contains(columnFilters[2].ToLower()))))));
 
             return results;
         }

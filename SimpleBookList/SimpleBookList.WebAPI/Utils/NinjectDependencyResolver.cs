@@ -27,7 +27,7 @@ namespace SimpleBookList.WebAPI.Utils
 
         public IDependencyScope BeginScope()
         {
-            return new NinjectDependencyScope(kernel.BeginBlock());
+            return new NinjectDependencyScope(this.kernel.BeginBlock());
         }
     }
 }

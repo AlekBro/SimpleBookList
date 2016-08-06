@@ -6,11 +6,12 @@
 // -----------------------------------------------------------------------
 namespace SimpleBookList.Models
 {
-    using Attributes.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
+
+    using Attributes.Models;
 
     /// <summary>
     /// Book View Model

@@ -16,10 +16,11 @@ namespace SimpleBookList.UI.Controllers
     using Models;
     using Models.DataTableModels;
     using Models.Utils;
-
+    using Utils;
     /// <summary>
     /// Books Controller
     /// </summary>
+    [CustomAuthorizeAttribute(Roles = "User")]
     public class BooksController : MainController
     {
         /// <summary>
@@ -89,6 +90,7 @@ namespace SimpleBookList.UI.Controllers
         /// Create new Book
         /// </summary>
         /// <returns>From for creating new Book</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -104,6 +106,7 @@ namespace SimpleBookList.UI.Controllers
         /// </summary>
         /// <param name="newBook">BookModel with new Book</param>
         /// <returns>BookModel or Exception</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookViewModel newBook)
@@ -126,6 +129,7 @@ namespace SimpleBookList.UI.Controllers
         /// </summary>
         /// <param name="id">Book Id</param>
         /// <returns>PartialView for Editing or Exception</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -152,6 +156,7 @@ namespace SimpleBookList.UI.Controllers
         /// </summary>
         /// <param name="bookForUpdate">updated BookModel</param>
         /// <returns>BookModel or Exception</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BookViewModel bookForUpdate)
@@ -174,6 +179,7 @@ namespace SimpleBookList.UI.Controllers
         /// </summary>
         /// <param name="id">Book Id</param>
         /// <returns>PartialView for Deleting or Exception</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -195,6 +201,7 @@ namespace SimpleBookList.UI.Controllers
         /// </summary>
         /// <param name="id">Book Id</param>
         /// <returns>BookModel or Exception</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -212,7 +219,5 @@ namespace SimpleBookList.UI.Controllers
                 throw new ModelException(ViewData.ModelState);
             }
         }
-
-
     }
 }

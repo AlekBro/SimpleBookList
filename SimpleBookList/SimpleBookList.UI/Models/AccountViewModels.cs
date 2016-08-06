@@ -1,8 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="AccountViewModels.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
 namespace SimpleBookList.UI.IdentityModels
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

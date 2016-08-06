@@ -11,8 +11,17 @@ namespace SimpleBookList.UI.Controllers
     /// <summary>
     /// Home Controller
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : MainController
     {
+        /// <summary>
+        /// Main page
+        /// </summary>
+        /// <returns>>View with Main page for this Application</returns>
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Information about this Application
         /// </summary>
@@ -30,5 +39,12 @@ namespace SimpleBookList.UI.Controllers
         {
             return this.View();
         }
+
+        public ActionResult Unauthorized()
+        {
+            return this.View();
+        }
+        
+
     }
 }

@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.Models
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthorViewModel.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -27,7 +33,7 @@
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets Number of Books of this Author
+        /// Gets or sets Number of Books of this Author
         /// </summary>
         public int BooksNumber { get; set; }
 

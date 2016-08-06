@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="AccountController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -9,11 +15,11 @@
     using Models;
     using Models.DataTableModels;
     using Models.Utils;
-
+    using Utils;
     /// <summary>
     /// Authors Controller
     /// </summary>
-    [Authorize(Roles ="Admin")]
+    [CustomAuthorizeAttribute(Roles ="User")]
     public class AuthorsController : MainController
     {
         /// <summary>
@@ -93,6 +99,7 @@
         /// Create new Author
         /// </summary>
         /// <returns>Form for creating</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -104,6 +111,7 @@
         /// </summary>
         /// <param name="author">Author View Model</param>
         /// <returns>Creating result</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuthorViewModel author)
@@ -123,6 +131,7 @@
         /// </summary>
         /// <param name="id">Author Id</param>
         /// <returns>Form for updating</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -146,6 +155,7 @@
         /// </summary>
         /// <param name="author">Author View Model</param>
         /// <returns>Updating result</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AuthorViewModel author)
@@ -165,6 +175,7 @@
         /// </summary>
         /// <param name="id">Author Id</param>
         /// <returns>Form for deleting</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -187,6 +198,7 @@
         /// </summary>
         /// <param name="id">Author Id</param>
         /// <returns>Form for Author deleting</returns>
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

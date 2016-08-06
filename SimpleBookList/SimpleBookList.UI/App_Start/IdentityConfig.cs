@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using SimpleBookList.UI.IdentityModels;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="IdentityConfig.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
 namespace SimpleBookList.UI
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security;
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using IdentityModels;
+
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -32,7 +35,9 @@ namespace SimpleBookList.UI
         }
     }
 
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    /// <summary>
+    /// Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    /// </summary>
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -88,7 +93,9 @@ namespace SimpleBookList.UI
         }
     }
 
-    // Configure the application sign-in manager which is used in this application.
+    /// <summary>
+    ///  Configure the application sign-in manager which is used in this application.
+    /// </summary>
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
@@ -107,29 +114,25 @@ namespace SimpleBookList.UI
         }
     }
 
-    // -----------------------------------------------------------------------------------------
-
-    // http://metanit.com/sharp/mvc5/12.19.php
-
     /// <summary>
-    ///  класс наследует весь функционал от IdentityRole плюс добавляет новое свойство Description, которое будет содержать описание роли.
-    /// </summary>
-    /*
-    public class ApplicationRole : IdentityRole
-    {
-        public ApplicationRole() { }
-
-        public string Description { get; set; }
-    }
-    */
-    /// <summary>
-    /// Для управления ролями используется менеджер ролей RoleManager.
+    /// Для управления ролями используется менеджер ролей RoleManager - http://metanit.com/sharp/mvc5/12.19.php
     /// </summary>
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="store"></param>
         public ApplicationRoleManager(RoleStore<IdentityRole> store)
                     : base(store)
         { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
                                                 IOwinContext context)
         {
@@ -137,8 +140,4 @@ namespace SimpleBookList.UI
                     RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
         }
     }
-
-    // -----------------------------------------------------------------------------------------
-
-
 }

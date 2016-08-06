@@ -1,4 +1,10 @@
-﻿namespace SimpleBookList.UI.Controllers
+﻿// -----------------------------------------------------------------------
+// <copyright file="MainController.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+namespace SimpleBookList.UI.Controllers
 {
     using System;
     using System.Web.Mvc;
@@ -16,6 +22,18 @@
             Exception ex = filterContext.Exception;
 
             filterContext.ExceptionHandled = true;
+
+            if (ex is NotEnuffRightsException)
+            {
+                filterContext.HttpContext.Response.StatusCode = 403;
+                //filterContext.Result = new JsonResult { Data = ex.Message };
+                filterContext.Result = new JsonResult
+                {
+                    Data = new { error = ex.Message },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+                return;
+            }
 
             if (ex is ModelException)
             {

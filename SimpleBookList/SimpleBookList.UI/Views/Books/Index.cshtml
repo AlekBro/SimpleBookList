@@ -12,8 +12,10 @@
 <div id="dialogContainer"></div>
 <hr />
 
-<p><button id="CreateNewBookButton">Add New Book</button></p>
-
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p><button id="CreateNewBookButton">Add New Book</button></p>
+}
 
 <script>
     $(function () {
@@ -83,15 +85,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.ISBN)
             </th>
-            <th>
-                Edit
-            </th>
-            <th>
-                Delete
-            </th>
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Delete
+                </th>
         </tr>
     </thead>
-    
+
 </table>
-
-

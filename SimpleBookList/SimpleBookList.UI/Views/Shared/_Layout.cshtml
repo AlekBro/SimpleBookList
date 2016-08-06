@@ -18,10 +18,17 @@
     @Scripts.Render("~/bundles/forBooks")
 
     @Scripts.Render("~/bundles/forAuthors")
-    
+
     @Scripts.Render("~/bundles/jqueryMultiSelect")
 </head>
 <body>
+    <script>
+        $(document).ajaxError(function (e, xhr, opts) {
+            if (xhr.status == 403 && xhr.responseText.indexOf("NotEnuffRights") != -1) {
+                window.location.href = "@Url.Action("Unauthorized", "Home")";
+            }
+        });
+    </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -30,6 +37,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Book List", "Index", "Books", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Author List", "Index", "Authors", new { area = "" }, new { @class = "navbar-brand" })
             </div>

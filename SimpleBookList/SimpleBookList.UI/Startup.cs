@@ -1,7 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Startup.cs" company="AlekBro">
+//     AlekBro. All rights reserved.
+// </copyright>
+// <author>AlekBro</author>
+// -----------------------------------------------------------------------
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+
 using SimpleBookList.UI.IdentityModels;
 
 [assembly: OwinStartupAttribute(typeof(SimpleBookList.UI.Startup))]
@@ -17,7 +24,7 @@ namespace SimpleBookList.UI
         }
 
         /// <summary>
-        /// Первичная инициализация основного пользователя и ролей
+        /// Primary initialization for test Admin and test User users
         /// </summary>
         private void CreateMainRolesAndUsers()
         {
@@ -26,7 +33,7 @@ namespace SimpleBookList.UI
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            // In Startup iam creating first Admin Role and creating a default Admin User    
+            // Creating Admin Role
             if (!roleManager.RoleExists("Admin"))
             {
                 // first we create Admin rool   
@@ -35,40 +42,48 @@ namespace SimpleBookList.UI
                 roleManager.Create(role);
             }
 
-            ApplicationUser resultUser = UserManager.FindByEmail("MainAdmin@apriorit.com");
-
-            if (resultUser == null)
-            {
-                //Here we create a Admin user
-                var user = new ApplicationUser();
-                user.UserName = "MainAdmin@apriorit.com";
-                user.Email = "MainAdmin@apriorit.com";
-                
-                string userPassword = "123Qwe!*)";
-
-                var сreatingUserResult = UserManager.Create(user, userPassword);
-
-                //Add default User to Role Admin   
-                if (сreatingUserResult.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id, "Admin");
-                }
-            }
-
-            // creating Creating Manager role    
-            if (!roleManager.RoleExists("Manager"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Manager";
-                roleManager.Create(role);
-            }
-
-            // creating Creating User role    
+            // Creating User role    
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole();
                 role.Name = "User";
                 roleManager.Create(role);
+            }
+
+            ApplicationUser resultAdmin = UserManager.FindByEmail("TestAdmin@test.com");
+            if (resultAdmin == null)
+            {
+                //Here we create a Admin user
+                var user = new ApplicationUser();
+                user.UserName = "TestAdmin@test.com";
+                user.Email = "TestAdmin@test.com";
+                
+                string userPassword = "123Qwe!*)";
+
+                var сreatingUserResult = UserManager.Create(user, userPassword);
+
+                //Add default User to Role Admin and User  
+                if (сreatingUserResult.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "Admin");
+                    UserManager.AddToRole(user.Id, "User");
+                }
+            }
+
+            ApplicationUser resultUser = UserManager.FindByEmail("TestUser@test.com");
+            if (resultUser == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "TestUser@test.com";
+                user.Email = "TestUser@test.com";
+
+                string userPassword = "123Qwe!*)";
+
+                var сreatingUserResult = UserManager.Create(user, userPassword);
+                if (сreatingUserResult.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "User");
+                }
             }
         }
     }

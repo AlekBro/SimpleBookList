@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomException.cs" company="AlekBro">
+// <copyright file="ModelException.cs" company="AlekBro">
 //     AlekBro. All rights reserved.
 // </copyright>
 // <author>AlekBro</author>
