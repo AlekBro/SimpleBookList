@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -19,14 +20,42 @@ namespace SimpleBookList.UI.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationRoleManager _roleManager;
+
         public AccountController()
         {
+
+            /*
+
+            // создаем две роли
+            var role1 = new IdentityRole { Name = "admin" };
+            var role2 = new IdentityRole { Name = "user" };
+
+            // добавляем роли в бд
+            if (!RoleManager.Roles.Select(x => x.Name == role1.Name).Any())
+            {
+                RoleManager.Create(role1);
+            }
+
+            if (!RoleManager.Roles.Select(x => x.Name == role2.Name).Any())
+            {
+                RoleManager.Create(role2);
+            }
+
+            */
+
+
+
+
+
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+
+            _roleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -35,9 +64,9 @@ namespace SimpleBookList.UI.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,6 +81,21 @@ namespace SimpleBookList.UI.Controllers
                 _userManager = value;
             }
         }
+
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
+
 
         //
         // GET: /Account/Login
@@ -121,7 +165,7 @@ namespace SimpleBookList.UI.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -156,8 +200,17 @@ namespace SimpleBookList.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    // По-умолчанию всех регистрируем как User
+                    var AddToRoleResult = UserManager.AddToRole(user.Id, "User");
+
+                    if (!AddToRoleResult.Succeeded)
+                    {
+                        AddErrors(AddToRoleResult);
+                        return View(model);
+                    }
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

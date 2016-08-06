@@ -13,7 +13,7 @@
     /// <summary>
     /// Authors Controller
     /// </summary>
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles ="Admin")]
     public class AuthorsController : MainController
     {
         /// <summary>

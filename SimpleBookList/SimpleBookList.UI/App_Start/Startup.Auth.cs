@@ -17,8 +17,19 @@ namespace SimpleBookList.UI
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
+
+            // !MY! 
+            // http://metanit.com/sharp/mvc5/12.19.php
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+            // нам надо зарегистрировать менеджер ролей в классе приложения OWIN
+            // Благодаря регистрации менеджер ролей будет использовать тот же контекст данных, что и менеджер пользователей.
+
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+
+            
+
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

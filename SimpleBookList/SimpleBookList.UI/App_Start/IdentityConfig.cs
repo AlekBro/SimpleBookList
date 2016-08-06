@@ -12,7 +12,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SimpleBookList.UI.IdentityModels;
 
-
 namespace SimpleBookList.UI
 {
     public class EmailService : IIdentityMessageService
@@ -41,7 +40,7 @@ namespace SimpleBookList.UI
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -82,7 +81,7 @@ namespace SimpleBookList.UI
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
@@ -107,4 +106,39 @@ namespace SimpleBookList.UI
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+
+    // -----------------------------------------------------------------------------------------
+
+    // http://metanit.com/sharp/mvc5/12.19.php
+
+    /// <summary>
+    ///  класс наследует весь функционал от IdentityRole плюс добавляет новое свойство Description, которое будет содержать описание роли.
+    /// </summary>
+    /*
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() { }
+
+        public string Description { get; set; }
+    }
+    */
+    /// <summary>
+    /// Для управления ролями используется менеджер ролей RoleManager.
+    /// </summary>
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
+    {
+        public ApplicationRoleManager(RoleStore<IdentityRole> store)
+                    : base(store)
+        { }
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
+                                                IOwinContext context)
+        {
+            return new ApplicationRoleManager(new
+                    RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------
+
+
 }
