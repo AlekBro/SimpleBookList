@@ -12,10 +12,18 @@
 <div id="dialogContainer"></div>
 <hr />
 
-@if (Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    <p><button id="CreateNewBookButton">Add New Book</button></p>
-}
+<div style="margin-bottom:4em;display:block;">
+    <div style="float:left;text-align:left;width:49%;">
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <p><button id="CreateNewBookButton">Add New Book</button></p>
+        }
+    </div>
+    <div style="float:right;text-align:right;width:49%;">
+        <p><button id="ExportBookListButton" onclick="location.href='@Url.Action("ExportBookList")'">Export Books</button></p>
+    </div>
+</div>
+<br />
 
 <script>
     $(function () {
@@ -85,13 +93,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.ISBN)
             </th>
-                <th>
-                    Edit
-                </th>
-                <th>
-                    Delete
-                </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
         </tr>
     </thead>
-
 </table>

@@ -17,6 +17,11 @@ namespace SimpleBookList.UI.Controllers
     using Models.DataTableModels;
     using Models.Utils;
     using Utils;
+    using System.IO;
+    using OfficeOpenXml;
+    using OfficeOpenXml.Style;
+    using System.Drawing;
+    
     /// <summary>
     /// Books Controller
     /// </summary>
@@ -218,6 +223,22 @@ namespace SimpleBookList.UI.Controllers
                 // ModelState.IsValid  False!
                 throw new ModelException(ViewData.ModelState);
             }
+        }
+
+        /// <summary>
+        /// Export Books list to xlsx file
+        /// </summary>
+        /// <returns>Xlsx file with all Books</returns>
+        [HttpGet]
+        public FileResult ExportBookList()
+        {
+            string pathForFile = Server.MapPath("~/Temp");
+            string fullPathForFile = pathForFile + @"\BooksList.xlsx";
+
+            byte[] fileBytes = XlsxExporter.CreateFileForExport(fullPathForFile, this.service);
+
+            string fileName = "BooksList.xlsx";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }
