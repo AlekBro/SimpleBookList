@@ -250,18 +250,18 @@ namespace SimpleBookList.BLL.Services
 
                 List<BookViewModel> allBooks = GetAllBooks().ToList();
 
-                int y = 2;
+                int rowNumber = 2;
                 foreach (BookViewModel book in allBooks)
                 {
-                    worksheet.Cells[y, 1].Value = book.Id;
-                    worksheet.Cells[y, 2].Value = book.Name;
-                    worksheet.Cells[y, 3].Value = book.ReleaseDate.ToShortDateString();
-                    worksheet.Cells[y, 4].Value = book.Pages;
-                    worksheet.Cells[y, 5].Value = book.Rating;
-                    worksheet.Cells[y, 6].Value = book.Publisher;
-                    worksheet.Cells[y, 7].Value = book.ISBN;
-                    worksheet.Cells[y, 8].Value = book.AuthorsNames;
-                    y = y + 1;
+                    worksheet.Cells[rowNumber, 1].Value = book.Id;
+                    worksheet.Cells[rowNumber, 2].Value = book.Name;
+                    worksheet.Cells[rowNumber, 3].Value = book.ReleaseDate.ToShortDateString();
+                    worksheet.Cells[rowNumber, 4].Value = book.Pages;
+                    worksheet.Cells[rowNumber, 5].Value = book.Rating;
+                    worksheet.Cells[rowNumber, 6].Value = book.Publisher;
+                    worksheet.Cells[rowNumber, 7].Value = book.ISBN;
+                    worksheet.Cells[rowNumber, 8].Value = book.AuthorsNames;
+                    rowNumber = rowNumber + 1;
                 }
 
                 // Autofit columns for all cells

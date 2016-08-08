@@ -52,7 +52,7 @@ $(document).ready(function () {
                 }
             });
             if (!isUserHasRightForEdit) {
-                authorsTable.column('#OnlyEditRight').visible(false);;
+                authorsTable.column('#OnlyEditRight').visible(false);
             }
         }
     });
