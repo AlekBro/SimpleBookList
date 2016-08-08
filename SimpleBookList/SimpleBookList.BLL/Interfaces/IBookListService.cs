@@ -80,6 +80,14 @@ namespace SimpleBookList.BLL.Interfaces
         void DeleteAuthor(int authorId);
 
         /// <summary>
+        /// Create new xlsx file with all Books
+        /// </summary>
+        /// <param name="fullFilePath">Path for file wuth file name</param>
+        /// <param name="service">Book list service</param>
+        /// <returns>New file bytes for download</returns>
+        byte[] ExportBooksToFile(string fullFilePath);
+
+        /// <summary>
         /// Free any objects here.
         /// </summary>
         void Dispose();

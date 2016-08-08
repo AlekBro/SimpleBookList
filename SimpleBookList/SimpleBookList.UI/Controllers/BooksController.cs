@@ -9,7 +9,6 @@ namespace SimpleBookList.UI.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
     using BLL.Interfaces;
@@ -17,10 +16,6 @@ namespace SimpleBookList.UI.Controllers
     using Models.DataTableModels;
     using Models.Utils;
     using Utils;
-    using System.IO;
-    using OfficeOpenXml;
-    using OfficeOpenXml.Style;
-    using System.Drawing;
     
     /// <summary>
     /// Books Controller
@@ -235,10 +230,10 @@ namespace SimpleBookList.UI.Controllers
             string pathForFile = Server.MapPath("~/Temp");
             string fullPathForFile = pathForFile + @"\BooksList.xlsx";
 
-            byte[] fileBytes = XlsxExporter.CreateFileForExport(fullPathForFile, this.service);
+            byte[] fileBytes = this.service.ExportBooksToFile(fullPathForFile);
 
-            string fileName = "BooksList.xlsx";
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            string fileNameForUser = "BooksList.xlsx";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileNameForUser);
         }
     }
 }
