@@ -61,7 +61,7 @@ $(document).ready(function () {
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
         "deferRender": true, // ??
-        "stateSave": true, // restore table state on page reload.
+        //"stateSave": true, // restore table state on page reload.
         "ajax": {
             "url": "/Books/DataHandler",
             "type": "POST",
@@ -83,6 +83,19 @@ $(document).ready(function () {
         ],
         // Отключить втроенный поиск: (так отключается и фильтрация)
         //"bFilter": false
+        
+        "initComplete": function (settings, json) {
+            var isUserHasRightForEdit = true;
+            $.each(json.data, function (index, element) {
+                if (!element.IsUserHasRightForEdit) {
+                    return isUserHasRightForEdit = false;
+                }
+            });
+            if (!isUserHasRightForEdit) {
+                booksTable.column('#OnlyEditRight').visible(false);;
+            }
+        }
     });
+
 
 });

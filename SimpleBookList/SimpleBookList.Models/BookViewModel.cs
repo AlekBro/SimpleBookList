@@ -119,5 +119,10 @@ namespace SimpleBookList.Models
                 return names.ToString();
             }
         }
+
+        /// <summary>
+        /// Gets or sets right for update and delete book for current user
+        /// </summary>
+        public bool IsUserHasRightForEdit { get; set; }
     }
 }

@@ -56,6 +56,12 @@ namespace SimpleBookList.UI.Controllers
             try
             {
                 List<AuthorViewModel> allAuthors = this.service.GetAllAuthors().ToList();
+                bool HasRight = false;
+                if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    HasRight = true;
+                }
+                allAuthors.ForEach(b => b.IsUserHasRightForEdit = HasRight);
 
                 List<string> columnSearch = new List<string>();
 

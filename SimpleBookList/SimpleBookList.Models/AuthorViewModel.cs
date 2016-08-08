@@ -47,5 +47,10 @@ namespace SimpleBookList.Models
                 return string.Format("{0} {1}", this.FirstName, this.LastName);
             }
         }
+
+        /// <summary>
+        /// Gets or sets right for update and delete author for current user
+        /// </summary>
+        public bool IsUserHasRightForEdit { get; set; }
     }
 }

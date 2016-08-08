@@ -16,7 +16,7 @@ namespace SimpleBookList.UI.Controllers
     using Models.DataTableModels;
     using Models.Utils;
     using Utils;
-    
+
     /// <summary>
     /// Books Controller
     /// </summary>
@@ -59,6 +59,13 @@ namespace SimpleBookList.UI.Controllers
                 var request = Request;
 
                 List<BookViewModel> allBooks = this.service.GetAllBooks().ToList();
+
+                bool HasRight = false;
+                if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    HasRight = true;
+                }
+                allBooks.ForEach(b => b.IsUserHasRightForEdit = HasRight);
 
                 List<string> columnSearch = new List<string>();
 
