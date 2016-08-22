@@ -244,3 +244,10 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /Identity.txt
+/ASPClassicSimpleBookList/Scripts/App/SetDatepicker.js
+/ASPClassicSimpleBookList/Scripts/App/CancelButton.js
+/ASPClassicSimpleBookList/textfile.txt
+/ASPClassicSimpleBookList/Default - Copy.asp
+/ASPClassicSimpleBookList/Default - Copy (2).asp
+/ASPClassicSimpleBookList/connect_1.1.asp
+/ASPClassicSimpleBookList/connect.asp
