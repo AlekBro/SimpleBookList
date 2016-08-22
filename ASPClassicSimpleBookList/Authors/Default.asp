@@ -27,9 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href=''>Home</a>
-                <a class="navbar-brand" href=''>Home</a>
-                <a class="navbar-brand" =''>Home</a>
+                <a class="navbar-brand" href='/'>Books List</a>
+                <a class="navbar-brand" href='/Authors/'>Authors List</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -48,7 +47,78 @@
 <h2>Authors List</h2>
 
 <hr />
-<div id="dialogContainer"></div>
+<div id="dialogContainer">
+
+<%
+
+Dim ConnString
+
+'define the connection string, specify database driver
+ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
+"PWD=Passw0rd;DATABASE=SimpleBookList"
+
+dim AuthorId
+AuthorId = Request.QueryString("Id")
+
+
+
+
+
+
+If Not IsNull(AuthorId) Then 
+    
+    
+    	'declare the variables 
+	Dim Connection1
+	Dim Recordset1
+	Dim SQLBooks
+
+	'declare the SQL statement that will query the database
+	SQLAuthor = "SELECT * FROM AuthorsView WHERE Id =" & AuthorId
+
+
+	'create an instance of the ADO connection and recordset objects
+	Set Connection1 = Server.CreateObject("ADODB.Connection")
+	Set Recordset1 = Server.CreateObject("ADODB.Recordset")
+
+
+	'Open the connection to the database
+	Connection1.Open ConnString
+
+	'Open the recordset object executing the SQL statement and return records 
+	Recordset1.Open SQLAuthor,Connection1
+    
+    
+    If Recordset1.EOF Then 
+		Response.Write("No records returned.") 
+	Else 
+		
+		'if there are records then loop through the fields 
+		Do While NOT Recordset1.Eof
+
+			Response.write ("<h2>" & Recordset1("FirstName") & Recordset1("LastName") & "</h2>")
+			
+			Response.write ("<div><hr /><dl class='dl-horizontal'><dt>FirstName</dt><dd>" & Recordset1("FirstName") & "</dd>")
+			Response.write ("<dt>LastName</dt><dd>" & Recordset1("LastName") & "</dd>")
+			Response.write ("<dt>BooksNumber</dt><dd>" & Recordset1("BooksNumber") & "</dd>")
+		    Response.write ("</dl></div>")
+			
+			Recordset1.MoveNext
+		Loop
+	
+	End If
+
+	'close the connection and recordset objects to free up resources
+	Recordset1.Close
+	Connection1.Close
+    
+    
+    
+End if
+
+%>
+
+</div>
 <hr />
 
 
@@ -72,11 +142,7 @@
 
 <% 
 
-Dim ConnString
 
-'define the connection string, specify database driver
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
-"PWD=Passw0rd;DATABASE=SimpleBookList"
 
 
 

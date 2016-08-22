@@ -28,9 +28,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href=''>Home</a>
-                <a class="navbar-brand" href=''>Home</a>
-                <a class="navbar-brand" =''>Home</a>
+                <a class="navbar-brand" href='/'>Home</a>
+                <a class="navbar-brand" href='/Authors/'>Authors List</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -116,7 +115,7 @@ sub GetAuthorsList(BookId)
 	ReDim AuthorsArray(i)
 	Do While NOT RecordsetAuthors.Eof
 
-		AuthorsArray(i) ="<a href='/Authors/" & RecordsetAuthors("Id") & "'>" & RecordsetAuthors("FirstName") & " " & RecordsetAuthors("LastName") & "</a>"
+		AuthorsArray(i) ="<a href='/Authors/?Id=" & RecordsetAuthors("Id") & "'>" & RecordsetAuthors("FirstName") & " " & RecordsetAuthors("LastName") & "</a>"
 		i = i + 1
 		ReDim Preserve AuthorsArray(i)
 		RecordsetAuthors.MoveNext
