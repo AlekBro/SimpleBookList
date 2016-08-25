@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/Styles/bootstrap-theme.css">
 	
 	<script src="/Scripts/jquery-2.2.3.js"></script>
-	<script src="/Scripts/jquery-ui-1.11.4.js"></script>
+	<script src="/Scripts/jquery-ui.js"></script>
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
 	
@@ -65,7 +65,7 @@ AuthorId = Request.QueryString("Id")
 
 
 
-If Not IsNull(AuthorId) Then 
+If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId)) AND (Not (IsEmpty(AuthorId))) ) Then 
     
     
     	'declare the variables 
@@ -96,7 +96,7 @@ If Not IsNull(AuthorId) Then
 		'if there are records then loop through the fields 
 		Do While NOT Recordset1.Eof
 
-			Response.write ("<h2>" & Recordset1("FirstName") & Recordset1("LastName") & "</h2>")
+			Response.write ("<h2>" & Recordset1("FirstName") & " " & Recordset1("LastName") & "</h2>")
 			
 			Response.write ("<div><hr /><dl class='dl-horizontal'><dt>FirstName</dt><dd>" & Recordset1("FirstName") & "</dd>")
 			Response.write ("<dt>LastName</dt><dd>" & Recordset1("LastName") & "</dd>")
@@ -112,7 +112,9 @@ If Not IsNull(AuthorId) Then
 	Recordset1.Close
 	Connection1.Close
     
-    
+Else
+
+	Response.write ("<div><h3>Error while processing route!</h3></div>")
     
 End if
 

@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="/Styles/bootstrap-theme.css">
 	
 	<script src="/Scripts/jquery-2.2.3.js"></script>
-	<script src="/Scripts/jquery-ui-1.11.4.js"></script>
+	<script src="/Scripts/jquery-ui.js"></script>
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
 	
