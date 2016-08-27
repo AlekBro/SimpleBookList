@@ -16,7 +16,7 @@
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
 	
-	<script src="/Scripts/App/Books.Functions.js"></script>
+
 	<script src="/Scripts/App/Books.TableLoading.js"></script>
 </head>
 <body>
@@ -72,16 +72,27 @@
 
 <tbody>
 
+<!-- #include file ="SqlConnect.asp" -->
 
 
 <% 
 
-Dim ConnString
 
-'define the connection string, specify database driver
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
-"PWD=Passw0rd;DATABASE=SimpleBookList"
 
+' create a dictionary object
+dim companies
+set companies = server.createObject("Scripting.Dictionary")
+
+' add the companies
+companies.add "Key1", "Company1"
+companies.add "Key2", "Company2"
+companies.add "Key3", "Company3"
+
+' iteration example
+dim key
+for each key in companies.keys
+    response.write key & " = " & companies.item(key)
+next
 
 
 
@@ -142,43 +153,40 @@ end sub
 
 
 
-
-Sub GetAllRecordsFromDB(tableName, columnsArray)
+Sub GetAllRecordsFromDB(columnsArray)
 
 
 	'declare the variables 
-	Dim Connection
-	Dim ConnString
-	Dim Recordset
 	Dim SQLBooks
-
-	'define the connection string, specify database driver
-	ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
-	"PWD=Passw0rd;DATABASE=SimpleBookList"
-
+	Dim Recordset
+	
 	'declare the SQL statement that will query the database
 	SQLBooks = "SELECT * FROM Books"
 
+	response.write("!<br />")
 
-	'create an instance of the ADO connection and recordset objects
-	Set Connection = Server.CreateObject("ADODB.Connection")
-	Set Recordset = Server.CreateObject("ADODB.Recordset")
-
-
-	'Open the connection to the database
-	Connection.Open ConnString
-
-	'Open the recordset object executing the SQL statement and return records 
-	Recordset.Open SQLBooks,Connection
-
-	'first of all determine whether there are any records 
-	If Recordset.EOF Then 
-		Response.Write("No records returned.") 
-	Else 
-		
+	Recordset = SendSqlRequest(SQLBooks)	
+	'Recordset = disconnRS(SQLBooks)	
+	
+	for each x in rs.fields
+	response.write(Recordset.name)
+	response.write(" = ")
+	response.write(Recordset.value)
+	next
+	
+	response.write("!!<br />")
+	
+	aspLog(SQLBooks)
+	
+		response.write("!!!<br />")	
 		'if there are records then loop through the fields 
+		if	Recordset.Eof then
+			response.write("!!!!<br />")	
+		End if
+		
+		
 		Do While NOT Recordset.Eof
-
+			response.write("!!!!<br />")	
 			Response.write "<tr>"
 			For Each column In columnsArray
 				Response.write "<td>"
@@ -204,16 +212,12 @@ Sub GetAllRecordsFromDB(tableName, columnsArray)
 			Recordset.MoveNext
 		Loop
 	
-	End If
+	
 
-	'close the connection and recordset objects to free up resources
-	Recordset.Close
-	Set Recordset=nothing
-	Connection.Close
-	Set Connection=nothing
+	
+	
 
 
-'myfunction=some value
 End Sub 
 
 
@@ -230,11 +234,7 @@ columns(8) = "Edit"
 columns(9) = "Delete"
 
 
-Dim tab
-
-tab = "Books"
-
-Call GetAllRecordsFromDB(tab, columns)
+Call GetAllRecordsFromDB(columns)
 
 
 

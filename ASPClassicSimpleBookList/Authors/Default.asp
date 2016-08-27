@@ -49,13 +49,11 @@
 <hr />
 <div id="dialogContainer">
 
+<!-- #include virtual = "SqlConnect.asp" -->
+
 <%
 
-Dim ConnString
 
-'define the connection string, specify database driver
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
-"PWD=Passw0rd;DATABASE=SimpleBookList"
 
 dim AuthorId
 AuthorId = Request.QueryString("Id")
@@ -112,10 +110,6 @@ If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId))
 	Recordset1.Close
 	Connection1.Close
     
-Else
-
-	Response.write ("<div><h3>Error while processing route!</h3></div>")
-    
 End if
 
 %>
@@ -153,16 +147,14 @@ Sub GetAllRecordsFromDB(columnsArray)
 
 	'declare the variables 
 	Dim Connection
-	Dim ConnString
 	Dim Recordset
 	Dim SQLBooks
 
-	'define the connection string, specify database driver
-	ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;" & _ 
-	"PWD=Passw0rd;DATABASE=SimpleBookList"
+
 
 	'declare the SQL statement that will query the database
 	SQLBooks = "SELECT * FROM AuthorsView"
+
 
 
 	'create an instance of the ADO connection and recordset objects
@@ -176,6 +168,8 @@ Sub GetAllRecordsFromDB(columnsArray)
 	'Open the recordset object executing the SQL statement and return records 
 	Recordset.Open SQLBooks,Connection
 
+		
+	
 	'first of all determine whether there are any records 
 	If Recordset.EOF Then 
 		Response.Write("No records returned.") 
@@ -191,6 +185,7 @@ Sub GetAllRecordsFromDB(columnsArray)
 				If (column = "Edit") OR (column = "Delete") Then
 				Else
 						Response.write Recordset(column)
+						aspLog(Recordset)
 				End If
 				
 				Response.write "</td>"
