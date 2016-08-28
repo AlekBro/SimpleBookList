@@ -4,9 +4,9 @@
 Dim ConnString
 
 'define the connection string, specify database driver
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
 
-'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
 
 
 function aspLog(value)
@@ -14,10 +14,14 @@ function aspLog(value)
 end function
 
 
+
+
+
+
+
 Function SendSqlRequest(SqlRequest)
 
 	Dim Recordset
-	Dim resultDict
 
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Set Recordset = Server.CreateObject("ADODB.Recordset")
@@ -28,18 +32,36 @@ Function SendSqlRequest(SqlRequest)
 	'Open the recordset object executing the SQL statement and return records 
 	Recordset.Open SqlRequest,Connection
 
-	' create a dictionary object
-	set resultDict = server.createObject("Scripting.Dictionary")
-	response.write("T1<br>")
-	for each x in rs.fields
-		resultDict.Add x.name, x.value
-	next
+	Dim resultDict
 	
-	
+	Dim AuthorsArray()
+	Dim i
+	i = 0
+	ReDim ResultArray(i)
 
-	' Cleanup the objects. We do it here instead of at the end because the data
-	' has already been placed into an array. This is an advantage in that we can release
-	' memory sooner.
+	If Recordset.EOF Then
+		'SendSqlRequest = null
+	Else
+
+		Do While NOT Recordset.Eof
+			
+			ReDim Preserve ResultArray(i)
+			
+			set resultDict = server.createObject("Scripting.Dictionary")
+			
+			for each x in Recordset.fields
+				resultDict.Add x.name, x.value
+			next
+			
+			Set ResultArray(i) = resultDict
+			
+			i = i + 1
+			
+			Recordset.MoveNext
+		Loop
+	
+	End If
+
 	Recordset.Close
 	set Recordset = nothing
 
@@ -47,11 +69,19 @@ Function SendSqlRequest(SqlRequest)
 	set Connection = nothing
 
 
-	SendSqlRequest = resultDict
-
-	
+	SendSqlRequest = ResultArray
 
 End Function 
+
+
+
+
+
+
+
+
+
+
 
 
 Function ExecuteSqlRequest(SqlRequest)

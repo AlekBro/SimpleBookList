@@ -19,7 +19,7 @@ $(document).ready(function () {
     };
 
     var getDetailsLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/Details/' + data.Id + '" value="' + data.Id + '">Details</a>';
+        return '<a href="/Authors/?id=' + data.Id + '" value="' + data.Id + '">Details</a>';
     };
 
 
@@ -37,7 +37,7 @@ $(document).ready(function () {
             { "data": "BooksNumber", "render": getNumberForItem, "class": "dt-head-center dt-body-center" },
             { "data": null, "render": getEditLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
             { "data": null, "render": getDeleteLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false },
-            //{ "data": null, "render": getDetailsLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
+            { "data": null, "render": getDetailsLinkForItem, "class": "dt-head-center dt-body-center", "sortable": false }
         ]
 
     });

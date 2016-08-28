@@ -79,73 +79,31 @@
 
 
 
-' create a dictionary object
-dim companies
-set companies = server.createObject("Scripting.Dictionary")
 
-' add the companies
-companies.add "Key1", "Company1"
-companies.add "Key2", "Company2"
-companies.add "Key3", "Company3"
+sub GetAuthorsList(BookId)
 
-' iteration example
-dim key
-for each key in companies.keys
-    response.write key & " = " & companies.item(key)
-next
-
-
-
-sub GetAuthorsList(BookId) 
-
-	'declare the variables 
-	Dim Connection2
-
-	Dim RecordsetAuthors
 	Dim SQLAuthors, SQLAuthorsString
-
 	SQLAuthors = "SELECT Authors.Id, Authors.FirstName, Authors.LastName FROM Authors INNER JOIN BookAuthors ON BookAuthors.Author_Id = Authors.Id Where BookAuthors.Book_Id ="
-
-	Set Connection2 = Server.CreateObject("ADODB.Connection")
-	Set RecordsetAuthors = Server.CreateObject("ADODB.Recordset")
-
-	Dim AuthorsArray()
-
 	SQLAuthorsString = SQLAuthors & BookId
-
-	'Response.write (SQLAuthorsString)
-
-	'Open the connection to the database
-	Connection2.Open ConnString
-
-	'Open the recordset object executing the SQL statement and return records 
-	RecordsetAuthors.Open SQLAuthorsString,Connection2
-
-	Dim i
-	i = 0
-	ReDim AuthorsArray(i)
-	Do While NOT RecordsetAuthors.Eof
-
-		AuthorsArray(i) ="<a href='/Authors/?Id=" & RecordsetAuthors("Id") & "'>" & RecordsetAuthors("FirstName") & " " & RecordsetAuthors("LastName") & "</a>"
-		i = i + 1
-		ReDim Preserve AuthorsArray(i)
-		RecordsetAuthors.MoveNext
-	Loop
 	
-	
+	Dim ResArray
+	ResArray = SendSqlRequest(SQLAuthorsString)
 
-	For k = 0 To i - 1
-		if k < i - 1 Then
-  			response.write(AuthorsArray(k) & " | ")
-  		Else
-  			response.write(AuthorsArray(k))
-  		End If
+	Dim Lenght
+	Lenght = ubound(ResArray)
+	Dim k
+	k = 0
+	For Each oneRow In ResArray
+		if ( k < Lenght) Then
+			response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>" & " | ")
+		Else
+			response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>")
+		End if
+		k = k + 1
 	Next
+	
 
-	RecordsetAuthors.Close
-	'Set Recordset=nothing
-	Connection2.Close
-	'Set Connection=nothing
+
 
 
 end sub
@@ -158,65 +116,30 @@ Sub GetAllRecordsFromDB(columnsArray)
 
 	'declare the variables 
 	Dim SQLBooks
-	Dim Recordset
+	Dim ResultArray
 	
 	'declare the SQL statement that will query the database
 	SQLBooks = "SELECT * FROM Books"
 
-	response.write("!<br />")
+	ResultArray = SendSqlRequest(SQLBooks)
 
-	Recordset = SendSqlRequest(SQLBooks)	
-	'Recordset = disconnRS(SQLBooks)	
-	
-	for each x in rs.fields
-	response.write(Recordset.name)
-	response.write(" = ")
-	response.write(Recordset.value)
-	next
-	
-	response.write("!!<br />")
-	
-	aspLog(SQLBooks)
-	
-		response.write("!!!<br />")	
-		'if there are records then loop through the fields 
-		if	Recordset.Eof then
-			response.write("!!!!<br />")	
-		End if
-		
-		
-		Do While NOT Recordset.Eof
-			response.write("!!!!<br />")	
-			Response.write "<tr>"
+	If IsArray(ResultArray) Then
+		For Each row In ResultArray
+		Response.write "<tr>"
 			For Each column In columnsArray
-				Response.write "<td>"
-
-				If column = "Authors" Then
-
-					Call GetAuthorsList(Recordset("Id"))
-
-					'Response.write Recordset(column)
-				
-				ElseIf (column = "Edit") OR (column = "Delete") Then
-					Response.write ""
-				Else
-						Response.write Recordset(column)
-				End If
-				
-				Response.write "</td>"
-				
-			Next
-				
-				Response.write "</tr>"
-
-			Recordset.MoveNext
-		Loop
-	
-	
-
-	
-	
-
+					Response.write "<td>"
+					If column = "Authors" Then
+						Call GetAuthorsList(row("Id"))
+					ElseIf (column = "Edit") OR (column = "Delete") Then
+						Response.write ""
+					Else
+							Response.write row(column)
+					End If
+					Response.write "</td>"
+				Next
+		Response.write "</tr>"
+		Next
+	End If
 
 End Sub 
 
