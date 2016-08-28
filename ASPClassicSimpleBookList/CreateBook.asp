@@ -60,89 +60,83 @@
 
 <%
 
+Function AddNewBook(RequestContext)
 
-'declare the variables 
-Dim Connection
-Dim Recordset
+	Dim SqlFindAuthorQuery
+	Dim ResArray
+
+	Dim SqlFindAuthor
+	SqlFindAuthor = "SELECT Id FROM Authors WHERE Id="
 
 
-'create an instance of the ADO connection and recordset objects
-Set Connection = Server.CreateObject("ADODB.Connection")
-Set Recordset = Server.CreateObject("ADODB.Recordset")
+	For each AuthorId in RequestContext.Form("AuthorsIds")
+		SqlFindAuthorQuery = SqlFindAuthor & AuthorId
+		
+		ResArray = SendSqlRequest(SqlFindAuthorQuery)
+		If IsNull(ResArray) Then
+			response.write("Authors is wrong!")
+			AddNewBook = false
+		End If
+	Next
+
+
+
+	DIM SqlAddNewBook
+	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") & "'," & "@ReleaseDate = N'" & RequestContext.Form("ReleaseDate") & "'," & "@Pages = " & RequestContext.Form("Pages") 
+	SqlAddNewBook = SqlAddNewBook & ", @Rating = " & RequestContext.Form("Rating")
+	if (ISNULL(RequestContext.Form("Publisher")) OR (RequestContext.Form("Publisher")="")) Then
+		SqlAddNewBook = SqlAddNewBook & ", @Publisher = NULL"
+	Else
+		SqlAddNewBook = SqlAddNewBook & ", @Publisher = N'" & RequestContext.Form("Publisher") & "', "
+	End IF
+
+	if (ISNULL(RequestContext.Form("ISBN")) OR (RequestContext.Form("ISBN")="")) Then
+		SqlAddNewBook = SqlAddNewBook & ", @ISBN = NULL"
+	Else
+		SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & RequestContext.Form("ISBN") & "', "
+	End IF
+
+	SqlAddNewBook = SqlAddNewBook & ", @BookId = @BookId OUTPUT SELECT @BookId as N'BookId'"
+
+
+	Dim ResArray2
+	ResArray2 = SendSqlRequest(SqlAddNewBook)
+
+	Dim ResArray3
+	Dim AddAuthorQuery
+	If IsNull(ResArray2) Then
+			response.write("Book is wrong!")
+			AddNewBook = false
+		Else
+		For each AuthorId in RequestContext.Form("AuthorsIds")
+			AddAuthorQuery = "EXEC [dbo].[AddNewBookAuthorsRecord] @BookId = " & ResArray2(0)("BookId") & ", @AuthorId = " & AuthorId & " SELECT * FROM BookAuthors WHERE Book_Id = " & ResArray2(0)("BookId") & " AND Author_Id = " & AuthorId
+			'response.write(AddAuthorQuery)
+			'response.write("<br><br>")
+			
+			ResArray3 = SendSqlRequest(AddAuthorQuery)
+			If IsNull(ResArray3) Then
+				response.write("Book is wrong!")
+				AddNewBook = false
+			end if
+		Next
+	end if
+	
+	AddNewBook = true
+
+End Function
+
 
 
 If (Request.Form.Count > 0) Then
 
-	Response.write (Request.Form.Count)
-	Response.write ("<br><br>")
+	Dim AddNewBookResult
+	AddNewBookResult = AddNewBook(Request)
 
-  For Each sItem In Request.Form
-    Response.Write(sItem)
-    Response.Write(" - [" & Request.Form(sItem) & "]" & "<br>")
-  Next
-
-
-'AuthorsIds - [12, 16, 14]
-
-Dim SqlFindAuthorQuery
-Dim ResArray
-
-Dim SqlFindAuthor
-SqlFindAuthor = "SELECT Id FROM Authors WHERE Id="
-
-Response.write ("<br><br>")
-For each AuthorId in Request.Form("AuthorsIds")
-	SqlFindAuthorQuery = SqlFindAuthor & AuthorId
-	Response.write (SqlFindAuthorQuery)
-	Response.write ("<br>")
-	
-	ResArray = SendSqlRequest(SqlFindAuthorQuery)
-	If IsNull(ResArray) Then
-		response.write("Authors is wrong!")
-		response.end
-	End If
-Next
-Response.write ("<br><br>")
-
-
-DIM SqlAddNewBook
-SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & Request.Form("Name") & "'," & "@ReleaseDate = N'" & Request.Form("ReleaseDate") & "'," & "@Pages = " & Request.Form("Pages") 
-SqlAddNewBook = SqlAddNewBook & ", @Rating = " & Request.Form("Rating")
-if (ISNULL(Request.Form("Publisher")) OR (Request.Form("Publisher")="")) Then
-	SqlAddNewBook = SqlAddNewBook & ", @Publisher = NULL"
-Else
-	SqlAddNewBook = SqlAddNewBook & ", @Publisher = N'" & Request.Form("Publisher") & "', "
-End IF
-
-if (ISNULL(Request.Form("ISBN")) OR (Request.Form("ISBN")="")) Then
-	SqlAddNewBook = SqlAddNewBook & ", @ISBN = NULL"
-Else
-	SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & Request.Form("ISBN") & "', "
-End IF
-
-SqlAddNewBook = SqlAddNewBook & ", @BookId = @BookId OUTPUT SELECT @BookId as N'BookId'"
-
-
-Response.Write("<br><br>") 
-Response.Write(SqlAddNewBook) 
-Response.Write("<br><br>") 
-
-
-Dim ResArray2
-ResArray2 = SendSqlRequest(SqlAddNewBook)
-
-Dim AddAuthorQuery
-If IsNull(ResArray2) Then
-		response.write("Book is wrong!")
-		response.end
+	If (AddNewBookResult) Then
+		response.write("<h1>New book is added!</h1>")
 	Else
-	For each AuthorId in Request.Form("AuthorsIds")
-		AddAuthorQuery = "EXEC [dbo].[AddNewBookAuthorsRecord] @BookId = " & ResArray2(0)("BookId") & ", @AuthorId = " & AuthorId
-		response.write(AddAuthorQuery)
-		Response.Write("<br><br>")
-	Next
-end if
-
+		response.write("<h1>Error while adding new book!</h1>")
+	End if
 
 
 End If
@@ -227,35 +221,20 @@ Dim SQLAuthors
 SQLAuthors = "SELECT * FROM Authors"
 
 
-
-
-
-
-'Open the connection to the database
-Connection.Open ConnString
-
-'Open the recordset object executing the SQL statement and return records 
-Recordset.Open SQLAuthors, Connection
-
-
-If Recordset.EOF Then 
-	Response.Write("No Authors") 
-Else 
 	
-	'if there are records then loop through the fields 
-	Do While NOT Recordset.Eof
+	Dim ResAuthorsArray
+	ResAuthorsArray = SendSqlRequest(SQLAuthors)
 
-		Response.Write("<option value='" & Recordset("Id") & "'>" & Recordset("FirstName") & " " & Recordset("LastName") & "</option>")
+
+	If IsNull(ResAuthorsArray) Then
+    	Response.write ("")
+	Else
+		For Each oneRow In ResAuthorsArray
+			Response.Write("<option value='" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</option>")
+		Next
+	End If
 
 		
-		Recordset.MoveNext
-	Loop
-
-End If
-
-'close the connection and recordset objects to free up resources
-Recordset.Close
-Connection.Close
 
 
 

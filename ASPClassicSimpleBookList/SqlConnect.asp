@@ -79,7 +79,7 @@ Function SendSqlRequest(SqlRequest)
 
 	
 
-End Function 
+End Function
 
 
 

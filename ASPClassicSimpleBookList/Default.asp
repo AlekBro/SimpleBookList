@@ -51,8 +51,8 @@
 <div id="dialogContainer"></div>
 <hr />
 
-
-		
+<a href="./CreateBook.asp">Add New Book</a>
+<br/><br/>
 
 <table class="table" id="BooksListTable" cellspacing="0">
 <thead>
@@ -65,8 +65,8 @@
 		<th>Authors</th>
 		<th>Publisher</th>
 		<th>ISBN</th>
-		<th id="OnlyEditRight">Edit</th>
-		<th id="OnlyEditRight">Delete</th>
+		<th>Edit</th>
+		<th>Delete</th>
 	</tr>
 </thead>
 
