@@ -65,7 +65,9 @@ If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId))
 	Dim ResArrayForOneAuthor
 	ResArrayForOneAuthor = SendSqlRequest(SQLForOneAuthor)
     
-    'If IsNull(ResArrayForOneAuthor) = false Then
+    If IsNull(ResArrayForOneAuthor) Then
+    	Response.write ("No Such Author!")
+    Else
 		For Each row In ResArrayForOneAuthor
 			Response.write ("<h2>" & row("FirstName") & " " & row("LastName") & "</h2>")
 			Response.write ("<div><hr /><dl class='dl-horizontal'><dt>FirstName</dt><dd>" & row("FirstName") & "</dd>")
@@ -73,7 +75,7 @@ If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId))
 			Response.write ("<dt>BooksNumber</dt><dd>" & row("BooksNumber") & "</dd>")
 	    	Response.write ("</dl></div>")
 		Next
-	'End If
+	End If
 
 
     

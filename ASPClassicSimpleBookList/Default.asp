@@ -89,19 +89,22 @@ sub GetAuthorsList(BookId)
 	Dim ResArray
 	ResArray = SendSqlRequest(SQLAuthorsString)
 
-	Dim Lenght
-	Lenght = ubound(ResArray)
-	Dim k
-	k = 0
-	For Each oneRow In ResArray
-		if ( k < Lenght) Then
-			response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>" & " | ")
-		Else
-			response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>")
-		End if
-		k = k + 1
-	Next
-	
+	If IsNull(ResArray) Then
+    	Response.write ("")
+	Else
+		Dim Lenght
+		Lenght = ubound(ResArray)
+		Dim k
+		k = 0
+		For Each oneRow In ResArray
+			if ( k < Lenght) Then
+				response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>" & " | ")
+			Else
+				response.write( "<a href='/Authors/?Id=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>")
+			End if
+			k = k + 1
+		Next
+	End If
 
 
 
@@ -123,7 +126,9 @@ Sub GetAllRecordsFromDB(columnsArray)
 
 	ResultArray = SendSqlRequest(SQLBooks)
 
-	If IsArray(ResultArray) Then
+    If IsNull(ResultArray) Then
+    	Response.write ("")
+    Else
 		For Each row In ResultArray
 		Response.write "<tr>"
 			For Each column In columnsArray
@@ -139,9 +144,9 @@ Sub GetAllRecordsFromDB(columnsArray)
 				Next
 		Response.write "</tr>"
 		Next
-	End If
+	End if
 
-End Sub 
+End Sub
 
 
 Dim columns(9)

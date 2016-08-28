@@ -34,13 +34,18 @@ Function SendSqlRequest(SqlRequest)
 
 	Dim resultDict
 	
-	Dim AuthorsArray()
+	Dim ResultArray()
 	Dim i
 	i = 0
 	ReDim ResultArray(i)
 
 	If Recordset.EOF Then
-		'SendSqlRequest = null
+		Recordset.Close
+		set Recordset = nothing
+		Connection.Close
+		set Connection = nothing
+		SendSqlRequest = null
+	
 	Else
 
 		Do While NOT Recordset.Eof
@@ -59,17 +64,20 @@ Function SendSqlRequest(SqlRequest)
 			
 			Recordset.MoveNext
 		Loop
-	
-	End If
 
 	Recordset.Close
 	set Recordset = nothing
-
 	Connection.Close
 	set Connection = nothing
-
-
+	
 	SendSqlRequest = ResultArray
+	
+	End If
+
+
+
+
+	
 
 End Function 
 
@@ -109,7 +117,7 @@ End Function
 
 
 
-Function RunSQLReturnRS(sqlstmt, params())
+Function RunSQLReturnRS(SQLstmt, params())
     On Error Resume next
 
     ''//Create the ADO objects
@@ -119,7 +127,7 @@ Function RunSQLReturnRS(sqlstmt, params())
 
     ''//Init the ADO objects  & the stored proc parameters
     cmd.ActiveConnection = GetConnectionString()
-    cmd.CommandText = sqlstmt
+    cmd.CommandText = SQLstmt
     cmd.CommandType = adCmdText
     cmd.CommandTimeout = 900 
 
@@ -156,10 +164,10 @@ Function GetSqlRS(strSQL)
   adUseClient = 3
   adLockBatchOptimistic = 4 
 
-  Dim adLockReadOnly, adOpenForwardOnly, sqlCommandTimeout
+  Dim adLockReadOnly, adOpenForwardOnly, SQLCommandTimeout
   adLockReadOnly = 1
   adOpenForwardOnly = 0
-  sqlCommandTimeout = 600
+  SQLCommandTimeout = 600
   
   'Declare our variables
   Dim oConn
@@ -199,22 +207,22 @@ End Function
 
 
 
-function disconnRS(sql)
+function disconnRS(SQL)
 
-Dim adLockReadOnly, adUseClient, adOpenForwardOnly, sqlCommandTimeout
+Dim adLockReadOnly, adUseClient, adOpenForwardOnly, SQLCommandTimeout
 adLockReadOnly = 1
 adOpenForwardOnly = 0
 adUseClient=3
-sqlCommandTimeout = 600
+SQLCommandTimeout = 600
 
 Dim Conn, oRs
 Set Conn = Server.CreateObject("ADODB.Connection")
 Conn.Open ConnString
-Conn.CommandTimeout = sqlCommandTimeout
+Conn.CommandTimeout = SQLCommandTimeout
 
 Set oRs = Server.CreateObject("ADOR.RecordSet")
 oRs.CursorLocation = adUseClient
-oRs.Open sql,Conn,adOpenForwardOnly,adLockReadOnly
+oRs.Open SQL,Conn,adOpenForwardOnly,adLockReadOnly
 
 oRs.ActiveConnection = Nothing
 
