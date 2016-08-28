@@ -15,7 +15,7 @@
 	<script src="/Scripts/jquery-ui.js"></script>
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
-	
+	<script src="/Scripts/jquery.quicksearch.js"></script>
 
 	<script src="/Scripts/App/Books.TableLoading.js"></script>
 </head>

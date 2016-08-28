@@ -22,8 +22,10 @@
 	<script src="/Scripts/bootstrap.js"></script>
 	<script src="/Scripts/jquery.multi-select.js"></script>
 	
-	<script src="/Scripts/App/Books.Functions.js"></script>
 	<script src="/Scripts/App/Books.TableLoading.js"></script>
+	<script src="/Scripts/jquery.quicksearch.js"></script>
+	
+	
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -134,8 +136,10 @@ If (Request.Form.Count > 0) Then
 
 	If (AddNewBookResult) Then
 		response.write("<h1>New book is added!</h1>")
+		response.write("<script>$(document).ready(function () { $('#CreateBookForm').hide(); });</script>")
 	Else
 		response.write("<h1>Error while adding new book!</h1>")
+		response.write("<script>$(document).ready(function () { $('#CreateBookForm').hide(); });</script>")
 	End if
 
 
@@ -250,7 +254,7 @@ SQLAuthors = "SELECT * FROM Authors"
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <input type="submit" value="Submit" class="btn btn-default">
-        <input type="button" value="Cancel" class="btn btn-default" id="CancelButton">
+        <input type="button" value="Cancel" onclick="javascript:location.href='/'" class="btn btn-default" id="CancelButton">
     </div>
 </div>
 

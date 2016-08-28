@@ -56,29 +56,20 @@
 
 <%
 
-dim AuthorId
-AuthorId = Request.QueryString("Id")
+dim BookId
+BookId = Request.QueryString("BookId")
 
-If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId)) AND (Not (IsEmpty(AuthorId))) ) Then 
+If ((Not (BookId = "")) AND (Not (ISNULL(BookId))) AND (IsNumeric(BookId)) AND (Not (IsEmpty(BookId))) ) Then 
     
-	Dim SQLForOneAuthor
-	SQLForOneAuthor = "SELECT * FROM AuthorsView WHERE Id =" & AuthorId
+	Dim SQLForDeleteBook
+	SQLForDeleteBook = "DELETE FROM Books WHERE Id =" & BookId
 
 	
-	Dim ResArrayForOneAuthor
-	ResArrayForOneAuthor = SendSqlRequest(SQLForOneAuthor)
+	SendSqlRequest(SQLForDeleteBook)
     
-    If IsNull(ResArrayForOneAuthor) Then
-    	Response.write ("No Such Author!")
-    Else
-		For Each row In ResArrayForOneAuthor
-			Response.write ("<h2>" & row("FirstName") & " " & row("LastName") & "</h2>")
-			Response.write ("<div><hr /><dl class='dl-horizontal'><dt>FirstName</dt><dd>" & row("FirstName") & "</dd>")
-			Response.write ("<dt>LastName</dt><dd>" & row("LastName") & "</dd>")
-			Response.write ("<dt>BooksNumber</dt><dd>" & row("BooksNumber") & "</dd>")
-	    	Response.write ("</dl></div>")
-		Next
-	End If
+
+    	Response.write ("Book is deleted!")
+
 
 
     
