@@ -7,10 +7,7 @@
 
 <hr />
 <div id="dialogContainer"></div>
-<hr />
 
-<a href="./CreateAuthor.asp">Add New Author</a>
-<br/><br/>
 
 
 <!-- #include virtual = "SqlConnect.asp" -->
@@ -47,6 +44,11 @@ End if
 
 %>
 
+<hr />
+
+
+<a href="./CreateAuthor.asp">Add New Author</a>
+<br/><br/>
 
 
 <table class="table" id="AuthorsListTable" cellspacing="0">

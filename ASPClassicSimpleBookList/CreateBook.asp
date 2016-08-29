@@ -56,7 +56,7 @@
 
 <hr />
 <div id="dialogContainer"></div>
-<hr />
+
 
 <!-- #include virtual = "SqlConnect.asp" -->
 
