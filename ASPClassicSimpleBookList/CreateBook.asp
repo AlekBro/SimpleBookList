@@ -152,7 +152,7 @@ End If
 
 
 
-<form action="/CreateBook.asp" data-ajax-method="POST" id="CreateBookForm" method="post">
+<form action="/CreateBook.asp" method="POST" id="CreateBookForm" method="post">
 <div class="form-horizontal">
         <h4>Add new Book</h4>
         <hr>

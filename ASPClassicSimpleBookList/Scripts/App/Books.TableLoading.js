@@ -40,7 +40,7 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на удаление
     var getDeleteLinkForItem = function (data, type, full, meta) {
-        return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="deleteFunc(this, event)">Delete</a>';
+        return '<a href="/Delete/Default.asp?BookId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
     };
 
     var getAuthorLinksList = function (data, type, full, meta) {
