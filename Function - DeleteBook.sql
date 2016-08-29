@@ -9,13 +9,14 @@ GO
 
 CREATE PROCEDURE [dbo].DeleteBook
                                           ( 
-				@BookId int
-                                          )
+				@BookId int,
+                @Id  INT OUTPUT                          )
 
 AS
 BEGIN
 
 	DELETE FROM Books WHERE Id = @BookId
-
+	SET @Id = (SELECT TOP 1 Id FROM Books WHERE Id = @BookId);
     RETURN;
+    
 END;

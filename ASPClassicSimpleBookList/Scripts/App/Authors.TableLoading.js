@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на удаление
     var getDeleteLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/Delete/' + data.Id + '" value="' + data.Id + '">Delete</a>';
+        return '<a href="/Authors/Delete/Default.asp?AuthorId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
     };
 
     var getDetailsLinkForItem = function (data, type, full, meta) {
