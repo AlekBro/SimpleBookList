@@ -30,6 +30,7 @@ $(document).ready(function () {
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
         "deferRender": true, // ??
+		"stateSave": true, // restore table state on page reload.
         "aoColumns": [
             { "data": "Id", "render": getNumberForItem, "visible": false, "searchable": false },
             { "data": "First Name", "render": getStringForItem, "class": "dt-head-center dt-body-center" },

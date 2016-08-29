@@ -58,7 +58,7 @@
 <div id="dialogContainer"></div>
 <hr />
 
-<!-- #include file ="SqlConnect.asp" -->
+<!-- #include virtual = "SqlConnect.asp" -->
 
 <%
 
@@ -84,18 +84,20 @@ Function AddNewBook(RequestContext)
 
 
 	DIM SqlAddNewBook
-	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") & "'," & "@ReleaseDate = N'" & RequestContext.Form("ReleaseDate") & "'," & "@Pages = " & RequestContext.Form("Pages") 
+	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") & "', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate") & "', @Pages = " & RequestContext.Form("Pages") 
+	
 	SqlAddNewBook = SqlAddNewBook & ", @Rating = " & RequestContext.Form("Rating")
+	
 	if (ISNULL(RequestContext.Form("Publisher")) OR (RequestContext.Form("Publisher")="")) Then
 		SqlAddNewBook = SqlAddNewBook & ", @Publisher = NULL"
 	Else
-		SqlAddNewBook = SqlAddNewBook & ", @Publisher = N'" & RequestContext.Form("Publisher") & "', "
+		SqlAddNewBook = SqlAddNewBook & ", @Publisher = N'" & RequestContext.Form("Publisher") & "'"
 	End IF
 
 	if (ISNULL(RequestContext.Form("ISBN")) OR (RequestContext.Form("ISBN")="")) Then
 		SqlAddNewBook = SqlAddNewBook & ", @ISBN = NULL"
 	Else
-		SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & RequestContext.Form("ISBN") & "', "
+		SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & RequestContext.Form("ISBN") & "'"
 	End IF
 
 	SqlAddNewBook = SqlAddNewBook & ", @BookId = @BookId OUTPUT SELECT @BookId as N'BookId'"
@@ -152,7 +154,7 @@ End If
 
 
 
-<form action="/CreateBook.asp" method="POST" id="CreateBookForm" method="post">
+<form action="/CreateBook.asp" method="POST" id="CreateBookForm">
 <div class="form-horizontal">
         <h4>Add new Book</h4>
         <hr>

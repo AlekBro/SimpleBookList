@@ -6,7 +6,12 @@
 <h2>Authors List</h2>
 
 <hr />
-<div id="dialogContainer">
+<div id="dialogContainer"></div>
+<hr />
+
+<a href="./CreateAuthor.asp">Add New Author</a>
+<br/><br/>
+
 
 <!-- #include virtual = "SqlConnect.asp" -->
 
@@ -41,9 +46,6 @@ If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId))
 End if
 
 %>
-
-</div>
-<hr />
 
 
 
@@ -123,4 +125,3 @@ Call GetAllRecordsFromDB(columns)
 
 
 
-<!-- #include virtual = "Footer.asp" -->

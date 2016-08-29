@@ -30,7 +30,7 @@
 
 <tbody>
 
-<!-- #include file ="SqlConnect.asp" -->
+<!-- #include virtual = "SqlConnect.asp" -->
 
 
 <% 
