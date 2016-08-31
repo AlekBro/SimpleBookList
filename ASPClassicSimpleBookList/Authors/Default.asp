@@ -14,6 +14,7 @@
 
 <%
 
+
 dim AuthorId
 AuthorId = Request.QueryString("Id")
 
@@ -127,3 +128,4 @@ Call GetAllRecordsFromDB(columns)
 
 
 
+<!-- #include virtual = "Footer.asp" -->

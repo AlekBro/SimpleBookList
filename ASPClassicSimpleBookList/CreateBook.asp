@@ -67,22 +67,6 @@ Function AddNewBook(RequestContext)
 	Dim SqlFindAuthorQuery
 	Dim ResArray
 
-	Dim SqlFindAuthor
-	SqlFindAuthor = "SELECT Id FROM Authors WHERE Id="
-
-
-	For each AuthorId in RequestContext.Form("AuthorsIds")
-		SqlFindAuthorQuery = SqlFindAuthor & AuthorId
-		
-		ResArray = SendSqlRequest(SqlFindAuthorQuery)
-		If IsNull(ResArray) Then
-			response.write("Authors is wrong!")
-			AddNewBook = false
-		End If
-	Next
-
-
-
 	DIM SqlAddNewBook
 	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") & "', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate") & "', @Pages = " & RequestContext.Form("Pages") 
 	
@@ -99,6 +83,8 @@ Function AddNewBook(RequestContext)
 	Else
 		SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & RequestContext.Form("ISBN") & "'"
 	End IF
+	
+	SqlAddNewBook = SqlAddNewBook & ", @AuthorsIDs = N'" & RequestContext.Form("AuthorsIds") & "'"
 
 	SqlAddNewBook = SqlAddNewBook & ", @BookId = @BookId OUTPUT SELECT @BookId as N'BookId'"
 
@@ -106,23 +92,11 @@ Function AddNewBook(RequestContext)
 	Dim ResArray2
 	ResArray2 = SendSqlRequest(SqlAddNewBook)
 
-	Dim ResArray3
-	Dim AddAuthorQuery
+
 	If IsNull(ResArray2) Then
 			response.write("Book is wrong!")
 			AddNewBook = false
-		Else
-		For each AuthorId in RequestContext.Form("AuthorsIds")
-			AddAuthorQuery = "EXEC [dbo].[AddNewBookAuthorsRecord] @BookId = " & ResArray2(0)("BookId") & ", @AuthorId = " & AuthorId & " SELECT * FROM BookAuthors WHERE Book_Id = " & ResArray2(0)("BookId") & " AND Author_Id = " & AuthorId
-			'response.write(AddAuthorQuery)
-			'response.write("<br><br>")
-			
-			ResArray3 = SendSqlRequest(AddAuthorQuery)
-			If IsNull(ResArray3) Then
-				response.write("Book is wrong!")
-				AddNewBook = false
-			end if
-		Next
+		
 	end if
 	
 	AddNewBook = true

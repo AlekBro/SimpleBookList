@@ -9,14 +9,17 @@
     <link rel="stylesheet" href="/Styles/bootstrap.css">	
     <link rel="stylesheet" href="/Styles/site.css">
 	<link rel="stylesheet" href="/Styles/bootstrap-theme.css">
+	<link rel="stylesheet" href="/Styles/multi-select.css">
 	
 	<script src="/Scripts/jquery-2.2.3.js"></script>
 	<script src="/Scripts/jquery-ui.js"></script>
+	<script src="/Scripts/jquery.validate.js"></script>
+	<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
 	
 	<script src="/Scripts/jquery.quicksearch.js"></script>
-	
+	<script src="/Scripts/jquery.multi-select.js"></script>
 </head>
 
 <body>

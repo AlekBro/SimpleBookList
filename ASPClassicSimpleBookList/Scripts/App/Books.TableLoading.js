@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на редактирование
     var getEditLinkForItem = function (data, type, full, meta) {
-        return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="editFunc(this, event)">Edit</a>';
+        return '<a href="/Edit/Default.asp?BookId=' + data.Id + '" value="' + data.Id + '">Edit</a>';
     };
 
     // Получаем и форматируем ссылку на удаление
