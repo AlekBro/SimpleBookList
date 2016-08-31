@@ -17,8 +17,7 @@ Function EditBook(RequestContext)
 	DIM SqlEditBook
 	SqlEditBook = "DECLARE @BookId int EXEC [dbo].[EditBook] @Id = " & RequestContext.Form("Id") 
 	SqlEditBook = SqlEditBook &	", @Name = N'" & RequestContext.Form("Name") 
-	SqlEditBook = SqlEditBook & "', @ReleaseDate = N'" 
-	SqlEditBook = SqlEditBook & RequestContext.Form("ReleaseDate")
+	SqlEditBook = SqlEditBook & "', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate")
 	SqlEditBook = SqlEditBook &	"', @Pages = " & RequestContext.Form("Pages") 
 	
 	SqlEditBook = SqlEditBook & ", @Rating = " & RequestContext.Form("Rating")
@@ -57,14 +56,8 @@ End Function
 
 If (Request.Form.Count > 0) Then
 
-	response.write(Request.Form("Id"))
+	
 
-	response.write("<br>")
-	
-	response.write(Request.Form("Name"))
-	response.write("<br>")
-	
-	
 	Dim EditBookResult
 	EditBookResult = EditBook(Request)
 
@@ -76,11 +69,10 @@ If (Request.Form.Count > 0) Then
 		response.write("<script>$(document).ready(function () { $('#EditBookForm').hide(); });</script>")
 	End if
 
-	
-	
-
 
 End If
+
+
 
 %>
 

@@ -68,7 +68,9 @@ Function AddNewBook(RequestContext)
 	Dim ResArray
 
 	DIM SqlAddNewBook
-	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") & "', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate") & "', @Pages = " & RequestContext.Form("Pages") 
+	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") 
+	SqlAddNewBook = SqlAddNewBook &	"', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate") 
+	SqlAddNewBook = SqlAddNewBook &	"', @Pages = " & RequestContext.Form("Pages") 
 	
 	SqlAddNewBook = SqlAddNewBook & ", @Rating = " & RequestContext.Form("Rating")
 	
