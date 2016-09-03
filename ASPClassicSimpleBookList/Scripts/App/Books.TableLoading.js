@@ -35,24 +35,14 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на редактирование
     var getEditLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Edit/Default.asp?BookId=' + data.Id + '" value="' + data.Id + '">Edit</a>';
+        return '<a href="/Edit/?BookId=' + data.Id + '" value="' + data.Id + '">Edit</a>';
     };
 
     // Получаем и форматируем ссылку на удаление
     var getDeleteLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Delete/Default.asp?BookId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
+        return '<a href="/Delete/?BookId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
     };
 
-    var getAuthorLinksList = function (data, type, full, meta) {
-        var blkstr = [];
-        $.each(data, function (index, element) {
-            var str = "<a href='/authors/details/" + element.Id + "/" + element.Name + "/'>" + element.Name + "</a>";
-            blkstr.push(str);
-        });
-        var res = blkstr.join(", ");
-
-        return res;
-    };
 
     var booksTable = $('#BooksListTable').DataTable({
         "processing": true, // for show progress bar
@@ -61,7 +51,7 @@ $(document).ready(function () {
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
         "deferRender": true, // ??
-        "stateSave": true, // restore table state on page reload.
+        //"stateSave": true, // restore table state on page reload.
 
         "aoColumns": [
             { "data": "Id", "render": getNumberForItem, "visible": false, "searchable": false },

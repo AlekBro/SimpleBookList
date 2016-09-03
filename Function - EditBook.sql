@@ -7,53 +7,74 @@ IF EXISTS (SELECT TOP 1 *
 
 GO
 
-CREATE PROCEDURE [dbo].EditBook
-                                          ( 
-				@Id int,
-                @Name nvarchar(300),
-				@ReleaseDate datetime,
-				@Pages int,
-				@Rating int,
-				@Publisher nvarchar(100),
-				@ISBN nvarchar(20),
-				@AuthorsIDs nvarchar(300),
-				@BookId  INT OUTPUT
-                                          )
-
+CREATE PROCEDURE [dbo].[EditBook](
+       @Id          [INT],
+       @Name        NVARCHAR(300),
+       @ReleaseDate DATETIME,
+       @Pages       [INT],
+       @Rating      [INT],
+       @Publisher   NVARCHAR(100),
+       @ISBN        NVARCHAR(20),
+       @AuthorsIDs  NVARCHAR(300),
+       @BookId      [INT] OUTPUT)
 AS
 BEGIN
 
-	BEGIN TRAN
+    BEGIN TRAN;
 
-		UPDATE [dbo].Books 
-		SET Name = @Name, ReleaseDate = @ReleaseDate, Pages = @Pages, Rating = @Rating, Publisher = @Publisher, ISBN = @ISBN
-		WHERE Id = @Id;
-		
-		SET @BookId = @Id;
+    UPDATE [dbo].[Books]
+    SET [Name] = @Name,
+        [ReleaseDate] = @ReleaseDate,
+        [Pages] = @Pages,
+        [Rating] = @Rating,
+        [Publisher] = @Publisher,
+        [ISBN] = @ISBN
+    WHERE [Id] = @Id;
 
-		DELETE FROM BookAuthors WHERE Book_Id = @BookId;
+    IF @@error <> 0
+        BEGIN
+            ROLLBACK;
+            SET @BookId = NULL;
+            RETURN;
+        END;
 
-		Declare @OneAuthorID varchar(20) = null
-		WHILE LEN(@AuthorsIDs) > 0
-		BEGIN
-			IF PATINDEX('%,%',@AuthorsIDs) > 0
-				BEGIN
-					SET @OneAuthorID = SUBSTRING(@AuthorsIDs, 0, PATINDEX('%,%',@AuthorsIDs))
-					SET @AuthorsIDs = SUBSTRING(@AuthorsIDs, LEN(@OneAuthorID + ',') + 1,
-																 LEN(@AuthorsIDs))
-				END
-			ELSE
-				BEGIN
-					SET @OneAuthorID = @AuthorsIDs
-					SET @AuthorsIDs = NULL
-				END
-	
-			INSERT INTO BookAuthors(Book_Id, Author_Id) VALUES (@BookId, @OneAuthorID);
-		END
+    SET @BookId = @Id;
+
+    DELETE FROM [BookAuthors]
+    WHERE [Book_Id] = @BookId;
+
+    DECLARE @OneAuthorID VARCHAR(20) = NULL;
+    WHILE LEN(@AuthorsIDs) > 0
+
+        BEGIN
+            IF PATINDEX('%,%',@AuthorsIDs) > 0
+                BEGIN
+                    SET @OneAuthorID = SUBSTRING(@AuthorsIDs,0,PATINDEX('%,%',@AuthorsIDs));
+                    SET @AuthorsIDs = SUBSTRING(@AuthorsIDs,LEN(@OneAuthorID+',')+1,LEN(@AuthorsIDs));
+                END;
+            ELSE
+                BEGIN
+                    SET @OneAuthorID = @AuthorsIDs;
+                    SET @AuthorsIDs = NULL;
+                END;
+
+            INSERT INTO [BookAuthors]( [Book_Id]
+                                      ,[Author_Id] )
+            VALUES
+                   (@BookId
+                   ,@OneAuthorID);
+
+            IF @@error <> 0
+                BEGIN
+                    ROLLBACK;
+                    SET @BookId = NULL;
+                    RETURN;
+                END;
+
+        END;
 
 
-	COMMIT TRAN
+    COMMIT TRAN;
 
-	
     RETURN;
 END;

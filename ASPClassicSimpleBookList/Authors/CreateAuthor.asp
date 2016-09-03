@@ -51,11 +51,12 @@ If (Request.Form.Count > 0) Then
 	If (AddNewAuthorResult) Then
 		response.write("<h1>New Author is added!</h1>")
 		response.write("<script>$(document).ready(function () { $('#CreateAuthorForm').hide(); });</script>")
+		response.write("<h4 style='margin-top:2em;'><a href='/Authors/'>Return to list</a></h4>")
 	Else
 		response.write("<h1>Error while adding new Author!</h1>")
 		response.write("<script>$(document).ready(function () { $('#CreateAuthorForm').hide(); });</script>")
+		response.write("<h4 style='margin-top:2em;'><a href='/Authors/'>Return to list</a></h4>")
 	End if
-
 
 End If
 
@@ -86,7 +87,7 @@ End If
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
 				<input type="submit" value="Submit" class="btn btn-default">
-				<input type="button" value="Cancel" onclick="javascript:location.href='/'" class="btn btn-default" id="CancelButton">
+				<input type="button" value="Cancel" onclick="javascript:location.href='/Authors/'" class="btn btn-default" id="CancelButton">
 			</div>
 		</div>
 

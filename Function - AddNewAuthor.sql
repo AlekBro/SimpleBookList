@@ -7,23 +7,42 @@ IF EXISTS (SELECT TOP 1 *
 
 GO
 
-CREATE PROCEDURE [dbo].AddNewAuthor
-                                          ( 
-                @FirstName nvarchar(100),
-				@LastName nvarchar(100),
-				@AuthorId  INT OUTPUT
-                                          )
-
+CREATE PROCEDURE [dbo].[AddNewAuthor](
+       @FirstName NVARCHAR(100),
+       @LastName  NVARCHAR(100),
+       @AuthorId  [INT] OUTPUT)
 AS
 BEGIN
-	Declare @items int
-	SET @items = (SELECT COUNT(*) FROM Authors WHERE FirstName = @FirstName AND LastName = @LastName);
+    BEGIN TRAN;
 
-	IF(@items > 0)
-	RETURN;
-	
-	INSERT INTO Authors (FirstName, LastName) VALUES (@FirstName, @LastName);
+    DECLARE @items [INT];
+    SET @items = (SELECT COUNT(*)
+                  FROM [Authors]
+                  WHERE [FirstName] = @FirstName
+                        AND [LastName] = @LastName);
 
-	SET @AuthorId = SCOPE_IDENTITY()
+    IF @items > 0
+        BEGIN
+            SET @AuthorId = NULL;
+            RETURN;
+        END;
+
+    INSERT INTO [Authors]( [FirstName]
+                          ,[LastName] )
+    VALUES
+           (@FirstName
+           ,@LastName);
+
+    IF @@error <> 0
+        BEGIN
+            ROLLBACK;
+            SET @AuthorId = NULL;
+            RETURN;
+        END;
+
+    SET @AuthorId = SCOPE_IDENTITY();
+
+    COMMIT TRAN;
+
     RETURN;
 END;

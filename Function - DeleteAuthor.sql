@@ -7,15 +7,16 @@ IF EXISTS (SELECT TOP 1 *
 
 GO
 
-CREATE PROCEDURE [dbo].DeleteAuthor
-                                          ( 
-				@AuthorId int,
-                @Id  INT OUTPUT               )
-
+CREATE PROCEDURE [dbo].[DeleteAuthor](
+       @AuthorId [INT],
+       @Id       [INT] OUTPUT)
 AS
 BEGIN
 
-	DELETE FROM Authors WHERE Id = @AuthorId;
-    SET @Id = (SELECT TOP 1 Id FROM Authors WHERE Id = @AuthorId);
+    DELETE FROM [Authors]
+    WHERE [Id] = @AuthorId;
+    SET @Id = (SELECT TOP 1 [Id]
+               FROM [Authors]
+               WHERE [Id] = @AuthorId);
     RETURN;
 END;

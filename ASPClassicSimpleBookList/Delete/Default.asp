@@ -1,7 +1,4 @@
 <!-- #include virtual = "Header.asp" -->
-
-
-
 <!-- #include virtual = "SqlConnect.asp" -->
 
 <%
@@ -34,36 +31,36 @@ sub GetAuthorsList(BookId)
 end sub
 
 
-
-
 dim BookId
 BookId = Request.QueryString("BookId")
 dim BookDelete
 BookDelete = Request.QueryString("BookDelete")
 
-
 If ((Not (BookId = "")) AND (Not (ISNULL(BookId))) AND (IsNumeric(BookId)) AND (Not (IsEmpty(BookId))) ) Then 
 	Dim FindBookQuery
 	FindBookQuery = "SELECT * FROM Books WHERE Id =" & BookId
-	'Response.write(FindBookQuery)
 	
 	Dim FindBookResult
 	FindBookResult = SendSqlRequest(FindBookQuery)
      
 	If IsNull(FindBookResult) Then
-		Response.write ("<h1>Error!</h1>")
+		Response.write ("<h1>Error! Such Book is not exist!</h1>")
+		response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
 	Else
 	
 		If (BookDelete = "true") Then 
-			'Response.write(BookDelete & "<br>")
-			
 			Dim DeleteBookQuery
 			DeleteBookQuery = "DECLARE	@Id int EXEC [dbo].[DeleteBook] @BookId = " & BookId & ", @Id = @Id OUTPUT SELECT	@Id as N'@Id'"
-			'Response.write(DeleteBookQuery)
+
 			Dim DeleteResp
 			DeleteResp = SendSqlRequest(DeleteBookQuery)
+
 			If (IsNull(DeleteResp) = false) Then
 				Response.write ("<h3>Book successfully deleted!</h3>")
+				response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
+			Else
+				Response.write ("<h3>Error while deleting!</h3>")
+				response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
 			End If
 		Else
 		
@@ -73,18 +70,15 @@ If ((Not (BookId = "")) AND (Not (ISNULL(BookId))) AND (IsNumeric(BookId)) AND (
 			Response.write ("<dt>Name</dt><dd>" & FindBookResult(0)("Name")  & "</dd>")
 			Response.write ("<dt>Release Date</dt><dd>" & FindBookResult(0)("ReleaseDate")  & "</dd>")
 			Response.write ("<dt>Pages</dt><dd>" & FindBookResult(0)("Pages")  & "</dd>")
-			
 			Response.write ("<dt>Rating</dt><dd>" & FindBookResult(0)("Rating")  & "</dd>")
 			Response.write ("<dt>Publisher</dt><dd>" & FindBookResult(0)("Publisher")  & "</dd>")
 			Response.write ("<dt>ISBN</dt><dd>" & FindBookResult(0)("ISBN")  & "</dd>")
-			
 			Response.write ("<dt>Authors</dt><dd>")
 			GetAuthorsList(BookId)
 			Response.write ("</dd>")
 			
 			Response.write ("</dl>")
 			
-				
 			Response.write ("<form action='' method='GET' id='DeleteBookForm' method='post'>")
 			Response.write ("<input type='hidden' name='BookId' value='"& BookId & "'>")
 			Response.write ("<input type='hidden' name='BookDelete' value='true'>")
@@ -96,15 +90,7 @@ If ((Not (BookId = "")) AND (Not (ISNULL(BookId))) AND (IsNumeric(BookId)) AND (
 		End if
 	End If
 
-
-    
 End if
-
-
-
-
-
-
 
 
 

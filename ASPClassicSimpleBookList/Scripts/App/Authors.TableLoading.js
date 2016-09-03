@@ -10,16 +10,16 @@ $(document).ready(function () {
 
     // Получаем и форматируем ссылку на редактирование
     var getEditLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/Edit/' + data.Id + '" value="' + data.Id + '">Edit</a>';
+        return '<a href="/Authors/Edit/?AuthorId=' + data.Id + '" value="' + data.Id + '">Edit</a>';
     };
 
     // Получаем и форматируем ссылку на удаление
     var getDeleteLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/Delete/Default.asp?AuthorId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
+        return '<a href="/Authors/Delete/?AuthorId=' + data.Id + '" value="' + data.Id + '">Delete</a>';
     };
 
     var getDetailsLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/?id=' + data.Id + '" value="' + data.Id + '">Details</a>';
+        return '<a href="/Authors/?AuthorId=' + data.Id + '" value="' + data.Id + '">Details</a>';
     };
 
 
@@ -30,7 +30,7 @@ $(document).ready(function () {
         "orderMulti": false, // for disable multiple column at once
         "paging": true, // ??
         "deferRender": true, // ??
-		"stateSave": true, // restore table state on page reload.
+		//"stateSave": true, // restore table state on page reload.
         "aoColumns": [
             { "data": "Id", "render": getNumberForItem, "visible": false, "searchable": false },
             { "data": "First Name", "render": getStringForItem, "class": "dt-head-center dt-body-center" },

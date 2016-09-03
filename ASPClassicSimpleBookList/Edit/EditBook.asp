@@ -1,12 +1,9 @@
 ﻿<!-- #include virtual = "Header.asp" -->
 
-<h2>Books List</h2>
+<!-- #include virtual = "SqlConnect.asp" -->
+
 
 <hr />
-<div id="dialogContainer"></div>
-
-
-<!-- #include virtual = "SqlConnect.asp" -->
 
 <%
 
@@ -56,22 +53,18 @@ End Function
 
 If (Request.Form.Count > 0) Then
 
-	
-
 	Dim EditBookResult
 	EditBookResult = EditBook(Request)
 
 	If (EditBookResult) Then
 		response.write("<h1>Book is updated!</h1>")
-		response.write("<script>$(document).ready(function () { $('#EditBookForm').hide(); });</script>")
+		response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
 	Else
-		response.write("<h1>Error while adding new book!</h1>")
-		response.write("<script>$(document).ready(function () { $('#EditBookForm').hide(); });</script>")
+		response.write("<h1>Error while editing Book!</h1>")
+		response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
 	End if
 
-
 End If
-
 
 
 %>

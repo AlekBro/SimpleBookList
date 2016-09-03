@@ -1,22 +1,17 @@
 <!-- #include virtual = "Header.asp" -->
+<!-- #include virtual = "SqlConnect.asp" -->
 
 <script src="/Scripts/App/Authors.TableLoading.js"></script>
-
 
 <h2>Authors List</h2>
 
 <hr />
-<div id="dialogContainer"></div>
 
-
-
-<!-- #include virtual = "SqlConnect.asp" -->
 
 <%
 
-
 dim AuthorId
-AuthorId = Request.QueryString("Id")
+AuthorId = Request.QueryString("AuthorId")
 
 If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId)) AND (Not (IsEmpty(AuthorId))) ) Then 
     
@@ -39,18 +34,14 @@ If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId))
 		Next
 	End If
 
-
-    
 End if
 
 %>
 
 <hr />
 
-
 <a href="./CreateAuthor.asp">Add New Author</a>
 <br/><br/>
-
 
 <table class="table" id="AuthorsListTable" cellspacing="0">
 <thead>
@@ -64,17 +55,10 @@ End if
 		<th>Details</th>
 	</tr>
 </thead>
-
 <tbody>
 
 
-
-
 <% 
-
-
-
-
 
 Sub GetAllRecordsFromDB(columnsArray)
 
@@ -83,24 +67,25 @@ Sub GetAllRecordsFromDB(columnsArray)
 
 	Dim ResArray
 	ResArray = SendSqlRequest(SQLAuthorsString)
+    If IsNull(ResArray) Then
+    	Response.write ("")
+    Else
+		For Each row In ResArray
+		Response.write "<tr>"
+		
+			For Each column In columnsArray
+				Response.write "<td>"
+				If (column = "Edit") OR (column = "Delete") OR (column = "Details") Then
+				Else
+					Response.write row(column)
+				End If
+					Response.write "</td>"
+			Next
 
+		Response.write "</tr>"
 
-	For Each row In ResArray
-	Response.write "<tr>"
-	
-		For Each column In columnsArray
-			Response.write "<td>"
-			If (column = "Edit") OR (column = "Delete") OR (column = "Details") Then
-			Else
-				Response.write row(column)
-			End If
-				Response.write "</td>"
 		Next
-
-	Response.write "</tr>"
-
-	Next
-
+	End If
 
 End Sub 
 

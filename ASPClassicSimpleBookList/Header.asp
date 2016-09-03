@@ -17,7 +17,6 @@
 	<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
 	<script src="/Scripts/jquery.dataTables.js"></script>
 	<script src="/Scripts/bootstrap.js"></script>
-	
 	<script src="/Scripts/jquery.quicksearch.js"></script>
 	<script src="/Scripts/jquery.multi-select.js"></script>
 </head>
@@ -36,13 +35,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href=''>About</a></li>
+                    <li><a href='/About/'>About</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
-
-
 
 <h1 id="booksTitle">SimpleBookList</h1>

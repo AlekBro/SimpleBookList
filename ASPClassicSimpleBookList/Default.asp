@@ -1,12 +1,10 @@
-﻿
-<!-- #include virtual = "Header.asp" -->
+﻿<!-- #include virtual = "Header.asp" -->
+<!-- #include virtual = "SqlConnect.asp" -->
 
 <script src="/Scripts/App/Books.TableLoading.js"></script>
 
 <h2>Books List</h2>
-
 <hr />
-<div id="dialogContainer"></div>
 <hr />
 
 <a href="./CreateBook.asp">Add New Book</a>
@@ -27,22 +25,14 @@
 		<th>Delete</th>
 	</tr>
 </thead>
-
 <tbody>
-
-<!-- #include virtual = "SqlConnect.asp" -->
-
 
 <% 
 
-
-
-
 sub GetAuthorsList(BookId)
 
-	Dim SQLAuthors, SQLAuthorsString
-	SQLAuthors = "SELECT Authors.Id, Authors.FirstName, Authors.LastName FROM Authors INNER JOIN BookAuthors ON BookAuthors.Author_Id = Authors.Id Where BookAuthors.Book_Id ="
-	SQLAuthorsString = SQLAuthors & BookId
+	Dim SQLAuthorsString
+	SQLAuthorsString = "SELECT Authors.Id, Authors.FirstName, Authors.LastName FROM Authors INNER JOIN BookAuthors ON BookAuthors.Author_Id = Authors.Id Where BookAuthors.Book_Id =" & BookId
 	
 	Dim ResArray
 	ResArray = SendSqlRequest(SQLAuthorsString)
@@ -64,9 +54,6 @@ sub GetAuthorsList(BookId)
 		Next
 	End If
 
-
-
-
 end sub
 
 
@@ -74,12 +61,9 @@ end sub
 
 Sub GetAllRecordsFromDB(columnsArray)
 
-
-	'declare the variables 
 	Dim SQLBooks
 	Dim ResultArray
 	
-	'declare the SQL statement that will query the database
 	SQLBooks = "SELECT * FROM Books"
 
 	ResultArray = SendSqlRequest(SQLBooks)
@@ -123,14 +107,11 @@ columns(9) = "Delete"
 Call GetAllRecordsFromDB(columns)
 
 
-
 %>
 
 
 </tbody>
 </table>
-
-
 
 
 <!-- #include virtual = "Footer.asp" -->
