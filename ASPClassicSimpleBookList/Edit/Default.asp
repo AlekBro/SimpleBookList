@@ -16,7 +16,7 @@ Function GetAuthorsIdArray(inputBookId)
 
 	Dim AuthorsIdArray()
 	If IsNull(ResArray) Then
-		
+		GetAuthorsIdArray = Null
 	Else
 		Dim Lenght
 		Lenght = ubound(ResArray)
@@ -27,23 +27,26 @@ Function GetAuthorsIdArray(inputBookId)
 			AuthorsIdArray(k) = oneRow("Id")
 			k = k + 1
 		Next
-	End If
 
-	GetAuthorsIdArray = AuthorsIdArray
+    GetAuthorsIdArray = AuthorsIdArray
+	End If
 
 End Function
 
 
 
 Function IsArrayContains(inputArray, value)
-	Dim found
+    Dim found
 	found = false
-	for i = 0 to ubound(inputArray)
-		if (inputArray(i) = value) then
-			found = true
-		end if
-	next
 
+	If (IsNull(inputArray) =false) Then
+
+	    for i = 0 to ubound(inputArray)
+		    if (inputArray(i) = value) then
+			    found = true
+		    end if
+	    next
+    End If
 	IsArrayContains = found
 	
 End Function

@@ -8,40 +8,19 @@
 
 Function AddNewBook(RequestContext)
 
-	Dim SqlFindAuthorQuery
-	Dim ResArray
-
-	DIM SqlAddNewBook
-	SqlAddNewBook = "DECLARE @BookId int EXEC [dbo].[AddNewBook] @Name = N'" & RequestContext.Form("Name") 
-	SqlAddNewBook = SqlAddNewBook &	"', @ReleaseDate = N'" & RequestContext.Form("ReleaseDate") 
-	SqlAddNewBook = SqlAddNewBook &	"', @Pages = " & RequestContext.Form("Pages") 
+    ' Turn on error Handling
+    On Error Resume Next
 	
-	SqlAddNewBook = SqlAddNewBook & ", @Rating = " & RequestContext.Form("Rating")
+	Dim Result
+	Result = CreateBookInDB(RequestContext.Form("Name"), RequestContext.Form("ReleaseDate"), RequestContext.Form("Pages"), RequestContext.Form("Rating"), RequestContext.Form("Publisher"), RequestContext.Form("ISBN"), RequestContext.Form("AuthorsIds"))
 	
-	if (ISNULL(RequestContext.Form("Publisher")) OR (RequestContext.Form("Publisher")="")) Then
-		SqlAddNewBook = SqlAddNewBook & ", @Publisher = NULL"
-	Else
-		SqlAddNewBook = SqlAddNewBook & ", @Publisher = N'" & RequestContext.Form("Publisher") & "'"
-	End IF
+    ' Error Handler
+    If Err.Number <> 0 Then
+        AddNewBook = false
+    Else
+	    AddNewBook = true
+	End If
 
-	if (ISNULL(RequestContext.Form("ISBN")) OR (RequestContext.Form("ISBN")="")) Then
-		SqlAddNewBook = SqlAddNewBook & ", @ISBN = NULL"
-	Else
-		SqlAddNewBook = SqlAddNewBook & ", @ISBN = N'" & RequestContext.Form("ISBN") & "'"
-	End IF
-	
-	SqlAddNewBook = SqlAddNewBook & ", @AuthorsIDs = N'" & RequestContext.Form("AuthorsIds") & "'"
-	SqlAddNewBook = SqlAddNewBook & ", @BookId = @BookId OUTPUT SELECT @BookId as N'BookId'"
-
-	Dim ResArray2
-	ResArray2 = SendSqlRequest(SqlAddNewBook)
-
-	If IsNull(ResArray2) Then
-			response.write("Book is wrong!")
-			AddNewBook = false
-	end if
-	
-	AddNewBook = true
 
 End Function
 

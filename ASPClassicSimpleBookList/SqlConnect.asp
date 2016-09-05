@@ -1,4 +1,5 @@
-﻿<% 
+﻿
+<% 
 
 Dim ConnString
 
@@ -10,6 +11,144 @@ ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=
 function aspLog(value)
     response.Write("<script language=javascript>console.log('" & value & "'); </script>")
 end function
+
+
+Function CreateAuthorInDB(FirstName, LastName)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "AddNewAuthor"
+	cmd.CommandType = 4
+	
+	cmd.Parameters.Append cmd.CreateParameter("@FirstName", 202, 1, 100, FirstName)
+	cmd.Parameters.Append cmd.CreateParameter("@LastName", 202, 1, 100, LastName)
+	cmd.Parameters.Append cmd.CreateParameter("@AuthorId", 3, 4)
+	
+	cmd.Execute
+	
+	Dim AuthorId
+	AuthorId = cmd.Parameters("@AuthorId").Value
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+	CreateAuthorInDB = AuthorId
+	
+End Function
+
+
+
+
+Function CreateBookInDB(Name, ReleaseDate, Pages, Rating, Publisher, ISBN, AuthorsIDs)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "AddNewBook"
+	cmd.CommandType = 4
+	
+	cmd.Parameters.Append cmd.CreateParameter("@Name", 202, 1, 300, Name)
+	cmd.Parameters.Append cmd.CreateParameter("@ReleaseDate", 133, 1, , ReleaseDate)
+    cmd.Parameters.Append cmd.CreateParameter("@Pages", 3, 1, , Pages)
+    cmd.Parameters.Append cmd.CreateParameter("@Rating", 3, 1, , Rating)
+	If (ISNULL(Publisher) OR (Publisher = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@Publisher", 202, 1, 100, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@Publisher", 202, 1, 100, Publisher)
+	End If
+	If (ISNULL(ISBN) OR (ISBN = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@ISBN", 202, 1, 20, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@ISBN", 202, 1, 20, ISBN)
+	End If
+	If (ISNULL(AuthorsIDs) OR (AuthorsIDs = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@AuthorsIDs", 202, 1, 300, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@AuthorsIDs", 202, 1, 300, AuthorsIDs)
+	End If
+	
+    cmd.Parameters.Append cmd.CreateParameter("@BookId", 3, 4)
+	
+	cmd.Execute
+	
+	Dim BookId
+	BookId = cmd.Parameters("@BookId").Value
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+	CreateBookInDB = BookId
+	
+End Function
+
+
+
+
+Function EditBookInDB(Id, Name, ReleaseDate, Pages, Rating, Publisher, ISBN, AuthorsIDs)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "EditBook"
+	cmd.CommandType = 4
+	
+    cmd.Parameters.Append cmd.CreateParameter("@Id", 3, 1, , Id)
+	cmd.Parameters.Append cmd.CreateParameter("@Name", 202, 1, 300, Name)
+	cmd.Parameters.Append cmd.CreateParameter("@ReleaseDate", 133, 1, , ReleaseDate)
+    cmd.Parameters.Append cmd.CreateParameter("@Pages", 3, 1, , Pages)
+    cmd.Parameters.Append cmd.CreateParameter("@Rating", 3, 1, , Rating)
+   
+   	If (ISNULL(Publisher) OR (Publisher = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@Publisher", 202, 1, 100, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@Publisher", 202, 1, 100, Publisher)
+	End If
+	If (ISNULL(ISBN) OR (ISBN = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@ISBN", 202, 1, 20, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@ISBN", 202, 1, 20, ISBN)
+	End If
+	If (ISNULL(AuthorsIDs) OR (AuthorsIDs = "")) Then
+		cmd.Parameters.Append cmd.CreateParameter("@AuthorsIDs", 202, 1, 300, null)
+	Else
+		cmd.Parameters.Append cmd.CreateParameter("@AuthorsIDs", 202, 1, 300, AuthorsIDs)
+	End If
+   
+    cmd.Parameters.Append cmd.CreateParameter("@BookId", 3, 4)
+	
+	cmd.Execute
+	
+	Dim BookId
+	BookId = cmd.Parameters("@BookId").Value
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+	EditBookInDB = BookId
+	
+End Function
+
+
+
 
 
 Function SendSqlRequest(SqlRequest)

@@ -7,37 +7,18 @@
 
 Function AddNewAuthor(RequestContext)
 
+' Turn on error Handling
+On Error Resume Next
 
-	Dim SqlAddNewAuthor
-	SqlAddNewAuthor = "DECLARE	@AuthorId int EXEC [dbo].[AddNewAuthor] "
+	Dim Result
+	Result = CreateAuthorInDB(RequestContext.Form("FirstName"), RequestContext.Form("LastName"))
 	
-	If (ISNULL(RequestContext.Form("FirstName")) OR (RequestContext.Form("FirstName")="")) Then
-		SqlAddNewAuthor = SqlAddNewAuthor & "@FirstName = NULL "
-	Else
-		SqlAddNewAuthor = SqlAddNewAuthor & "@FirstName = N'" & RequestContext.Form("FirstName") & "'"
+    ' Error Handler
+    If Err.Number <> 0 Then
+        AddNewAuthor = false
+    Else
+	    AddNewAuthor = true
 	End If
-
-	If (ISNULL(RequestContext.Form("LastName")) OR (RequestContext.Form("LastName")="")) Then
-		SqlAddNewAuthor = SqlAddNewAuthor & ", @LastName = NULL, "
-	Else
-		SqlAddNewAuthor = SqlAddNewAuthor & ", @LastName = N'" & RequestContext.Form("LastName") & "'"
-	End If
-
-	SqlAddNewAuthor = SqlAddNewAuthor & ", @AuthorId = @AuthorId OUTPUT SELECT @AuthorId as N'@AuthorId'"
-	
-	'response.write(SqlAddNewAuthor)
-	'response.write("<br><br>")
-
-	Dim ResArray
-	ResArray = SendSqlRequest(SqlAddNewAuthor)
-
-
-	If IsNull(ResArray) Then
-		AddNewAuthor = false
-	Else
-		AddNewAuthor = true
-	End if
-	
 	
 End Function
 
