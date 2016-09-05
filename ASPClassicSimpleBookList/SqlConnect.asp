@@ -3,8 +3,8 @@
 Dim ConnString
 
 'define the connection string, specify database driver
-'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
 
 
 function aspLog(value)
