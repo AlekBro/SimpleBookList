@@ -4,13 +4,129 @@
 Dim ConnString
 
 'define the connection string, specify database driver
-ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
-'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
+ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
 
 
 function aspLog(value)
     response.Write("<script language=javascript>console.log('" & value & "'); </script>")
 end function
+
+
+
+
+
+
+
+Function SelectOneBookByIdFromDB(BookId)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "GetOneBookById"
+	cmd.CommandType = 4
+	cmd.Parameters.Append cmd.CreateParameter("@BookId", 3, 1, , BookId)
+	
+    Set Recordset = Server.CreateObject("ADODB.Recordset")
+	Set Recordset = cmd.Execute()
+
+    Dim resultDict
+	
+	Dim ResultArray()
+	Dim i
+	i = 0
+	ReDim ResultArray(i)
+
+	If Recordset.EOF Then
+        SelectOneBookByIdFromDB = null
+	Else
+		Do While NOT Recordset.Eof
+			ReDim Preserve ResultArray(i)
+			set resultDict = server.createObject("Scripting.Dictionary")
+			for each x in Recordset.fields
+				resultDict.Add x.name, x.value
+			next
+			Set ResultArray(i) = resultDict
+			i = i + 1
+			Recordset.MoveNext
+		Loop
+
+    SelectOneBookByIdFromDB = ResultArray
+
+	End If
+
+	Recordset.Close
+	set Recordset = nothing
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+    
+
+End Function
+
+
+
+
+Function SelectBookAuthorsListFromDB(BookId)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "GetBookAuthorsList"
+	cmd.CommandType = 4
+	cmd.Parameters.Append cmd.CreateParameter("@BookId", 3, 1, , BookId)
+	
+    Set Recordset = Server.CreateObject("ADODB.Recordset")
+	Set Recordset = cmd.Execute()
+
+    Dim resultDict
+	
+	Dim ResultArray()
+	Dim i
+	i = 0
+	ReDim ResultArray(i)
+
+	If Recordset.EOF Then
+        SelectBookAuthorsListFromDB = null
+	Else
+		Do While NOT Recordset.Eof
+			ReDim Preserve ResultArray(i)
+			set resultDict = server.createObject("Scripting.Dictionary")
+			for each x in Recordset.fields
+				resultDict.Add x.name, x.value
+			next
+			Set ResultArray(i) = resultDict
+			i = i + 1
+			Recordset.MoveNext
+		Loop
+    
+        SelectBookAuthorsListFromDB = ResultArray
+
+	End If
+
+	Recordset.Close
+	set Recordset = nothing
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+End Function
+
+
+
+
+
 
 
 Function CreateAuthorInDB(FirstName, LastName)
@@ -150,6 +266,55 @@ End Function
 
 
 
+Function DeleteBookInDB(Id)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "DeleteBook"
+	cmd.CommandType = 4
+	
+    cmd.Parameters.Append cmd.CreateParameter("@BookId", 3, 1, , Id)
+   
+	cmd.Execute
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+End Function
+
+
+Function DeleteAuthorInDB(Id)
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "DeleteAuthor"
+	cmd.CommandType = 4
+	
+    cmd.Parameters.Append cmd.CreateParameter("@AuthorId", 3, 1, , Id)
+   
+	cmd.Execute
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+End Function
+
+
+
 
 Function SendSqlRequest(SqlRequest)
 
@@ -172,11 +337,8 @@ Function SendSqlRequest(SqlRequest)
 	ReDim ResultArray(i)
 
 	If Recordset.EOF Then
-		Recordset.Close
-		set Recordset = nothing
-		Connection.Close
-		set Connection = nothing
-		SendSqlRequest = null
+		
+        SendSqlRequest = null
 	
 	Else
 		Do While NOT Recordset.Eof
@@ -196,14 +358,14 @@ Function SendSqlRequest(SqlRequest)
 			Recordset.MoveNext
 		Loop
 
-	Recordset.Close
-	set Recordset = nothing
-	Connection.Close
-	set Connection = nothing
-	
 	SendSqlRequest = ResultArray
 	
 	End If
+
+    Recordset.Close
+	set Recordset = nothing
+	Connection.Close
+	set Connection = nothing
 
 End Function
 

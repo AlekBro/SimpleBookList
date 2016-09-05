@@ -31,11 +31,8 @@
 
 sub GetAuthorsList(BookId)
 
-	Dim SQLAuthorsString
-	SQLAuthorsString = "SELECT Authors.Id, Authors.FirstName, Authors.LastName FROM Authors INNER JOIN BookAuthors ON BookAuthors.Author_Id = Authors.Id Where BookAuthors.Book_Id =" & BookId
-	
 	Dim ResArray
-	ResArray = SendSqlRequest(SQLAuthorsString)
+    ResArray = SelectBookAuthorsListFromDB(BookId)
 
 	If IsNull(ResArray) Then
     	Response.write ("")

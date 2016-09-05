@@ -21,7 +21,6 @@ Function AddNewBook(RequestContext)
 	    AddNewBook = true
 	End If
 
-
 End Function
 
 

@@ -7,17 +7,17 @@
 
 Function GetAuthorsIdArray(inputBookId)
 
-	Dim SQLAuthors, SQLAuthorsString
-	SQLAuthors = "SELECT Authors.Id as Id FROM Authors INNER JOIN BookAuthors ON BookAuthors.Author_Id = Authors.Id Where BookAuthors.Book_Id ="
-	SQLAuthorsString = SQLAuthors & inputBookId
-	
+    ' Turn on error Handling
+    On Error Resume Next
+    
 	Dim ResArray
-	ResArray = SendSqlRequest(SQLAuthorsString)
+	ResArray = SelectBookAuthorsListFromDB(inputBookId)
 
-	Dim AuthorsIdArray()
-	If IsNull(ResArray) Then
-		GetAuthorsIdArray = Null
+    ' Error Handler
+    If Err.Number <> 0 Then
+        GetAuthorsIdArray = Null
 	Else
+	    Dim AuthorsIdArray()
 		Dim Lenght
 		Lenght = ubound(ResArray)
 		ReDim AuthorsIdArray(Lenght)
@@ -28,19 +28,16 @@ Function GetAuthorsIdArray(inputBookId)
 			k = k + 1
 		Next
 
-    GetAuthorsIdArray = AuthorsIdArray
-	End If
+        GetAuthorsIdArray = AuthorsIdArray
+    End IF
 
 End Function
-
 
 
 Function IsArrayContains(inputArray, value)
     Dim found
 	found = false
-
-	If (IsNull(inputArray) =false) Then
-
+	If (IsNull(inputArray) = false) Then
 	    for i = 0 to ubound(inputArray)
 		    if (inputArray(i) = value) then
 			    found = true
@@ -48,28 +45,19 @@ Function IsArrayContains(inputArray, value)
 	    next
     End If
 	IsArrayContains = found
-	
 End Function
-
 
 
 dim BookId
 BookId = Request.QueryString("BookId")
 
-If ((Not (BookId = "")) AND (Not (ISNULL(BookId))) AND (IsNumeric(BookId)) AND (Not (IsEmpty(BookId))) ) Then 
-
-	Dim SqlGetBook
-	SqlGetBook = "SELECT * FROM Books WHERE Id=" & BookId
+Dim FindBookResult
+FindBookResult = SelectOneBookByIdFromDB(BookId)
 	
-	Dim FindBookResult
-	FindBookResult = SendSqlRequest(SqlGetBook)
-	
-	If IsNull(FindBookResult) Then
-		Response.write ("<h1>Error! Such Book is not exist!</h1>")
-		response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
-		Response.end
-	End If
-
+If IsNull(FindBookResult) Then
+	Response.write ("<h1>Error! Such Book is not exist!</h1>")
+	response.write("<h4 style='margin-top:2em;'><a href='/'>Return to list</a></h4>")
+	Response.end
 End If
 
 

@@ -8,16 +8,13 @@ IF EXISTS (SELECT TOP 1 *
 GO
 
 CREATE PROCEDURE [dbo].[DeleteBook](
-       @BookId [INT],
-       @Id     [INT] OUTPUT)
+       @BookId [INT])
 AS
 BEGIN
 
     DELETE FROM [Books]
     WHERE [Id] = @BookId;
-    SET @Id = (SELECT TOP 1 [Id]
-               FROM [Books]
-               WHERE [Id] = @BookId);
+
     RETURN;
 
 END;
