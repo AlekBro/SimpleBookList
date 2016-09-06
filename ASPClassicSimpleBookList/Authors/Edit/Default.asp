@@ -8,21 +8,17 @@
 dim AuthorId
 AuthorId = Request.QueryString("AuthorId")
 
-If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId)) AND (Not (IsEmpty(AuthorId))) ) Then 
+' Turn on error Handling
+On Error Resume Next
+Dim FindAuthorResult
+FindAuthorResult = SelectOneAuthorByIdFromDB(AuthorId)
 
-	Dim SqlGetAuthor
-	SqlGetAuthor = "SELECT * FROM Authors WHERE Id=" & AuthorId
-	
-	Dim FindAuthorResult
-	FindAuthorResult = SendSqlRequest(SqlGetAuthor)
-	
-	If IsNull(FindBookResult) Then
-		Response.write ("<h1>Error! Such Author is not exist!</h1>")
-		response.write("<h4 style='margin-top:2em;'><a href='/Authors/'>Return to list</a></h4>")
-		Response.end
-	End If
-
+If (Err.Number <> 0) OR (IsNull(FindAuthorResult)) Then
+	Response.write ("<h1>Error! Such Author is not exist!</h1>")
+	response.write("<h4 style='margin-top:2em;'><a href='/Authors/'>Return to list</a></h4>")
+	Response.end
 End If
+
 
 %>
 

@@ -6,44 +6,24 @@
 <%
 
 Function EditAuthor(RequestContext)
+
+    ' Turn on error Handling
+    On Error Resume Next
+	
 	Dim Result
-	Result = false
+	Result = EditAuthorInDB(RequestContext.Form("Id"), RequestContext.Form("FirstName"), RequestContext.Form("LastName"))
 	
-	DIM SqlEditAuthor
-	SqlEditAuthor = "DECLARE @AuthorId int EXEC [dbo].[EditAuthor] @Id = " & RequestContext.Form("Id") 
-	
-	if (ISNULL(RequestContext.Form("FirstName")) OR (RequestContext.Form("FirstName")="")) Then
-		SqlEditAuthor = SqlEditAuthor & ", @FirstName = NULL"
-	Else
-		SqlEditAuthor = SqlEditAuthor & ", @FirstName = N'" & RequestContext.Form("FirstName") & "'"
-	End IF
+    ' Error Handler
+    If (Err.Number <> 0) OR (IsNull(Result)) Then
+        EditAuthor = false
+    Else
+	    EditAuthor = true
+	End If
 
-	if (ISNULL(RequestContext.Form("LastName")) OR (RequestContext.Form("LastName")="")) Then
-		SqlEditAuthor = SqlEditAuthor & ", @LastName = NULL"
-	Else
-		SqlEditAuthor = SqlEditAuthor & ", @LastName = N'" & RequestContext.Form("LastName") & "'"
-	End IF
-
-	SqlEditAuthor = SqlEditAuthor & ", @AuthorId = @AuthorId OUTPUT SELECT @AuthorId as N'AuthorId'"
-
-	
-	Dim ResArray
-	ResArray = SendSqlRequest(SqlEditAuthor)
-
-	If IsNull(ResArray) Then
-		Result = false
-	Else
-		Result = true
-	end if
-	
-	EditAuthor = Result
-	
 End Function
 
 
 If (Request.Form.Count > 0) Then
-
-	
 
 	Dim EditAuthorResult
 	EditAuthorResult = EditAuthor(Request)
@@ -58,8 +38,7 @@ If (Request.Form.Count > 0) Then
 
 
 End If
-
-
+    
 
 %>
 

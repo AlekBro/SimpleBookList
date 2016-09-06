@@ -1,27 +1,24 @@
 ﻿<!-- #include virtual = "Header.asp" -->
-
-
 <!-- #include virtual = "SqlConnect.asp" -->
 
 <%
 
 Function AddNewAuthor(RequestContext)
 
-' Turn on error Handling
-On Error Resume Next
+    ' Turn on error Handling
+    On Error Resume Next
 
 	Dim Result
 	Result = CreateAuthorInDB(RequestContext.Form("FirstName"), RequestContext.Form("LastName"))
 	
     ' Error Handler
-    If Err.Number <> 0 Then
+    If (Err.Number <> 0) OR (IsNull(Result)) Then
         AddNewAuthor = false
     Else
 	    AddNewAuthor = true
 	End If
 	
 End Function
-
 
 
 If (Request.Form.Count > 0) Then

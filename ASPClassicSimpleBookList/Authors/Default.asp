@@ -4,42 +4,8 @@
 <script src="/Scripts/App/Authors.TableLoading.js"></script>
 
 <h2>Authors List</h2>
-
 <hr />
-
-
-<%
-
-dim AuthorId
-AuthorId = Request.QueryString("AuthorId")
-
-If ((Not (AuthorId = "")) AND (Not (ISNULL(AuthorId))) AND (IsNumeric(AuthorId)) AND (Not (IsEmpty(AuthorId))) ) Then 
-    
-	Dim SQLForOneAuthor
-	SQLForOneAuthor = "SELECT * FROM AuthorsView WHERE Id =" & AuthorId
-
-	
-	Dim ResArrayForOneAuthor
-	ResArrayForOneAuthor = SendSqlRequest(SQLForOneAuthor)
-    
-    If IsNull(ResArrayForOneAuthor) Then
-    	Response.write ("No Such Author!")
-    Else
-		For Each row In ResArrayForOneAuthor
-			Response.write ("<h2>" & row("FirstName") & " " & row("LastName") & "</h2>")
-			Response.write ("<div><hr /><dl class='dl-horizontal'><dt>FirstName</dt><dd>" & row("FirstName") & "</dd>")
-			Response.write ("<dt>LastName</dt><dd>" & row("LastName") & "</dd>")
-			Response.write ("<dt>BooksNumber</dt><dd>" & row("BooksNumber") & "</dd>")
-	    	Response.write ("</dl></div>")
-		Next
-	End If
-
-End if
-
-%>
-
 <hr />
-
 <a href="./CreateAuthor.asp">Add New Author</a>
 <br/><br/>
 
@@ -90,7 +56,6 @@ Sub GetAllRecordsFromDB(columnsArray)
 End Sub 
 
 
-
 Dim columns(6)
 columns(0) = "Id"
 columns(1) = "FirstName"
@@ -100,9 +65,7 @@ columns(4) = "Edit"
 columns(5) = "Delete"
 columns(6) = "Details"
 
-
 Call GetAllRecordsFromDB(columns)
-
 
 
 %>
@@ -110,7 +73,6 @@ Call GetAllRecordsFromDB(columns)
 
 </tbody>
 </table>
-
 
 
 <!-- #include virtual = "Footer.asp" -->

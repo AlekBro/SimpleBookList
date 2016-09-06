@@ -1,8 +1,5 @@
-﻿
-<% 
-
+﻿<% 
 Dim ConnString
-
 'define the connection string, specify database driver
 'ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=localhost\SQL2012;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
 ConnString="DRIVER={SQL Server Native Client 11.0};SERVER=MAINPC;UID=sa;PWD=Passw0rd;DATABASE=SimpleBookList"
@@ -13,12 +10,60 @@ function aspLog(value)
 end function
 
 
+Function GetAuthorsListFromDB(AuthorId)
 
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "GetAuthorsList"
+	cmd.CommandType = 4
+	cmd.Parameters.Append cmd.CreateParameter("@AuthorId", 3, 1, , AuthorId)
+	
+    Set Recordset = Server.CreateObject("ADODB.Recordset")
+	Set Recordset = cmd.Execute()
 
+    Dim resultDict
+	
+	Dim ResultArray()
+	Dim i
+	i = 0
+	ReDim ResultArray(i)
 
+	If Recordset.EOF Then
+        GetAuthorsListFromDB = null
+	Else
+		Do While NOT Recordset.Eof
+			ReDim Preserve ResultArray(i)
+			set resultDict = server.createObject("Scripting.Dictionary")
+			for each x in Recordset.fields
+				resultDict.Add x.name, x.value
+			next
+			Set ResultArray(i) = resultDict
+			i = i + 1
+			Recordset.MoveNext
+		Loop
+    
+        GetAuthorsListFromDB = ResultArray
+
+	End If
+
+	Recordset.Close
+	set Recordset = nothing
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+End Function
 
 
 Function SelectOneBookByIdFromDB(BookId)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -66,14 +111,63 @@ Function SelectOneBookByIdFromDB(BookId)
 	Connection.Close
 	set Connection = nothing
 	
-    
-
 End Function
 
 
+Function SelectOneAuthorByIdFromDB(AuthorId)
+
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "GetOneAuthorById"
+	cmd.CommandType = 4
+	cmd.Parameters.Append cmd.CreateParameter("@AuthorId", 3, 1, , AuthorId)
+	
+    Set Recordset = Server.CreateObject("ADODB.Recordset")
+	Set Recordset = cmd.Execute()
+
+    Dim resultDict
+	
+	Dim ResultArray()
+	Dim i
+	i = 0
+	ReDim ResultArray(i)
+
+	If Recordset.EOF Then
+        SelectOneAuthorByIdFromDB = null
+	Else
+		Do While NOT Recordset.Eof
+			ReDim Preserve ResultArray(i)
+			set resultDict = server.createObject("Scripting.Dictionary")
+			for each x in Recordset.fields
+				resultDict.Add x.name, x.value
+			next
+			Set ResultArray(i) = resultDict
+			i = i + 1
+			Recordset.MoveNext
+		Loop
+
+    SelectOneAuthorByIdFromDB = ResultArray
+
+	End If
+
+	Recordset.Close
+	set Recordset = nothing
+	
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+End Function
 
 
 Function SelectBookAuthorsListFromDB(BookId)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -124,12 +218,8 @@ Function SelectBookAuthorsListFromDB(BookId)
 End Function
 
 
-
-
-
-
-
 Function CreateAuthorInDB(FirstName, LastName)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -160,9 +250,8 @@ Function CreateAuthorInDB(FirstName, LastName)
 End Function
 
 
-
-
 Function CreateBookInDB(Name, ReleaseDate, Pages, Rating, Publisher, ISBN, AuthorsIDs)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -211,9 +300,8 @@ Function CreateBookInDB(Name, ReleaseDate, Pages, Rating, Publisher, ISBN, Autho
 End Function
 
 
-
-
 Function EditBookInDB(Id, Name, ReleaseDate, Pages, Rating, Publisher, ISBN, AuthorsIDs)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -264,9 +352,42 @@ Function EditBookInDB(Id, Name, ReleaseDate, Pages, Rating, Publisher, ISBN, Aut
 End Function
 
 
+Function EditAuthorInDB(Id, FirstName, LastName)
 
+	dim Connection
+	Set Connection = Server.CreateObject("ADODB.Connection")
+	Connection.ConnectionString = ConnString
+	Connection.Open
+	
+	dim cmd
+	set cmd = server.CreateObject("adodb.command")
 
+	cmd.ActiveConnection = Connection
+	cmd.CommandText = "EditAuthor"
+	cmd.CommandType = 4
+	
+    cmd.Parameters.Append cmd.CreateParameter("@Id", 3, 1, , Id)
+	cmd.Parameters.Append cmd.CreateParameter("@FirstName", 202, 1, 100, FirstName)
+	cmd.Parameters.Append cmd.CreateParameter("@LastName", 202, 1, 100, LastName)
+   
+    cmd.Parameters.Append cmd.CreateParameter("@AuthorId", 3, 4)
+	
+	cmd.Execute
+	
+	Dim AuthorId
+	AuthorId = cmd.Parameters("@AuthorId").Value
+
+	set cmd = nothing
+	Connection.Close
+	set Connection = nothing
+	
+	EditAuthorInDB = AuthorId
+	
+End Function
+
+    
 Function DeleteBookInDB(Id)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -291,6 +412,7 @@ End Function
 
 
 Function DeleteAuthorInDB(Id)
+
 	dim Connection
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Connection.ConnectionString = ConnString
@@ -314,8 +436,6 @@ Function DeleteAuthorInDB(Id)
 End Function
 
 
-
-
 Function SendSqlRequest(SqlRequest)
 
 	Dim Recordset
@@ -323,10 +443,7 @@ Function SendSqlRequest(SqlRequest)
 	Set Connection = Server.CreateObject("ADODB.Connection")
 	Set Recordset = Server.CreateObject("ADODB.Recordset")
 
-	'Open the connection to the database
 	Connection.Open ConnString
-	
-	'Open the recordset object executing the SQL statement and return records 
 	Recordset.Open SqlRequest,Connection
 
 	Dim resultDict
@@ -337,9 +454,7 @@ Function SendSqlRequest(SqlRequest)
 	ReDim ResultArray(i)
 
 	If Recordset.EOF Then
-		
         SendSqlRequest = null
-	
 	Else
 		Do While NOT Recordset.Eof
 
@@ -368,6 +483,5 @@ Function SendSqlRequest(SqlRequest)
 	set Connection = nothing
 
 End Function
-
 
 %>

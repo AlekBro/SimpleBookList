@@ -16,7 +16,7 @@ Function EditBook(RequestContext)
 	Result = EditBookInDB(RequestContext.Form("Id"), RequestContext.Form("Name"), RequestContext.Form("ReleaseDate"), RequestContext.Form("Pages"), RequestContext.Form("Rating"), RequestContext.Form("Publisher"), RequestContext.Form("ISBN"), RequestContext.Form("AuthorsIds"))
 	
     ' Error Handler
-    If Err.Number <> 0 Then
+    If (Err.Number <> 0) OR (IsNull(Result)) Then
         EditBook = false
     Else
 	    EditBook = true

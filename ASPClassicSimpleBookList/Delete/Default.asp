@@ -8,30 +8,27 @@ sub GetAuthorsList(BookId)
     ' Turn on error Handling
     On Error Resume Next
 
-	Dim ResArray
-    ResArray = SelectBookAuthorsListFromDB(BookId)
+	Dim Result
+    Result = SelectBookAuthorsListFromDB(BookId)
 
     ' Error Handler
-    If Err.Number <> 0 Then
-        Response.write ("")
+    If ((Err.Number <> 0) OR ISNULL(Result)) Then
+        response.write("")
     Else
-	    If IsNull(ResArray) Then
-    	    Response.write ("")
-	    Else
-		    Dim Lenght
-		    Lenght = ubound(ResArray)
-		    Dim k
-		    k = 0
-		    For Each oneRow In ResArray
-			    if ( k < Lenght) Then
-				    response.write( "<span>" & oneRow("FirstName") & " " & oneRow("LastName") & "</span>" & " | ")
-			    Else
-				    response.write( "<span>" & oneRow("FirstName") & " " & oneRow("LastName") & "</span>")
-			    End if
-			    k = k + 1
-		    Next
-	    End If
+	    Dim Lenght
+	    Lenght = ubound(ResArray)
+	    Dim k
+	    k = 0
+	    For Each oneRow In ResArray
+		    if ( k < Lenght) Then
+			    response.write( "<span>" & oneRow("FirstName") & " " & oneRow("LastName") & "</span>" & " | ")
+		    Else
+			    response.write( "<span>" & oneRow("FirstName") & " " & oneRow("LastName") & "</span>")
+		    End if
+		    k = k + 1
+	    Next
     End If
+
 
 end sub
 

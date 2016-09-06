@@ -19,7 +19,7 @@ $(document).ready(function () {
     };
 
     var getDetailsLinkForItem = function (data, type, full, meta) {
-        return '<a href="/Authors/?AuthorId=' + data.Id + '" value="' + data.Id + '">Details</a>';
+        return '<a href="/Authors/Details.asp?AuthorId=' + data.Id + '" value="' + data.Id + '">Details</a>';
     };
 
 

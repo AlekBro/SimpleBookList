@@ -43,9 +43,9 @@ sub GetAuthorsList(BookId)
 		k = 0
 		For Each oneRow In ResArray
 			if ( k < Lenght) Then
-				response.write( "<a href='/Authors/?AuthorId=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>" & " | ")
+				response.write( "<a href='/Authors/Details.asp?AuthorId=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>" & " | ")
 			Else
-				response.write( "<a href='/Authors/?AuthorId=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>")
+				response.write( "<a href='/Authors/Details.asp?AuthorId=" & oneRow("Id") & "'>" & oneRow("FirstName") & " " & oneRow("LastName") & "</a>")
 			End if
 			k = k + 1
 		Next
