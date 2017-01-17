@@ -47,8 +47,6 @@ namespace SimpleBookList.SPA.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Get([FromUri]DTParameters param)
         {
-            
-
             List<string> columnSearch = new List<string>();
             List<BookViewModel> data = null;
             int count = 0;
