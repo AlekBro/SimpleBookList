@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+@Scripts.Render("~/bundles/Angular")
+@Scripts.Render("~/bundles/APIScripts")
 
 <h2>Books List</h2>
 <hr />
@@ -14,10 +16,10 @@
 <div data-ng-app="APIModule">
     <div ng-controller="APIController">
 
-        <table class="table" id="BooksListTable" cellspacing="0">
-            <thead>
+        <table class="table table-striped table-bordered" id="BooksListTable" cellspacing="0">
+            <thead class="thead-default">
                 <tr>
-                    <th>
+                    <th ng-hide="true">
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
@@ -51,9 +53,9 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="bookViewModel in resp.data">
-                    <td>{{bookViewModel.Id}}</td>
+                    <td ng-hide="true">{{bookViewModel.Id}}</td>
                     <td>{{bookViewModel.Name}}</td>
-                    <td>{{bookViewModel.ReleaseDate}}</td>
+                    <td>{{bookViewModel.ReleaseDate | date:'MM/dd/yyyy'}}</td>
                     <td>{{bookViewModel.Pages}}</td>
                     <td>{{bookViewModel.Rating}}</td>
                     <td>
@@ -72,8 +74,4 @@
     </div>
 </div>
 
-<script src="~/Scripts/angular.js"></script>
-<script src="~/Scripts/angular-route.js"></script>
-<script src="~/Scripts/SPA/APIModule.js"></script>
-<script src="~/Scripts/SPA/APIService.js"></script>
-<script src="~/Scripts/SPA/APIController.js"></script>
+
