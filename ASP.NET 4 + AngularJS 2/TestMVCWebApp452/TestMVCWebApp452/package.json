@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "angular2": "^2.0.0-beta.21",
-    "systemjs": "^0.19.43"
+    "systemjs": "^0.19.43",
+    "typings": "^2.1.0"
   }
 }
