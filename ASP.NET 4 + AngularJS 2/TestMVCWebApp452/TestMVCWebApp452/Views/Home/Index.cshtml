@@ -8,6 +8,19 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
+<script src="~/Scripts/App/app.js"></script>
+<div class="row">
+    <div id="message"></div>
+    <div>
+        <p>
+            Compiler: <input id="compiler" value="TypeScript" onkeyup="document.getElementById('message').innerText = sayHello()" /><br />
+        </p>
+        <p>
+            Framework: <input id="framework" value="ASP.NET" onkeyup="document.getElementById('message').innerText = sayHello()" />
+        </p>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
