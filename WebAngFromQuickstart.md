@@ -6,6 +6,7 @@ Clone this repo into new project folder:
 > git clone https://github.com/angular/quickstart  WebAngFromQuickstart
 > cd WebAngFromQuickstart
 
+
 Delete non-essential files (optional)
 > for /f %i in (non-essential-files.txt) do del %i /F /S /Q
 > rd .git /s /q
