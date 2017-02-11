@@ -1,10 +1,10 @@
-import { WebAngPage } from './app.po';
+import { WebAngFromCLIPage } from './app.po';
 
-describe('web-ang App', function() {
-  let page: WebAngPage;
+describe('web-ang-from-cli App', function() {
+  let page: WebAngFromCLIPage;
 
   beforeEach(() => {
-    page = new WebAngPage();
+    page = new WebAngFromCLIPage();
   });
 
   it('should display message saying app works', () => {
