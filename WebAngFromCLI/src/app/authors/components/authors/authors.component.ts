@@ -14,7 +14,7 @@ import { DTResult } from '../../../../app/core/models/DTResult';
 export class AuthorsComponent implements OnInit {
 
   constructor(private _authorService: AuthorService) {
-    let test = 1;
+
   }
 
   Authors: DTResult<AuthorViewModel>;
