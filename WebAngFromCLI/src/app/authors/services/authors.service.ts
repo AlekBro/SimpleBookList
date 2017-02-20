@@ -8,6 +8,8 @@ import { ApiService } from '../../../app/core/services/api-service';
 
 import { AuthorViewModel } from '../models/AuthorViewModel';
 
+import { DTResult } from '../../../app/core/models/DTResult';
+
 import { Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/map';
@@ -20,13 +22,13 @@ export class AuthorService extends ApiService {
         super(http);
     }
 
-    getAuthors(): Promise<AuthorViewModel[]> {
+    getAuthors(): Promise<DTResult<AuthorViewModel>> {
         this.entityUrl = 'api/Authors';
 
         return this.callGet()
             .toPromise()
             .then(
-            response => response.json() as AuthorViewModel[]
+            response => response.json() as DTResult<AuthorViewModel>
             )
             .catch(this.handleError);
 

@@ -4,6 +4,8 @@ import { AuthorService } from '../../services/authors.service';
 
 import { AuthorViewModel } from '../../models/AuthorViewModel';
 
+import { DTResult } from '../../../../app/core/models/DTResult';
+
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
@@ -15,7 +17,7 @@ export class AuthorsComponent implements OnInit {
     let test = 1;
   }
 
-  Authors: AuthorViewModel[];
+  Authors: DTResult<AuthorViewModel>;
 
   ngOnInit() {
     this._authorService.getAuthors()
