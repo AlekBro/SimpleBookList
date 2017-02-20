@@ -3,11 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { AuthorsComponent } from './components/authors/authors.component';
 
+import { AuthorService } from './services/authors.service';
+
+
 @NgModule({
   imports: [
     CommonModule,
   ],
   declarations: [
-    AuthorsComponent]
+    AuthorsComponent
+    ],
+    providers: [
+    AuthorService
+  ]
 })
-export class AuthorsModule { }
+export class AuthorsModule { 
+
+  constructor(){
+
+  }
+
+}
