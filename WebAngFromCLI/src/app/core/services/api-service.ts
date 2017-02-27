@@ -31,13 +31,14 @@ export class ApiService {
         }
     }
 
+    // NOT WORK!!!
     formParams(params): URLSearchParams {
         let urlParams: URLSearchParams = new URLSearchParams();
 
         let properties: string[] = Object.getOwnPropertyNames(params);
 
         properties.forEach(prop => {
-            urlParams.append(prop, properties[prop]);
+            urlParams.append(prop, params[prop]);
         });
 
         return urlParams;

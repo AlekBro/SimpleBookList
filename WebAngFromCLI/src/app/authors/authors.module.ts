@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthorsComponent } from './components/authors/authors.component';
 
 import { AuthorService } from './services/authors.service';
+import { AuthorViewComponent } from './components/author-view/author-view.component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AuthorService } from './services/authors.service';
     CommonModule,
   ],
   declarations: [
-    AuthorsComponent
+    AuthorsComponent,
+    AuthorViewComponent
     ],
     providers: [
     AuthorService

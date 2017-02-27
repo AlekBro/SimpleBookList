@@ -28,7 +28,7 @@ export class AuthorsComponent implements OnInit {
       })
       .catch((ex) => {
         this.handleError(ex);
-      });;
+      });
 
   }
 

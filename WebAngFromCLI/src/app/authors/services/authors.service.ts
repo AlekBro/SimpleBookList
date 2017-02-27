@@ -33,4 +33,31 @@ export class AuthorService extends ApiService {
             .catch(this.handleError);
 
     }
+
+    getAuthor(id: number): Promise<AuthorViewModel> {
+        this.entityUrl = 'api/Authors/' + id.toString();
+
+        //this.entityUrl = 'api/Authors/';
+
+        return this.callGet({id: id})
+            .toPromise()
+            .then(
+            response => response.json() as Promise<AuthorViewModel>
+            )
+            .catch(this.handleError);
+    }
+
+    createAuthor(author: AuthorViewModel): boolean {
+
+        return true;
+    }
+
+    editAuthor(author: AuthorViewModel){
+
+    }
+
+    deleteAuthor(id: number){
+
+    }
+
 }

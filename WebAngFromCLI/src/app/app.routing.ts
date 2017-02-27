@@ -5,6 +5,8 @@ import { AuthorsComponent } from './authors/components/authors/authors.component
 import { BooksComponent } from './books/components/books/books.component';
 //import {AboutComponent} from './components/about/about.component';
 
+import {AuthorViewComponent} from './authors/components/author-view/author-view.component';
+
 import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
 
 const appRoutes: Routes = [
@@ -26,11 +28,12 @@ const appRoutes: Routes = [
         path: 'book/:id',
         component:BookComponent
     },
-    {
-        path:'author/:id',
-        component: AuthorComponent
-    }
     */
+    {
+        path:'author/:authorId',
+        component: AuthorViewComponent
+    },
+    
     {
         path: '404',
         component: NotFoundPageComponent
