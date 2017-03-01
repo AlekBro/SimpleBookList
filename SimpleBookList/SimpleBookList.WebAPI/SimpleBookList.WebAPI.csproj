@@ -364,6 +364,7 @@
     <Content Include="Scripts\datatables.extensions\TableTools\swf\copy_csv_xls.swf" />
     <Content Include="Scripts\datatables.extensions\TableTools\swf\copy_csv_xls_pdf.swf" />
     <Content Include="Scripts\App\Authors.Functions.js" />
+    <None Include="Properties\PublishProfiles\WebAPI.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />

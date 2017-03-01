@@ -8,18 +8,24 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<script src="~/Scripts/App/app.js"></script>
-<div class="row">
-    <div id="message"></div>
-    <div>
-        <p>
-            Compiler: <input id="compiler" value="TypeScript" onkeyup="document.getElementById('message').innerText = sayHello()" /><br />
-        </p>
-        <p>
-            Framework: <input id="framework" value="ASP.NET" onkeyup="document.getElementById('message').innerText = sayHello()" />
-        </p>
-    </div>
-</div>
+
+<script src="~/Scripts/angular2-polyfills.js"></script>
+<script src="~/Scripts/system.src.js"></script>
+<script src="~/Scripts/rx.js"></script>
+<script src="~/Scripts/angular2.js"></script>
+<script>
+    System.config({
+        packages: {
+            '/Scripts/App': {
+                format: 'cjs',
+                defaultExtension: 'js'
+            }
+        }
+    });
+    System.import('/Scripts/App/main').then(null, console.error.bind(console));
+</script>
+<my-app>Loading...</my-app>
+
 
 <div class="row">
     <div class="col-md-4">

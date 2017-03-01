@@ -5,8 +5,16 @@
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
-    "outDir": "./Scripts/App"
+    "outDir": "./Scripts/App",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
+  "files": [
+    "./TypeScripts/app.ts",
+    "./TypeScripts/model.ts",
+    "./TypeScripts/main.ts",
+    "./typings/index.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "wwwroot"
