@@ -34,6 +34,18 @@ export class AuthorService extends ApiService {
 
     }
 
+    getAuthorsServerSide(params): Promise<DTResult<AuthorViewModel>> {
+        this.entityUrl = 'api/Authors';
+
+        return this.callGet(params)
+            .toPromise()
+            .then(
+            response => response.json() as DTResult<AuthorViewModel>
+            )
+            .catch(this.handleError);
+
+    }
+
     getAuthor(id: number): Promise<AuthorViewModel> {
         this.entityUrl = 'api/Authors/' + id.toString();
 
