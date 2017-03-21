@@ -1,8 +1,8 @@
 
-import {BaseServerAnswerModel} from './base-server-answer.model';
+import {Base} from './base-server-answer.model';
 
-import{AuthorModel} from './author.model';
-
-export class AuthorsServerAnswerModel extends BaseServerAnswerModel {
-    data: AuthorModel[];
+export class BaseServerAnswerModel {
+    draw: number;
+    recordsTotal: number;
+    recordsFiltered: number;
 }
