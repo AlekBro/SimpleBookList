@@ -9,7 +9,9 @@ import { DTResult } from '../../../../app/core/models/DTResult';
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
-  styleUrls: ['./authors.component.css']
+  styleUrls: ['./authors.component.css',
+    //there is no css in  '../node_modules/datatables.net/' !!!
+  ]
 })
 export class AuthorsComponent implements OnInit {
 
@@ -39,84 +41,65 @@ export class AuthorsComponent implements OnInit {
   };
 
   getDetailsLinkForItem(data, type, full, meta) {
-    return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="detailsFunc(this, event)">Details</a>';
+    return '<a href="/author/' + data.Id + '" value="' + data.Id + '">Details</a>';
   };
 
-  setDatatable() {
 
-    $('#AuthorsListTable').DataTable({
+  getDataSrc(json) {
+    console.log(json);
+    //this.Authors = json;
+    return json.data;
+  }
 
+
+  updateGrid() {
+    var dataTable = $('#AuthorsListTable').DataTable({
       "processing": true, // for show progress bar
-      //"serverSide": true, // for process server side - NOT WORK!
-      //"orderMulti": false, // for disable multiple column at once
+      "serverSide": true, // for process server side
+      //"filter": false, // this is for disable filter (search box)
+      "orderMulti": false, // for disable multiple column at once
       //"paging": true, // ??
       //"deferRender": true, // ??
       //"stateSave": true, // restore table state on page reload.
-      data: this.Authors.data,
-      columns: [
-        { "data": 'Id', "visible": false, "searchable": false },
-        { "data": 'FirstName' },
-        { "data": 'LastName' },
-        { "data": 'BooksNumber' },
+      "ajax": {
+        "url": "http://localhost:52211/API/Authors/",
+        "type": "GET",
+        //"datatype": "json"
+        //"contentType": 'application/json; charset=utf-8',
+        "data": function (data) {
+          // https://datatables.net/reference/option/ajax
+          // Add data to the request by manipulating the data object:
+          return data;
+        },
+        "dataSrc": this.getDataSrc
+        /*
+        "dataSrc": function (json) {
+          // Manipulate the data returned from the server
+          console.log(json);
+          this.Authors = json;
+          return json.data;
+        }
+        */
+      },
+      "columns": [
+        { "data": "Id", "render": this.getNumberForItem, "visible": false, "searchable": false },
+        { "data": "FirstName", "render": this.getStringForItem, "visible": true, "searchable": true },
+        { "data": "LastName", "render": this.getStringForItem, "visible": true, "searchable": true },
+        { "data": "BooksNumber", "render": this.getNumberForItem, "visible": true, "searchable": true },
         { "data": null, "render": this.getEditLinkForItem, "visible": true, "searchable": false },
         { "data": null, "render": this.getDeleteLinkForItem, "visible": true, "searchable": false },
         { "data": null, "render": this.getDetailsLinkForItem, "visible": true, "searchable": false }
       ]
 
-
     });
-
-
-    /*
-    $('#AuthorsListTable').DataTable({
-        "processing": true, // for show progress bar
-        "serverSide": true, // for process server side
-        //"filter": false, // this is for disable filter (search box)
-        "orderMulti": false, // for disable multiple column at once
-        "paging": true, // ??
-        "deferRender": true, // ??
-        "stateSave": true, // restore table state on page reload.
-        "ajax": {
-            "url": "http://localhost:52211/API/Authors/",
-            "type": "GET",
-            //"datatype": "json"
-            "contentType": 'application/json; charset=utf-8',
-            //'data': function (data) { return data = JSON.stringify(data); }
-        },
-        "columns": [
-            { "data": "Id", "render": this.getNumberForItem, "visible": false, "searchable": false },
-            { "data": "FirstName", "render": this.getStringForItem, "visible": true, "searchable": true },
-            { "data": "LastName", "render": this.getStringForItem, "visible": true, "searchable": true },
-            { "data": "BooksNumber", "render": this.getNumberForItem, "visible": true, "searchable": true },
-            { "data": null, "render": this.getEditLinkForItem, "visible": true, "searchable": false },
-            { "data": null, "render": this.getDeleteLinkForItem, "visible": true, "searchable": false },
-            { "data": null, "render": this.getDetailsLinkForItem, "visible": true, "searchable": false }
-        ]
-
-    });
-    */
-
   }
 
 
   ngOnInit() {
 
-    $('#test').html('<h1>WORKS!</h1>');
+    this.Authors = new DTResult<AuthorViewModel>();
 
-
-
-    this._authorService.getAuthors()
-      .then(Authors => {
-        this.Authors = Authors;
-
-        console.log(this.Authors);
-
-        this.setDatatable();
-
-      })
-      .catch((ex) => {
-        this.handleError(ex);
-      });
+    this.updateGrid();
 
   }
 
