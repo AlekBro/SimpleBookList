@@ -6,6 +6,7 @@ import { BooksComponent } from './books/components/books/books.component';
 //import {AboutComponent} from './components/about/about.component';
 
 import { AuthorViewComponent } from './authors/components/author-view/author-view.component';
+import { AuthorAddEditComponent } from './authors/components/author-add-edit/author-add-edit.component';
 
 import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
 
@@ -33,17 +34,17 @@ const appRoutes: Routes = [
         path: 'author/:authorId',
         component: AuthorViewComponent
     },
-    /*
+    
     {
         path: 'authors/add',
-        component: AuthorAddComponent
+        component: AuthorAddEditComponent
     },
-    /*
+    
     {
         path: 'authors/edit/:id',
-        component: AuthorEditComponent
+        component: AuthorAddEditComponent
     },
-    */
+    
     {
         path: '404',
         component: NotFoundPageComponent
