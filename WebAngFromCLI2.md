@@ -1,5 +1,5 @@
 
-# SimpleBookList Web App with using Angular 4.0.0 (from Angular CLI 1.0)
+## SimpleBookList Web App with using Angular 4.0.0 (from Angular CLI 1.0)
 
 https://angular.io/docs/ts/latest/cli-quickstart.html
 
@@ -89,18 +89,21 @@ This package contains type definitions for JQuery DataTables (http://www.datatab
 https://basarat.gitbooks.io/typescript/docs/types/@types.html
 
 After installation, no special configuration is required really. You just use it like a module e.g.:
+```ts
 import * as $ from "jquery";
-
-(Not work!)
+```
+#### Not work!
 
 --------------------------------------
 
-WORK FOR ME:
+#### WORK FOR ME:
+```ts
 declare var $: any;
-
+```
+```html
   <!--jQuery Core 3.1.1 -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+```
 --------------------------------------
 
 -----------------------------------------------------------------------------------
