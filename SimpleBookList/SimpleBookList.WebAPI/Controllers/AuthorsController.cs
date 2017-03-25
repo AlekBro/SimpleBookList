@@ -159,5 +159,19 @@ namespace SimpleBookList.WebAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
             }
         }
+
+        // http://stackoverflow.com/questions/30254277/angular-http-is-sending-options-instead-of-put-post
+        // http://stackoverflow.com/questions/13287949/options-405-method-not-allowed-regardless-server-sends-access-control-allow-me
+        // OPTION http-verb handler
+        /// <summary>
+        /// Options method - for work cross-origin HTTP requests
+        /// </summary>
+        /// <returns></returns>
+        public HttpResponseMessage Options()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK); // HTTP 200 response with empty body
+        }
+
+
     }
 }
