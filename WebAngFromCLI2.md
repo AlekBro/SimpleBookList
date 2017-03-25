@@ -12,21 +12,26 @@ Updating Angular CLI:
 To update Angular CLI to a new version, you must update both the global package and your project's local package.
 
 Global package:
-
-> npm uninstall -g @angular/cli
-> npm cache clean
-> npm install -g @angular/cli@latest
+```bash
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@latest
+```
 
 Local project package:
-
-> rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
-> npm install --save-dev @angular/cli@latest
-> npm install
+```bash
+rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
+npm install --save-dev @angular/cli@latest
+npm install
+```
 
 -----------------------------------------------------------------------------------
 
 Angular CLI version:
-> ng -v
+```bash
+ng -v
+```
+
 @angular/cli: 1.0.0
 node: 6.9.5
 os: win32 x64
@@ -44,12 +49,16 @@ os: win32 x64
 
 
 Generate a new project and skeleton application by running the following commands:
-> ng new WebAngFromCLI2
+```bash
+ ng new WebAngFromCLI2
+```
 (25.03.17)
 
 
 Go to the project directory and launch the server:
-> cd WebAngFromCLI2
-> ng serve
+```bash
+cd WebAngFromCLI2
+ng serve
+```
 The ng serve command launches the server, watches our files, 
 and rebuilds the app as you make changes to the files.
