@@ -51,7 +51,7 @@ export class AuthorService extends ApiService {
 
         //this.entityUrl = 'api/Authors/';
 
-        return this.callGet({id: id})
+        return this.callGet({ id: id })
             .toPromise()
             .then(
             response => response.json() as Promise<AuthorViewModel>
@@ -59,16 +59,36 @@ export class AuthorService extends ApiService {
             .catch(this.handleError);
     }
 
-    createAuthor(author: AuthorViewModel): boolean {
+    createAuthor(author: AuthorViewModel): Promise<AuthorViewModel> {
 
-        return true;
+        this.entityUrl = 'api/Authors';
+
+        return this.callPost(author)
+            .toPromise()
+            .then(
+            response => response.json() as Promise<AuthorViewModel>
+            )
+            .catch(this.handleError);
     }
 
-    editAuthor(author: AuthorViewModel){
+    updateAuthor(authorId: number, author: AuthorViewModel): Promise<boolean> {
+        this.entityUrl = 'api/Authors/' + authorId;
 
+        return this.callPut(author)
+            .toPromise()
+            .then(
+            response => {
+                if (response.status == 200) {
+                    return true;
+                }
+                
+                return false;
+            }
+            )
+            .catch(this.handleError);
     }
 
-    deleteAuthor(id: number){
+    deleteAuthor(id: number) {
 
     }
 

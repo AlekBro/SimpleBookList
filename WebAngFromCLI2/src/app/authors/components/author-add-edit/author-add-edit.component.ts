@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthorService } from '../../services/authors.service';
 
+import { AuthorViewModel } from '../../models/AuthorViewModel';
+
 @Component({
   selector: 'app-author-add-edit',
   templateUrl: './author-add-edit.component.html',
@@ -11,7 +13,10 @@ import { AuthorService } from '../../services/authors.service';
 })
 export class AuthorAddEditComponent implements OnInit {
 
-  entity: any;
+  errorMessage: string = null;
+  successMessage: string = null;
+
+  entity: AuthorViewModel;
 
   private sub: any;
 
@@ -37,6 +42,8 @@ export class AuthorAddEditComponent implements OnInit {
           .catch((ex) => {
             this.handleError(ex);
           });
+      } else {
+        this.entity = new AuthorViewModel();
       }
 
     });
@@ -48,7 +55,45 @@ export class AuthorAddEditComponent implements OnInit {
 
     console.log(error);
 
+    this.errorMessage = error;
+
     return Promise.resolve();
   }
 
+
+  save(form) {
+    console.log('save', form);
+
+    this.errorMessage = null;
+    this.successMessage = null;
+
+    if (form.valid) {
+      if (this.entity.Id > -1) {
+        let result = this._authorService.updateAuthor(this.entity.Id, this.entity)
+          .then(res => {
+            if (res == true) {
+              this.successMessage = "Author was successfully updated!";
+              console.log(res);
+              this.entity = null;
+            }
+
+          })
+          .catch((ex) => {
+            this.handleError(ex);
+          });
+
+      } else if (this.entity.Id == -1) {
+        let result = this._authorService.createAuthor(this.entity)
+          .then(res => {
+            this.successMessage = "Author " + res.Name + " was successfully created!";
+            console.log(res);
+            this.entity = null;
+          })
+          .catch((ex) => {
+            this.handleError(ex);
+          });
+      }
+    }
+
+  }
 }

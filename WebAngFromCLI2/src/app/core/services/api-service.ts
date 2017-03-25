@@ -31,6 +31,18 @@ export class ApiService {
         }
     }
 
+    callPost(body: any, params = null) {
+        // need to add params
+
+        return this._http.post(this.fullUrl, body);
+    }
+
+    callPut(body: any, params = null) {
+        // need to add params
+
+        return this._http.put(this.fullUrl, body);
+    }
+
     // NOT WORK!!!
     formParams(params): URLSearchParams {
         let urlParams: URLSearchParams = new URLSearchParams();
@@ -46,7 +58,7 @@ export class ApiService {
 
 
     handleError(error: Response | any): Promise<any> {
-  
+
         /*
         if (error instanceof Response) {
             let body = error.json() || '';
