@@ -36,7 +36,7 @@ export class AuthorsComponent implements OnInit {
 
   // Получаем и форматируем ссылку на редактирование
   getEditLinkForItem(data, type, full, meta) {
-    return '<a href="#' + data.Id + '" value="' + data.Id + '" onclick="editFunc(this, event)">Edit</a>';
+    return '<a href="authors/edit/' + data.Id + '">Edit</a>';
   };
 
   // Получаем и форматируем ссылку на удаление
@@ -45,7 +45,7 @@ export class AuthorsComponent implements OnInit {
   };
 
   getDetailsLinkForItem(data, type, full, meta) {
-    return '<a href="/author/' + data.Id + '" value="' + data.Id + '">Details</a>';
+    return '<a href="/author/' + data.Id + '">Details</a>';
   };
 
 
