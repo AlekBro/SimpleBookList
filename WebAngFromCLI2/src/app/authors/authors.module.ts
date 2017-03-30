@@ -8,6 +8,7 @@ import { AuthorAddEditComponent } from './components/author-add-edit/author-add-
 import { AuthorService } from './services/authors.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthorDeleteComponent } from './components/author-delete/author-delete.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AuthorsComponent,
     AuthorViewComponent,
-    AuthorAddEditComponent
+    AuthorAddEditComponent,
+    AuthorDeleteComponent
     
     
   ],
