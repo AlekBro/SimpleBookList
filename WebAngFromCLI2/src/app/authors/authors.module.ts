@@ -10,12 +10,14 @@ import { AuthorService } from './services/authors.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorDeleteComponent } from './components/author-delete/author-delete.component';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDatatableModule
   ],
   declarations: [
     AuthorsComponent,

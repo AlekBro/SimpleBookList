@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+
+import { Http, Response, Headers, RequestOptions, URLSearchParams, RequestOptionsArgs } from '@angular/http';
+
+//import{isJsObject} from '@angular/core/'
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+
+
 
 @Injectable()
 export class ApiService {
@@ -23,13 +28,81 @@ export class ApiService {
     callGet(params = null) {
 
         if (params != null) {
-            let urlParams: URLSearchParams = this.formParams(params);
-            //urlParams.set()
-            return this._http.get(this.fullUrl, urlParams);
+            //let urlParams: URLSearchParams = this.formParams(params);
+
+            /*
+            let searchParams = new URLSearchParams();
+            for (let key in params) {
+                searchParams.set(key, params[key]);
+            }
+            */
+
+            /*
+            // https://hassantariqblog.wordpress.com/2016/12/03/angular2-http-get-with-complex-object-as-query-string-term-using-observable-in-angular-2-application/
+            let urlSearchParams: URLSearchParams = new URLSearchParams();
+            for (var key in params) {
+                if (params.hasOwnProperty(key)) {
+                    let val = params[key];
+
+                    if (val instanceof Array) {
+                        val.forEach((item, index) => {
+                            urlSearchParams.append(key, item);
+                        });
+
+                    } else {
+                        urlSearchParams.set(key, val);
+                    }
+                }
+            }
+
+            let options = new RequestOptions({
+                search: urlSearchParams
+            });
+
+            return this._http.get(this.fullUrl, options);
+            */
+
+            let urlParams = this.objectToParams(params);
+
+            return this._http.get(this.fullUrl + '/?' + urlParams);
+
         } else {
             return this._http.get(this.fullUrl);
         }
     }
+
+
+    IsObject(item: any): boolean {
+        if (item instanceof Object) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    objectToParams(object): string {
+        let result = Object.keys(object).map((key) => this.IsObject(object[key]) ?
+            this.subObjectToParams(encodeURIComponent(key), object[key]) :
+            `${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`
+        ).join('&');
+
+        return result;
+    }
+
+    /**
+     * Converts a sub-object to a parametrised string.
+     * @param object
+     * @returns {string}
+     */
+    subObjectToParams(key, object): string {
+        let result = Object.keys(object).map((childKey) => this.IsObject(object[childKey]) ?
+            this.subObjectToParams(`${key}[${encodeURIComponent(childKey)}]`, object[childKey]) :
+            `${key}[${encodeURIComponent(childKey)}]=${encodeURIComponent(object[childKey])}`
+        ).join('&');
+
+        return result;
+    }
+
 
     callPost(body: any, params = null) {
         // need to add params
@@ -71,6 +144,11 @@ export class ApiService {
 
         return Promise.reject(error);
     }
+
+
+
+
+
 
 
 }

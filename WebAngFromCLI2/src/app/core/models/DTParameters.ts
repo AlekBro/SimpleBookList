@@ -1,8 +1,8 @@
-import {DTColumn} from './DTColumn';
-import {DTOrder} from './DTOrder';
-import {DTSearch} from './DTSearch';
+import { DTColumn } from './DTColumn';
+import { DTOrder } from './DTOrder';
+import { DTSearch } from './DTSearch';
 
-export interface DTParameters{
+export class DTParameters {
     Draw: number;
     Columns: DTColumn[];
     Order: DTOrder[];
@@ -10,4 +10,18 @@ export interface DTParameters{
     Length: number;
     Search: DTSearch;
     SortOrder: string;
+
+    constructor(length = 10, sortOrder = "Id"){
+        this.Draw = 1;
+
+        this.Columns = new Array<DTColumn>();
+        this.Order = new Array<DTOrder>();
+
+        this.Start = 0;
+        this.Length = length;
+
+        this.Search = new DTSearch();
+
+        this.SortOrder = sortOrder;
+    }
 }
