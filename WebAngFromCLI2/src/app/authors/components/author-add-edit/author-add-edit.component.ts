@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, OnChanges, OnInit, EventEmitter } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,40 +13,24 @@ import { AuthorViewModel } from '../../models/AuthorViewModel';
 })
 export class AuthorAddEditComponent implements OnInit {
 
+  @Input() entityId: number;
+  @Output() clearEntityId = new EventEmitter();
+
   errorMessage: string = null;
   successMessage: string = null;
 
   entity: AuthorViewModel;
 
-  private sub: any;
+  haveId: boolean;
+
 
   constructor(
     private _authorService: AuthorService,
-    private _route: ActivatedRoute,
-    private _router: Router
   ) { }
 
   ngOnInit() {
 
-    this.sub = this._route.params.subscribe(params => {
-      console.log(params);
-      let entityId = +params['id'];
 
-      if (entityId > 0) {
-        this._authorService.getAuthor(entityId)
-          .then(Author => {
-            this.entity = Author;
-
-            console.log(Author);
-          })
-          .catch((ex) => {
-            this.handleError(ex);
-          });
-      } else {
-        this.entity = new AuthorViewModel();
-      }
-
-    });
 
   }
 
@@ -61,6 +45,34 @@ export class AuthorAddEditComponent implements OnInit {
   }
 
 
+  ngOnChanges(changes) {
+    this.haveId = typeof this.entityId !== 'undefined' && this.entityId !== null;
+
+    if (this.haveId) {
+      if (this.entityId != -1) {
+
+        this._authorService.getAuthor(this.entityId)
+          .then(Author => {
+            this.entity = Author;
+
+            console.log(Author);
+          })
+          .catch((ex) => {
+            this.handleError(ex);
+          });
+
+
+      } else {
+        this.entity = new AuthorViewModel();
+      }
+    }
+  }
+
+  cancel() {
+    this.entity = new AuthorViewModel();;
+    this.clearEntityId.emit();
+  }
+
   save(form) {
     console.log('save', form);
 
@@ -74,7 +86,13 @@ export class AuthorAddEditComponent implements OnInit {
             if (res == true) {
               this.successMessage = "Author was successfully updated!";
               console.log(res);
+
               this.entity = null;
+
+              setTimeout(function () {
+                this.cancel();
+                this.successMessage = null;
+              }.bind(this), 5000);
             }
 
           })
@@ -87,7 +105,14 @@ export class AuthorAddEditComponent implements OnInit {
           .then(res => {
             this.successMessage = "Author " + res.Name + " was successfully created!";
             console.log(res);
+
             this.entity = null;
+
+            setTimeout(function () {
+              this.cancel();
+              this.successMessage = null;
+            }.bind(this), 5000);
+
           })
           .catch((ex) => {
             this.handleError(ex);

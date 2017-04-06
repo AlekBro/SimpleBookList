@@ -56,6 +56,8 @@ export class AuthorsComponent implements OnInit {
       this.dtParameters.Columns.push(new DTColumn(item.prop));
     });
 
+    this.rowsOnPage = "10";
+
     this.updateGrid();
   }
 
@@ -110,6 +112,9 @@ export class AuthorsComponent implements OnInit {
         this.ngxDatatableParams.setData(Authors.data);
         this.ngxDatatableParams.count = Authors.recordsTotal;
 
+        if (this.rowsOnPage == 'All') {
+          this.ngxDatatableParams.limit = Authors.recordsTotal;
+        }
         /*
         let limit = Authors.data.length;
         if (this.ngxDatatableParams.limit > limit) {
@@ -127,9 +132,11 @@ export class AuthorsComponent implements OnInit {
       });
   }
 
+  rowsOnPage: string;
 
   // Change number of rows on page
   setRowsOnPage(value: string) {
+
     let newLimit: number = 10;
     let count: number = this.ngxDatatableParams.count;
     let rowsOffset: number = this.ngxDatatableParams.rowsOffset;

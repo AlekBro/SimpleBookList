@@ -1,9 +1,9 @@
-<h1 *ngIf="entity" class="page-title margin-top-50">
-  <span *ngIf="entity.Id == -1">Add</span><span *ngIf="entity.Id != -1">Edit</span> Author
-</h1>
-<hr />
+<div class="container" *ngIf="haveId">
 
-<div class="container">
+  <h1 *ngIf="entity" class="page-title margin-top-50">
+    <span *ngIf="entity.Id == -1">Add</span><span *ngIf="entity.Id != -1">Edit</span> Author
+  </h1>
+  <hr />
 
   <div class="col-md-6 col-md-offset-3">
 
@@ -39,8 +39,8 @@
 
         <div class="text-right">
           <div>
-            <a href="/authors/"><button type="button" class="btn btn-default uppercase">Cancel</button></a>
-              <button type="submit" class="btn btn-success uppercase">
+            <button type="button" class="btn btn-default uppercase" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-success uppercase">
                 <span *ngIf="entity.Id == -1">Add</span>
                 <span *ngIf="entity.Id != -1">Save</span>
                 </button>
@@ -53,7 +53,6 @@
 
     <div *ngIf="successMessage" class="text-center margin-top-50">
       <div class="alert alert-success">{{successMessage}}</div>
-      <a href="/authors/"><button type="button" class="btn btn-default uppercase">Return</button></a>
     </div>
 
   </div>

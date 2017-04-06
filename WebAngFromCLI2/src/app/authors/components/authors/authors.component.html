@@ -1,11 +1,15 @@
 <div class="container">
 
+  <div class="row">
+    <app-author-add-edit [entityId]="selectedEntityId" (clearEntityId)="clearEntityId()"></app-author-add-edit>
+  </div>
+
   <div class="row margin-top-50">
-    <a href="/authors/add"><button class="btn btn-success btn-sm">Create New Author</button></a>
+    <button class="btn btn-success btn-sm" (click)="selectEntityId(-1)">Create New Author</button>
   </div>
 
 
-<!--  <div class="row margin-top-10">
+  <!--  <div class="row margin-top-10">
     <table class="table" id="AuthorsListTable" cellspacing="0">
       <thead>
         <tr>
@@ -37,9 +41,9 @@
   </template>
 
 
-    <div class="col-md-12 text-right">
+  <div class="col-md-12 text-right">
     <label>View 
-                <select class="form-control input-xsmall input-sm input-inline" (change)="setRowsOnPage($event.target.value)">
+                <select class="form-control input-xsmall input-sm input-inline" [(ngModel)]="rowsOnPage" (change)="setRowsOnPage($event.target.value)">
                     <option *ngFor="let pageNumber of pageSelector" [value]="pageNumber">{{pageNumber}}</option>
                 </select> records
     </label>
