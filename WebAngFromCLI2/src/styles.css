@@ -42,3 +42,13 @@ textarea {
 .custom-word-wrap {
     word-wrap: break-word;
 }
+
+.text-right {
+    text-align: right;
+}
+
+.input-inline {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
