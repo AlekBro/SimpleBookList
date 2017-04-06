@@ -17,7 +17,9 @@ import { NgxDatatableParams } from 'app/core/models/NgxDatatableParams';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.css',
-    '../../../../../node_modules/@swimlane/ngx-datatable/src/themes/material.scss'
+    '../../../../../node_modules/@swimlane/ngx-datatable/release/index.css',
+    '../../../../../node_modules/@swimlane/ngx-datatable/release/themes/material.css',
+    '../../../../../node_modules/@swimlane/ngx-datatable/release/assets/icons.css',
   ]
 })
 export class AuthorsComponent implements OnInit {
