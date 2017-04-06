@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { TemplateRef, ViewChild } from '@angular/core';
 
 import { AuthorService } from '../../services/authors.service';
 
@@ -30,6 +31,8 @@ export class AuthorsComponent implements OnInit {
   dtResult: DTResult<AuthorViewModel>;
   dtParameters: DTParameters;
 
+  @ViewChild('optionsTmpl') optionsTmpl: TemplateRef<any>;
+
   constructor(
     private _authorService: AuthorService
   ) {
@@ -37,6 +40,24 @@ export class AuthorsComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+    this.dtParameters = new DTParameters();
+    this.ngxDatatableParams = new NgxDatatableParams<AuthorViewModel>();
+
+    this.ngxDatatableParams.columns = [
+      { prop: 'Id', name: 'Id', sortable: true },
+      { prop: 'FirstName', name: 'FirstName', sortable: true },
+      { prop: 'LastName', name: 'LastName', sortable: true },
+      { prop: 'BooksNumber', name: 'BooksNumber', sortable: true },
+      { prop: 'Id', name: 'Options', sortable: false, cellTemplate: this.optionsTmpl },
+    ];
+
+    this.ngxDatatableParams.columns.forEach((item, index) => {
+      this.dtParameters.Columns.push(new DTColumn(item.prop));
+    });
+
+    this.updateGrid();
+  }
 
   // Change page number:
   onPage(event) {
@@ -75,7 +96,7 @@ export class AuthorsComponent implements OnInit {
     let dtOrderDir = DTOrderDir[orderDir];
 
     this.dtParameters.Order = new Array<DTOrder>();
-    this.dtParameters.Order.push(new DTOrder( columnIndex, dtOrderDir));
+    this.dtParameters.Order.push(new DTOrder(columnIndex, dtOrderDir));
 
     this.updateGrid();
   }
@@ -107,26 +128,50 @@ export class AuthorsComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  // Change number of rows on page
+  setRowsOnPage(value: string) {
+    let newLimit: number = 10;
+    let count: number = this.ngxDatatableParams.count;
+    let rowsOffset: number = this.ngxDatatableParams.rowsOffset;
+    let maxOffset: number = 0;
 
-    this.dtParameters = new DTParameters();
+    if (value == 'All') {
+      newLimit = this.ngxDatatableParams.count;
+      rowsOffset = 0;
+      // if 'All' then maxOffset is 0;
+    } else {
+      newLimit = Number.parseInt(value);
+      maxOffset = Math.floor(rowsOffset / newLimit);
+    }
 
-    this.ngxDatatableParams = new NgxDatatableParams<AuthorViewModel>();
+    this.ngxDatatableParams.rowsOffset = maxOffset * newLimit;
 
-    this.ngxDatatableParams.columns = [
-      { prop: 'Id', name: 'Id', sortable: true },
-      { prop: 'FirstName', name: 'FirstName', sortable: true },
-      { prop: 'LastName', name: 'LastName', sortable: true },
-      { prop: 'BooksNumber', name: 'BooksNumber', sortable: true },
-    ];
+    this.ngxDatatableParams.offset = maxOffset;
+    this.ngxDatatableParams.limit = newLimit;
 
-    this.ngxDatatableParams.columns.forEach((item, index) => {
-      this.dtParameters.Columns.push(new DTColumn(item.prop));
-    });
+
+    this.dtParameters.Draw = this.ngxDatatableParams.offset + 1;
+    this.dtParameters.Length = this.ngxDatatableParams.limit;
+    this.dtParameters.Start = this.ngxDatatableParams.limit * this.ngxDatatableParams.offset;
+
 
     this.updateGrid();
-
   }
+
+  pageSelector = [10, 20, 50, 100, 150, 200, 'All'];
+
+  selectedEntityId: any;
+  errorMessage: string;
+
+  selectEntityId(id) {
+    this.selectedEntityId = id;
+  }
+
+  clearEntityId() {
+    this.selectedEntityId = undefined;
+    this.updateGrid();
+  }
+
 
   handleError(error: any) {
     //this.isError = true;

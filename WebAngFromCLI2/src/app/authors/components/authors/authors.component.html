@@ -29,5 +29,20 @@
     </ngx-datatable>
   </div>
 
+  <template #optionsTmpl let-row="row" let-value="value" let-i="index">
+    <div class="text-center">
+      <button (click)="selectEntityId(row.Id)" class="btn green uppercase">Edit</button>
+      <button (click)="deleteNotification(row.Id)" class="btn red uppercase">Delete</button>
+    </div>
+  </template>
+
+
+    <div class="col-md-12 text-right">
+    <label>View 
+                <select class="form-control input-xsmall input-sm input-inline" (change)="setRowsOnPage($event.target.value)">
+                    <option *ngFor="let pageNumber of pageSelector" [value]="pageNumber">{{pageNumber}}</option>
+                </select> records
+    </label>
+  </div>
 
 </div>
