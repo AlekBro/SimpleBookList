@@ -7,6 +7,8 @@ import { AuthorViewModel } from '../../models/AuthorViewModel';
 import { DTResult } from '../../../../app/core/models/DTResult';
 import { DTParameters } from 'app/core/models/DTParameters';
 import { DTColumn } from 'app/core/models/DTColumn';
+import { DTOrder } from 'app/core/models/DTOrder';
+import { DTOrderDir } from 'app/core/models/DTOrderDir';
 
 import { NgxDatatableParams } from 'app/core/models/NgxDatatableParams';
 
@@ -20,7 +22,6 @@ import { NgxDatatableParams } from 'app/core/models/NgxDatatableParams';
 })
 export class AuthorsComponent implements OnInit {
 
-  dtColumns: any;
 
   ngxDatatableParams: NgxDatatableParams<AuthorViewModel>;
 
@@ -53,6 +54,28 @@ export class AuthorsComponent implements OnInit {
 
   onSort(event) {
     console.log(event);
+
+    let columnName = event.column.prop;
+
+    let orderDir: string = event.newValue;
+    orderDir = orderDir.toUpperCase();
+
+    this.dtParameters.SortOrder = columnName;
+
+
+    let columnIndex = 0;
+    this.dtParameters.Columns.forEach((column, index) => {
+      if (column.Data == columnName) {
+        columnIndex = index;
+      }
+    });
+
+    let dtOrderDir = DTOrderDir[orderDir];
+
+    this.dtParameters.Order = new Array<DTOrder>();
+    this.dtParameters.Order.push(new DTOrder( columnIndex, dtOrderDir));
+
+    this.updateGrid();
   }
 
 

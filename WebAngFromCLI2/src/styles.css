@@ -38,3 +38,7 @@ textarea {
 .body-content {
     height: 90%;
 }
+
+.custom-word-wrap {
+    word-wrap: break-word;
+}
