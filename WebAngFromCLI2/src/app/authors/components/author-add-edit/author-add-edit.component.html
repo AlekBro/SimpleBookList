@@ -1,9 +1,12 @@
-<div class="col-md-12 margin-top-10">
-  <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+<div *ngIf="errorMessage" class="col-md-12 margin-top-10">
+  <p class="alert alert-danger">{{errorMessage}}</p>
 </div>
 
+<div *ngIf="successMessage" class="col-md-12 margin-top-10">
+  <div class="alert alert-success">{{successMessage}}</div>
+</div>
 
-<div *ngIf="haveId && entity && !errorMessage">
+<div *ngIf="haveId && entity && !errorMessage && !successMessage">
   <div class="row">
     <div class="col-md-10 col-md-offset-1 panel panel-default">
       <div class="panel-body">
@@ -57,10 +60,6 @@
 
             </form>
 
-          </div>
-
-          <div *ngIf="successMessage" class="text-center margin-top-50">
-            <div class="alert alert-success">{{successMessage}}</div>
           </div>
 
         </div>

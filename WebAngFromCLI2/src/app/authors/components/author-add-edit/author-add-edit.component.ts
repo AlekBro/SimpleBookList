@@ -72,6 +72,8 @@ export class AuthorAddEditComponent implements OnInit {
 
   cancel() {
     this.errorMessage = null;
+    this.successMessage = null;
+
     this.entity = new AuthorViewModel();
     this.clearEntityId.emit();
   }
@@ -92,8 +94,7 @@ export class AuthorAddEditComponent implements OnInit {
 
               setTimeout(function () {
                 this.cancel();
-                this.successMessage = null;
-              }.bind(this), 5000);
+              }.bind(this), 4000);
             }
 
           })
@@ -111,7 +112,6 @@ export class AuthorAddEditComponent implements OnInit {
 
             setTimeout(function () {
               this.cancel();
-              this.successMessage = null;
             }.bind(this), 5000);
 
           })
