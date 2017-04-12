@@ -29,23 +29,6 @@ export class AuthorViewComponent implements OnInit {
   haveId: boolean;
 
   ngOnInit() {
-    this.errorMessage = null;
-
-    this.haveId = typeof this.entityId !== 'undefined' && this.entityId !== null;
-
-    if (this.haveId) {
-      if (this.entityId != -1) {
-
-        this._authorService.getAuthor(this.entityId)
-          .then(Author => {
-            this.entity = Author;
-
-          })
-          .catch((ex) => {
-            this.handleError(ex);
-          });
-      }
-    }
 
   }
 
@@ -63,7 +46,7 @@ export class AuthorViewComponent implements OnInit {
     if (this.haveId) {
       if (this.entityId != -1) {
 
-        this._authorService.getAuthor(this.entityId)
+        this._authorService.findById(this.entityId)
           .then(Author => {
             this.entity = Author;
 

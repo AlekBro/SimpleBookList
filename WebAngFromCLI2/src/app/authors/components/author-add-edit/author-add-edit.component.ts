@@ -53,7 +53,7 @@ export class AuthorAddEditComponent implements OnInit {
     if (this.haveId) {
       if (this.entityId != -1) {
 
-        this._authorService.getAuthor(this.entityId)
+        this._authorService.findById(this.entityId)
           .then(Author => {
             this.entity = Author;
 
@@ -84,7 +84,7 @@ export class AuthorAddEditComponent implements OnInit {
 
     if (form.valid) {
       if (this.entity.Id > -1) {
-        let result = this._authorService.updateAuthor(this.entity.Id, this.entity)
+        let result = this._authorService.update(this.entity.Id, this.entity)
           .then(res => {
             if (res == true) {
               this.successMessage = "Author was successfully updated!";
@@ -103,7 +103,7 @@ export class AuthorAddEditComponent implements OnInit {
           });
 
       } else if (this.entity.Id == -1) {
-        let result = this._authorService.createAuthor(this.entity)
+        let result = this._authorService.create(this.entity)
           .then(res => {
             this.successMessage = "Author " + res.Name + " was successfully created!";
             console.log(res);

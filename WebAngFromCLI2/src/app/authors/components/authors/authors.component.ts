@@ -70,7 +70,7 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
 
     super.updateGrid();
 
-    this._authorService.getAuthorsServerSide(this.dtParameters)
+    this._authorService.list(this.dtParameters)
       .then(Authors => {
 
         this.ngxDatatableParams.setData(Authors.data);
@@ -100,7 +100,7 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
       .then((resultPromise) => {
         resultPromise.result.then((result) => {
 
-          this._authorService.deleteAuthor(id)
+          this._authorService.delete(id)
             .then(
             res => {
               if (res == true) {

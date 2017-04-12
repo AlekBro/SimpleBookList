@@ -23,7 +23,7 @@ export class BooksService extends Repository<BookViewModel>{
 
     constructor(protected http: Http) {
         super(http);
-        this.baseApiUlr = 'api/Books';
+        this.baseApiUlr = 'api/Books/';
     }
 
 

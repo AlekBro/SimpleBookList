@@ -17,90 +17,15 @@ import 'rxjs/add/operator/toPromise';
 
 import { DTParameters } from 'app/core/models/DTParameters';
 
+import { Repository } from 'app/core/components/repository';
+
 @Injectable()
-export class AuthorService extends ApiService {
+export class AuthorService extends Repository<AuthorViewModel> {
 
-    constructor(private http: Http) {
+    constructor(protected http: Http) {
         super(http);
+        this.baseApiUlr = 'api/Authors/';
     }
 
-    getAuthors(): Promise<DTResult<AuthorViewModel>> {
-        this.entityUrl = 'api/Authors';
-
-        return this.callGet()
-            .toPromise()
-            .then(
-            response => response.json() as DTResult<AuthorViewModel>
-            )
-            .catch(this.handleError);
-
-    }
-
-    getAuthorsServerSide(params: DTParameters): Promise<DTResult<AuthorViewModel>> {
-        this.entityUrl = 'api/Authors';
-
-        return this.callGet(params)
-            .toPromise()
-            .then(
-            response => response.json() as DTResult<AuthorViewModel>
-            )
-            .catch(this.handleError);
-
-    }
-
-    getAuthor(id: number): Promise<AuthorViewModel> {
-        this.entityUrl = 'api/Authors/' + id.toString();
-
-        return this.callGet({ id: id })
-            .toPromise()
-            .then(
-            response => response.json() as Promise<AuthorViewModel>
-            )
-            .catch(this.handleError);
-    }
-
-    createAuthor(author: AuthorViewModel): Promise<AuthorViewModel> {
-
-        this.entityUrl = 'api/Authors';
-
-        return this.callPost(author)
-            .toPromise()
-            .then(
-            response => response.json() as Promise<AuthorViewModel>
-            )
-            .catch(this.handleError);
-    }
-
-    updateAuthor(authorId: number, author: AuthorViewModel): Promise<boolean> {
-        this.entityUrl = 'api/Authors/' + authorId;
-
-        return this.callPut(author)
-            .toPromise()
-            .then(
-            response => {
-                if (response.status == 200) {
-                    return true;
-                }
-
-                return false;
-            })
-            .catch(this.handleError);
-    }
-
-    deleteAuthor(id: number): Promise<boolean> {
-        this.entityUrl = 'api/Authors/' + id;
-
-        return this.callDelete()
-            .toPromise()
-            .then(
-            response => {
-                if (response.status == 200) {
-                    return true;
-                }
-
-                return false;
-            })
-            .catch(this.handleError);
-    }
 
 }
