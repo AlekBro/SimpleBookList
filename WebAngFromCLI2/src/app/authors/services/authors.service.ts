@@ -36,7 +36,7 @@ export class AuthorService extends ApiService {
 
     }
 
-    getAuthorsServerSide(params: DTParameters ): Promise<DTResult<AuthorViewModel>> {
+    getAuthorsServerSide(params: DTParameters): Promise<DTResult<AuthorViewModel>> {
         this.entityUrl = 'api/Authors';
 
         return this.callGet(params)
@@ -83,15 +83,28 @@ export class AuthorService extends ApiService {
                 if (response.status == 200) {
                     return true;
                 }
-                
+
                 return false;
             }
             )
             .catch(this.handleError);
     }
 
-    deleteAuthor(id: number) {
+    deleteAuthor(id: number): Promise<boolean> {
+        this.entityUrl = 'api/Authors/' + id;
 
+        return this.callDelete(id)
+            .toPromise()
+            .then(
+            response => {
+                if (response.status == 200) {
+                    return true;
+                }
+
+                return false;
+            }
+            )
+            .catch(this.handleError);
     }
 
 }

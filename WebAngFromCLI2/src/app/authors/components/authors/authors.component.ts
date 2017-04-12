@@ -1,5 +1,9 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+
 import { TemplateRef, ViewChild } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 import { AuthorService } from '../../services/authors.service';
 
@@ -36,10 +40,12 @@ export class AuthorsComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private _authorService: AuthorService
+    private _authorService: AuthorService,
+    overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal,
   ) {
     //this.dtResult = new DTResult<AuthorViewModel>();
 
+    overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {
@@ -190,6 +196,35 @@ export class AuthorsComponent implements OnInit {
     console.log(error);
 
     return Promise.resolve();
+  }
+
+
+  deleteEntity(id: number) {
+    this.errorMessage = null;
+
+    const dialog = this.modal.confirm()
+      .title("Deleting Author")
+      .body("Do you really want to delete this Author?")
+      .open()
+      .then((resultPromise) => {
+        resultPromise.result.then((result) => {
+
+          this._authorService.deleteAuthor(id)
+            .then(
+            res => {
+              if (res == true) {
+                this.updateGrid();
+              } else {
+                this.errorMessage = "Error while sending your request!";
+              }
+
+            },
+            error => this.errorMessage = error);
+        },
+          () => {
+            //console.log("deleteEntity dialog - cancel");
+          });
+      });
   }
 
 }

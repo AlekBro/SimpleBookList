@@ -8,7 +8,6 @@ import { AuthorAddEditComponent } from './components/author-add-edit/author-add-
 import { AuthorService } from './services/authors.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthorDeleteComponent } from './components/author-delete/author-delete.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -23,8 +22,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     AuthorsComponent,
     AuthorViewComponent,
     AuthorAddEditComponent,
-    AuthorDeleteComponent
-    
     
   ],
   providers: [

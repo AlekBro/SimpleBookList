@@ -9,8 +9,11 @@ import { CoreModule } from './core/core.module'
 
 import { AppComponent } from './app.component';
 
-import {routing} from './app.routing';
+import { routing } from './app.routing';
 
+
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import {routing} from './app.routing';
     BrowserModule,
     FormsModule,
     HttpModule,
+
+    ModalModule.forRoot(),
+    BootstrapModalModule,
 
     routing,
 

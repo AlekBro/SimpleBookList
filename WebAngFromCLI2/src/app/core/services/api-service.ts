@@ -116,6 +116,12 @@ export class ApiService {
         return this._http.put(this.fullUrl, body);
     }
 
+    callDelete(params = null) {
+        // need to add params
+
+        return this._http.delete(this.fullUrl);
+    }
+
     // NOT WORK!!!
     formParams(params): URLSearchParams {
         let urlParams: URLSearchParams = new URLSearchParams();
