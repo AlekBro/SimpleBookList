@@ -29,6 +29,13 @@ import { NgxDatatableParams } from 'app/core/models/NgxDatatableParams';
 })
 export class AuthorsComponent implements OnInit {
 
+  rowsOnPage: string;
+
+  pageSelector = [10, 20, 50, 100, 150, 200, 'All'];
+
+  selectedEntityId: any;
+  errorMessage: string = null;
+
 
   ngxDatatableParams: NgxDatatableParams<AuthorViewModel>;
 
@@ -142,8 +149,6 @@ export class AuthorsComponent implements OnInit {
       });
   }
 
-  rowsOnPage: string;
-
   // Change number of rows on page
   setRowsOnPage(value: string) {
 
@@ -175,29 +180,29 @@ export class AuthorsComponent implements OnInit {
     this.updateGrid();
   }
 
-  pageSelector = [10, 20, 50, 100, 150, 200, 'All'];
-
-  selectedEntityId: any;
-  errorMessage: string;
-
   selectEntityId(id) {
+    this.errorMessage = null;
+
     this.selectedEntityId = id;
   }
 
   clearEntityId() {
+    this.errorMessage = null;
+
     this.selectedEntityId = undefined;
     this.updateGrid();
   }
 
-
   handleError(error: any) {
-    //this.isError = true;
 
-    console.log(error);
+    if (error && typeof error == 'string') {
+      this.errorMessage = error;
+    } else {
+      this.errorMessage = "Error while sending your request!";
+    }
 
     return Promise.resolve();
   }
-
 
   deleteEntity(id: number) {
     this.errorMessage = null;
@@ -219,7 +224,10 @@ export class AuthorsComponent implements OnInit {
               }
 
             },
-            error => this.errorMessage = error);
+            error => this.errorMessage = error)
+            .catch((ex) => {
+              this.handleError(ex);
+            });;
         },
           () => {
             //console.log("deleteEntity dialog - cancel");

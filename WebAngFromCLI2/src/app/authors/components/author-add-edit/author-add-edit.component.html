@@ -1,4 +1,9 @@
-<div class="container" *ngIf="haveId">
+<div class="container margin-top-50">
+  <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+</div>
+
+
+<div class="container" *ngIf="haveId && entity && !errorMessage">
 
   <h1 *ngIf="entity" class="page-title margin-top-50">
     <span *ngIf="entity.Id == -1">Add</span><span *ngIf="entity.Id != -1">Edit</span> Author

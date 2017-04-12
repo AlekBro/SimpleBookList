@@ -51,8 +51,6 @@ export class AuthorService extends ApiService {
     getAuthor(id: number): Promise<AuthorViewModel> {
         this.entityUrl = 'api/Authors/' + id.toString();
 
-        //this.entityUrl = 'api/Authors/';
-
         return this.callGet({ id: id })
             .toPromise()
             .then(
@@ -85,15 +83,14 @@ export class AuthorService extends ApiService {
                 }
 
                 return false;
-            }
-            )
+            })
             .catch(this.handleError);
     }
 
     deleteAuthor(id: number): Promise<boolean> {
         this.entityUrl = 'api/Authors/' + id;
 
-        return this.callDelete(id)
+        return this.callDelete()
             .toPromise()
             .then(
             response => {
@@ -102,8 +99,7 @@ export class AuthorService extends ApiService {
                 }
 
                 return false;
-            }
-            )
+            })
             .catch(this.handleError);
     }
 

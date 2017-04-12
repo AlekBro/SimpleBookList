@@ -46,6 +46,8 @@ export class AuthorAddEditComponent implements OnInit {
 
 
   ngOnChanges(changes) {
+    this.errorMessage = null;
+
     this.haveId = typeof this.entityId !== 'undefined' && this.entityId !== null;
 
     if (this.haveId) {
@@ -69,13 +71,12 @@ export class AuthorAddEditComponent implements OnInit {
   }
 
   cancel() {
-    this.entity = new AuthorViewModel();;
+    this.errorMessage = null;
+    this.entity = new AuthorViewModel();
     this.clearEntityId.emit();
   }
 
   save(form) {
-    console.log('save', form);
-
     this.errorMessage = null;
     this.successMessage = null;
 

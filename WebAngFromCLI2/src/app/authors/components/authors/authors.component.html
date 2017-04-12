@@ -1,5 +1,9 @@
 <div class="container">
 
+  <div class="margin-top-50">
+    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+  </div>
+
   <div class="row">
     <app-author-add-edit [entityId]="selectedEntityId" (clearEntityId)="clearEntityId()"></app-author-add-edit>
   </div>
@@ -9,27 +13,11 @@
   </div>
 
 
-  <!--  <div class="row margin-top-10">
-    <table class="table" id="AuthorsListTable" cellspacing="0">
-      <thead>
-        <tr>
-          <th> Id </th>
-          <th> FirstName </th>
-          <th> LastName </th>
-          <th> BooksNumber </th>
-          <th> Edit </th>
-          <th> Delete </th>
-          <th> Details </th>
-        </tr>
-      </thead>
-    </table>
-  </div>-->
-
-
   <div *ngIf="ngxDatatableParams && ngxDatatableParams.rows" class="col-md-12 margin-top-10 custom-word-wrap">
     <ngx-datatable class="material" [rows]="ngxDatatableParams.rows" [columns]="ngxDatatableParams.columns" [columnMode]="'force'"
       [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [externalSorting]="true" [count]="ngxDatatableParams.count"
-      [offset]="ngxDatatableParams.offset" [limit]="ngxDatatableParams.limit" (page)='onPage($event)' (sort)="onSort($event)" [loadingIndicator]="loading">
+      [offset]="ngxDatatableParams.offset" [limit]="ngxDatatableParams.limit" (page)='onPage($event)' (sort)="onSort($event)"
+      [loadingIndicator]="loading">
     </ngx-datatable>
   </div>
 
