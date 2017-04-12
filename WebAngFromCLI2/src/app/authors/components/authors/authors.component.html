@@ -1,14 +1,18 @@
 <div class="container">
 
-  <div class="margin-top-50">
+  <div class="col-md-12 margin-top-10">
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
   </div>
 
-  <div class="row">
+  <div class="col-md-12">
     <app-author-add-edit [entityId]="selectedEntityId" (clearEntityId)="clearEntityId()"></app-author-add-edit>
   </div>
 
-  <div class="row margin-top-50">
+  <div class="col-md-12">
+    <app-author-view [entityId]="showedEntityId" (clearEntityId)="clearEntityId()"></app-author-view>
+  </div>
+
+  <div class="col-md-12 margin-top-10">
     <button class="btn btn-success btn-sm" (click)="selectEntityId(-1)">Create New Author</button>
   </div>
 
@@ -21,10 +25,16 @@
     </ngx-datatable>
   </div>
 
+  <template #idTmpl let-row="row" let-value="value" let-i="index">
+    <div class="text-center">
+      <a (click)="showEntity(row.Id)" class="btn btn-link">{{value}}</a>
+    </div>
+  </template>
+
   <template #optionsTmpl let-row="row" let-value="value" let-i="index">
     <div class="text-center">
-      <button (click)="selectEntityId(row.Id)" class="btn green uppercase">Edit</button>
-      <button (click)="deleteEntity(row.Id)" class="btn red uppercase">Delete</button>
+      <button (click)="selectEntityId(row.Id)" class="btn btn-warning uppercase">Edit</button>
+      <button (click)="deleteEntity(row.Id)" class="btn btn btn-danger uppercase">Delete</button>
     </div>
   </template>
 

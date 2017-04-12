@@ -34,6 +34,7 @@ export class AuthorsComponent implements OnInit {
   pageSelector = [10, 20, 50, 100, 150, 200, 'All'];
 
   selectedEntityId: any;
+  showedEntityId: any;
   errorMessage: string = null;
 
 
@@ -43,6 +44,7 @@ export class AuthorsComponent implements OnInit {
   dtParameters: DTParameters;
 
   @ViewChild('optionsTmpl') optionsTmpl: TemplateRef<any>;
+  @ViewChild('idTmpl') idTmpl: TemplateRef<any>;
 
   loading: boolean = false;
 
@@ -60,7 +62,7 @@ export class AuthorsComponent implements OnInit {
     this.ngxDatatableParams = new NgxDatatableParams<AuthorViewModel>();
 
     this.ngxDatatableParams.columns = [
-      { prop: 'Id', name: 'Id', sortable: true },
+      { prop: 'Id', name: 'Id', sortable: true, cellTemplate: this.idTmpl },
       { prop: 'FirstName', name: 'FirstName', sortable: true },
       { prop: 'LastName', name: 'LastName', sortable: true },
       { prop: 'BooksNumber', name: 'BooksNumber', sortable: true },
@@ -190,6 +192,8 @@ export class AuthorsComponent implements OnInit {
     this.errorMessage = null;
 
     this.selectedEntityId = undefined;
+    this.showedEntityId = undefined;
+    
     this.updateGrid();
   }
 
@@ -233,6 +237,12 @@ export class AuthorsComponent implements OnInit {
             //console.log("deleteEntity dialog - cancel");
           });
       });
+  }
+
+  showEntity(id){
+    this.errorMessage = null;
+
+    this.showedEntityId = id;
   }
 
 }
