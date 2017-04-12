@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 import { ApiService } from '../../../app/core/services/api-service';
 
 import { BookViewModel } from '../models/BookViewModel';
@@ -11,22 +13,19 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { DTParameters } from 'app/core/models/DTParameters';
+
+import { Repository } from 'app/core/components/repository';
+
 @Injectable()
-export class BooksService extends ApiService {
+export class BooksService extends Repository<BookViewModel>{
 
-    constructor(private http: Http) {
+
+    constructor(protected http: Http) {
         super(http);
+        this.baseApiUlr = 'api/Books';
     }
 
-    getBooks(): Promise<DTResult<BookViewModel>> {
-        this.entityUrl = 'api/Books';
 
-        return this.callGet()
-            .toPromise()
-            .then(
-            response => response.json() as DTResult<BookViewModel>
-            )
-            .catch(this.handleError);
 
-    }
 }

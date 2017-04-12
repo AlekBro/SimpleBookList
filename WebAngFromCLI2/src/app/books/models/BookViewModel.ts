@@ -1,7 +1,7 @@
 
-import {AuthorViewModel} from '../../../app/authors/models/AuthorViewModel';
+import { AuthorViewModel } from '../../../app/authors/models/AuthorViewModel';
 
-export class BookViewModel{
+export class BookViewModel {
     Id: number;
     Name: string;
     ReleaseDate: Date;
@@ -14,4 +14,11 @@ export class BookViewModel{
     AuthorsIds: number[];
     AuthorsNames: string;
     IsUserHasRightForEdit: boolean;
+
+    constructor() {
+        this.Id = -1;
+        this.Name = null;
+
+        this.Authors = new Array<AuthorViewModel>();
+    }
 }
