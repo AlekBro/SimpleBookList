@@ -33,6 +33,8 @@ export class AuthorsComponent implements OnInit {
 
   @ViewChild('optionsTmpl') optionsTmpl: TemplateRef<any>;
 
+  loading: boolean = false;
+
   constructor(
     private _authorService: AuthorService
   ) {
@@ -105,6 +107,8 @@ export class AuthorsComponent implements OnInit {
 
 
   updateGrid() {
+    this.errorMessage = null;
+    this.loading = true;
 
     this._authorService.getAuthorsServerSide(this.dtParameters)
       .then(Authors => {
@@ -125,7 +129,7 @@ export class AuthorsComponent implements OnInit {
 
         this.ngxDatatableParams.offset = Authors.draw - 1;
 
-        console.log(Authors);
+        this.loading = false;
       })
       .catch((ex) => {
         this.handleError(ex);

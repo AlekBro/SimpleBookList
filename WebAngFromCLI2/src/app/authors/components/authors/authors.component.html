@@ -29,7 +29,7 @@
   <div *ngIf="ngxDatatableParams && ngxDatatableParams.rows" class="col-md-12 margin-top-10 custom-word-wrap">
     <ngx-datatable class="material" [rows]="ngxDatatableParams.rows" [columns]="ngxDatatableParams.columns" [columnMode]="'force'"
       [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [externalSorting]="true" [count]="ngxDatatableParams.count"
-      [offset]="ngxDatatableParams.offset" [limit]="ngxDatatableParams.limit" (page)='onPage($event)' (sort)="onSort($event)">
+      [offset]="ngxDatatableParams.offset" [limit]="ngxDatatableParams.limit" (page)='onPage($event)' (sort)="onSort($event)" [loadingIndicator]="loading">
     </ngx-datatable>
   </div>
 
