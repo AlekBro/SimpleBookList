@@ -30,7 +30,7 @@ namespace SimpleBookList.Models.Utils
         public List<BookViewModel> GetResult(string search, string sortOrder, int start, int length,
             IEnumerable<BookViewModel> dtResult, List<string> columnFilters)
         {
-            if (sortOrder.Contains("Authors"))
+            if (sortOrder != null && sortOrder.Contains("Authors"))
             {
                 sortOrder = sortOrder.Replace("Authors", "AuthorsNames");
             }
