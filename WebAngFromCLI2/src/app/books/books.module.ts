@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { BooksComponent } from './components/books/books.component';
+import { BookViewComponent } from './components/book-view/book-view.component';
 
 import { BooksService } from './services/books.service';
 
@@ -17,7 +18,8 @@ import { BooksService } from './services/books.service';
     NgxDatatableModule,
   ],
   declarations: [
-    BooksComponent
+    BooksComponent,
+    BookViewComponent
   ],
   providers: [
     BooksService

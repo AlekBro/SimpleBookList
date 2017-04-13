@@ -1,0 +1,70 @@
+<p>
+  book-view works!
+</p>
+
+<div class="col-md-12 margin-top-10">
+  <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+</div>
+
+<div class="margin-top-10" *ngIf="haveId && entity && !errorMessage">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 panel panel-default">
+      <div class="panel-body">
+
+        <h2>{{entity.Name}}</h2>
+        <hr />
+        <dl class="dl-horizontal">
+          <dt>
+            Name:
+          </dt>
+          <dd>
+            <span>{{entity.Name}}</span>
+          </dd>
+          <dt>
+            Release Date:
+          </dt>
+          <dd>
+            <span>{{entity.FormattedReleaseDate}}</span>
+          </dd>
+          <dt>
+            Pages:
+          </dt>
+          <dd>
+            <span>{{entity.Pages}}</span>
+          </dd>
+          <dt>
+            Publisher:
+          </dt>
+          <dd>
+            <span>{{entity.Publisher}}</span>
+          </dd>
+          <dt>
+            ISBN:
+          </dt>
+          <dd>
+            <span>{{entity.ISBN}}</span>
+          </dd>
+
+          <dt>
+            Authors:
+          </dt>
+          <dd>
+            <span *ngFor="let author of entity.Authors; let last = last">
+              {{author.FirstName}} {{author.LastName}}<span *ngIf="!last">,</span><span *ngIf="last">.</span>
+            </span>
+          </dd>
+
+        </dl>
+
+        <div class="text-right">
+          <div>
+            <button type="button" class="btn btn-default uppercase" (click)="cancel()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
