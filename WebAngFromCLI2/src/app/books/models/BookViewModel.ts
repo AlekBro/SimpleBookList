@@ -4,7 +4,7 @@ import { AuthorViewModel } from '../../../app/authors/models/AuthorViewModel';
 export class BookViewModel {
     Id: number;
     Name: string;
-    ReleaseDate: Date;
+    ReleaseDate: any;
     FormattedReleaseDate: string;
     Pages: number;
     Rating: number;

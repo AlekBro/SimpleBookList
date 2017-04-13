@@ -4,10 +4,10 @@
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
   </div>
 
-<!--  <div class="col-md-12">
-    <app-author-add-edit [entityId]="selectedEntityId" (clearEntityId)="clearEntityId()"></app-author-add-edit>
+  <div class="col-md-12">
+    <app-book-add-edit [entityId]="selectedEntityId" (clearEntityId)="clearEntityId()"></app-book-add-edit>
   </div>
--->
+
   <div class="col-md-12">
     <app-book-view [entityId]="showedEntityId" (clearEntityId)="clearEntityId()"></app-book-view>
   </div>

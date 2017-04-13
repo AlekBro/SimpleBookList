@@ -8,7 +8,9 @@ import { BooksComponent } from './components/books/books.component';
 import { BookViewComponent } from './components/book-view/book-view.component';
 
 import { BooksService } from './services/books.service';
+import { BookAddEditComponent } from './components/book-add-edit/book-add-edit.component';
 
+import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 @NgModule({
   imports: [
@@ -16,10 +18,12 @@ import { BooksService } from './services/books.service';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    NKDatetimeModule
   ],
   declarations: [
     BooksComponent,
-    BookViewComponent
+    BookViewComponent,
+    BookAddEditComponent
   ],
   providers: [
     BooksService

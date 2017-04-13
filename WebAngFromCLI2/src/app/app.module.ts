@@ -15,6 +15,8 @@ import { routing } from './app.routing';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
+import * as $ from 'jquery';
+
 @NgModule({
   declarations: [
     AppComponent,

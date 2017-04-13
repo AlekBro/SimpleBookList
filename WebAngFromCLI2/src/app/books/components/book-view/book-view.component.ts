@@ -25,7 +25,7 @@ export class BookViewComponent implements OnInit {
   haveId: boolean;
 
   constructor(private _activatedRoute: ActivatedRoute,
-    private _authorService: BooksService
+    private _booksService: BooksService
   ) {
 
   }
@@ -48,7 +48,7 @@ export class BookViewComponent implements OnInit {
     if (this.haveId) {
       if (this.entityId != -1) {
 
-        this._authorService.findById(this.entityId)
+        this._booksService.findById(this.entityId)
           .then(Author => {
             this.entity = Author;
 
