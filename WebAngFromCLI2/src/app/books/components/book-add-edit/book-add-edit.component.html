@@ -12,11 +12,11 @@
       <div class="panel-body">
 
         <h1 *ngIf="entity" class="page-title margin-top-50">
-          <span *ngIf="entity.Id == -1">Add</span><span *ngIf="entity.Id != -1">Edit</span> Author
+          <span *ngIf="entity.Id == -1">Add</span><span *ngIf="entity.Id != -1">Edit</span> Book
         </h1>
         <hr />
 
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-1">
 
 
           <div *ngIf="entity" class="form">
@@ -35,7 +35,7 @@
                 <div class="form-group" [ngClass]="{'has-error':!ReleaseDate.valid && bookForm.submitted}">
                   <label class="control-label col-md-4">ReleaseDate:</label>
                   <div class="col-md-8">
-                    <datetime [timepicker]="false" class="input-group margin-right-10 fixed-height-30" type="text" name="ReleaseDate" #ReleaseDate="ngModel"
+                    <datetime [timepicker]="false" class="width-100 margin-right-10 fixed-height-30" type="text" name="ReleaseDate" #ReleaseDate="ngModel"
                       [(ngModel)]="entity.ReleaseDate" required></datetime>
                     <div class="alert alert-danger" *ngIf="ReleaseDate.errors && ReleaseDate.errors.required && bookForm.submitted">Please fill out this field.</div>
                   </div>
@@ -48,6 +48,29 @@
                     <div class="alert alert-danger" *ngIf="Pages.errors && Pages.errors.required && bookForm.submitted">Please fill out this field.</div>
                   </div>
                 </div>
+
+
+                <div class="form-group">
+                  <label class="control-label col-md-4">Rating:</label>
+                  <div class="col-md-8">
+                    <select class="form-control" name="Rating" [(ngModel)]="entity.Rating" #Rating="ngModel" placeholder="Rating">
+                      <option *ngFor="let rating of ratingSelect" [value]="rating.value">{{rating.name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="control-label col-md-4">Authors:</label>
+                  <div class="col-md-8">
+                   <ss-multiselect-dropdown [settings]="authorsOptionsSettings" [options]="authorsOptions" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="entity.AuthorsIds"></ss-multiselect-dropdown>
+                  </div>
+                </div>
+
+
+                
+
 
                 <div class="form-group">
                   <label class="control-label col-md-4">Publisher:</label>

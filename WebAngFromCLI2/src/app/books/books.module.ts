@@ -12,13 +12,16 @@ import { BookAddEditComponent } from './components/book-add-edit/book-add-edit.c
 
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
-    NKDatetimeModule
+    NKDatetimeModule,
+    MultiselectDropdownModule
   ],
   declarations: [
     BooksComponent,

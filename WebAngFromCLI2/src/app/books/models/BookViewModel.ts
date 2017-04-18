@@ -20,5 +20,6 @@ export class BookViewModel {
         this.Name = null;
 
         this.Authors = new Array<AuthorViewModel>();
+        this.AuthorsIds = new Array<number>();
     }
 }
