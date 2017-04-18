@@ -1,18 +1,15 @@
 import { Component, Input, Output, OnChanges, OnInit, EventEmitter } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
-
 import { BooksService } from '../../services/books.service';
 import { AuthorService } from 'app/authors/services/authors.service';
 
 import { BookViewModel } from '../../models/BookViewModel';
 import { AuthorViewModel } from 'app/authors/models/AuthorViewModel';
+import { DTParameters } from 'app/core/models/DTParameters';
 
 import * as moment from 'moment';
 
 import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
-
-import { DTParameters } from 'app/core/models/DTParameters';
 
 @Component({
   selector: 'app-book-add-edit',
@@ -53,12 +50,10 @@ export class BookAddEditComponent implements OnInit, OnChanges {
     this.initRolesMultiselect();
   }
 
-
   initRolesMultiselect() {
     this.errorMessage = null;
 
     this.allAuthors = new Array<AuthorViewModel>();
-    //this.entity.AuthorsIds = new Array<number>();
 
     this.authorsOptionsSettings = {
       pullRight: false,
@@ -75,7 +70,7 @@ export class BookAddEditComponent implements OnInit, OnChanges {
 
     this.authorsOptions = new Array<IMultiSelectOption>();
 
-    let dtParameters: DTParameters = new DTParameters();
+    const dtParameters: DTParameters = new DTParameters();
     this._authorService.list(dtParameters)
       .then(
       res => {
@@ -151,7 +146,7 @@ export class BookAddEditComponent implements OnInit, OnChanges {
       }
 
       if (this.entity.Id > -1) {
-        let result = this._booksService.update(this.entity.Id, this.entity)
+        const result = this._booksService.update(this.entity.Id, this.entity)
           .then(res => {
             if (res == true) {
               this.successMessage = 'Book was successfully updated!';
@@ -169,7 +164,7 @@ export class BookAddEditComponent implements OnInit, OnChanges {
           });
 
       } else if (this.entity.Id == -1) {
-        let result = this._booksService.create(this.entity)
+        const result = this._booksService.create(this.entity)
           .then(res => {
             this.successMessage = 'Book ' + res.Name + ' was successfully created!';
 

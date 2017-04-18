@@ -30,7 +30,7 @@ import { BaseGridComponent } from 'app/core/components/base-grid-component';
   ]
 })
 export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> implements OnInit {
- 
+
   @ViewChild('optionsTmpl') optionsTmpl: TemplateRef<any>;
   @ViewChild('idTmpl') idTmpl: TemplateRef<any>;
 
@@ -45,7 +45,6 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
   }
 
   ngOnInit() {
-
     super.ngOnInit();
 
     this.ngxDatatableParams.columns = [
@@ -60,14 +59,12 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
       this.dtParameters.Columns.push(new DTColumn(item.prop));
     });
 
-    this.rowsOnPage = "10";
+    this.rowsOnPage = '10';
 
     this.updateGrid();
   }
 
-
   updateGrid() {
-
     super.updateGrid();
 
     this._authorService.list(this.dtParameters)
@@ -94,8 +91,8 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
     this.errorMessage = null;
 
     const dialog = this.modal.confirm()
-      .title("Deleting Author")
-      .body("Do you really want to delete this Author?")
+      .title('Deleting Author')
+      .body('Do you really want to delete this Author?')
       .open()
       .then((resultPromise) => {
         resultPromise.result.then((result) => {
@@ -106,14 +103,14 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
               if (res == true) {
                 this.updateGrid();
               } else {
-                this.errorMessage = "Error while sending your request!";
+                this.errorMessage = 'Error while sending your request!';
               }
 
             },
             error => this.errorMessage = error)
             .catch((ex) => {
               this.handleError(ex);
-            });;
+            });
         },
           () => {
             //console.log("deleteEntity dialog - cancel");

@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 
 import { routing } from './app.routing';
 
-
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 

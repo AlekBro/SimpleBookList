@@ -18,11 +18,9 @@
 
         <div class="col-md-6 col-md-offset-3">
 
-
           <div *ngIf="entity" class="form">
             <form class="form-horizontal" #authorForm="ngForm" (ngSubmit)="save(authorForm)" novalidate="novalidate" autocomplete="off">
               <div class="form-body">
-
 
                 <div class="form-group" [ngClass]="{'has-error':!FirstName.valid && authorForm.submitted}">
                   <label class="control-label col-md-4">First Name:</label>
@@ -32,7 +30,6 @@
                     <div class="alert alert-danger" *ngIf="FirstName.errors && FirstName.errors.required && authorForm.submitted">Please fill out this field.</div>
                   </div>
                 </div>
-
                 <div class="form-group" [ngClass]="{'has-error':!LastName.valid && authorForm.submitted}">
                   <label class="control-label col-md-4">Last Name:</label>
                   <div class="col-md-8">
@@ -42,11 +39,9 @@
                   </div>
                 </div>
 
-
                 <div class="alert alert-danger" *ngIf="errorMessage && authorForm.submitted">{{errorMessage}}</div>
 
               </div>
-
 
               <div class="text-right">
                 <div>

@@ -20,12 +20,9 @@ import { Repository } from 'app/core/components/repository';
 @Injectable()
 export class BooksService extends Repository<BookViewModel>{
 
-
     constructor(protected http: Http) {
         super(http);
         this.baseApiUlr = 'api/Books/';
     }
-
-
 
 }

@@ -22,7 +22,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     AuthorsComponent,
     AuthorViewComponent,
     AuthorAddEditComponent,
-    
   ],
   providers: [
     AuthorService
@@ -31,7 +30,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 export class AuthorsModule {
 
   constructor() {
-
   }
 
 }

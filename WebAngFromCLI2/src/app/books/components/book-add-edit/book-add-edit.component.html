@@ -18,11 +18,9 @@
 
         <div class="col-md-8 col-md-offset-1">
 
-
           <div *ngIf="entity" class="form">
             <form class="form-horizontal" #bookForm="ngForm" (ngSubmit)="save(bookForm)" novalidate="novalidate" autocomplete="off">
               <div class="form-body">
-
 
                 <div class="form-group" [ngClass]="{'has-error':!Name.valid && bookForm.submitted}">
                   <label class="control-label col-md-4">Name:</label>
@@ -31,7 +29,6 @@
                     <div class="alert alert-danger" *ngIf="Name.errors && Name.errors.required && bookForm.submitted">Please fill out this field.</div>
                   </div>
                 </div>
-
                 <div class="form-group" [ngClass]="{'has-error':!ReleaseDate.valid && bookForm.submitted}">
                   <label class="control-label col-md-4">ReleaseDate:</label>
                   <div class="col-md-8">
@@ -40,7 +37,6 @@
                     <div class="alert alert-danger" *ngIf="ReleaseDate.errors && ReleaseDate.errors.required && bookForm.submitted">Please fill out this field.</div>
                   </div>
                 </div>
-
                 <div class="form-group" [ngClass]="{'has-error':!Pages.valid && bookForm.submitted}">
                   <label class="control-label col-md-4">Pages:</label>
                   <div class="col-md-8">
@@ -48,8 +44,6 @@
                     <div class="alert alert-danger" *ngIf="Pages.errors && Pages.errors.required && bookForm.submitted">Please fill out this field.</div>
                   </div>
                 </div>
-
-
                 <div class="form-group">
                   <label class="control-label col-md-4">Rating:</label>
                   <div class="col-md-8">
@@ -58,8 +52,6 @@
                     </select>
                   </div>
                 </div>
-
-
                 <div class="form-group">
                   <label class="control-label col-md-4">Authors:</label>
                   <div class="col-md-8">
@@ -67,18 +59,12 @@
                     [(ngModel)]="entity.AuthorsIds"></ss-multiselect-dropdown>
                   </div>
                 </div>
-
-
-                
-
-
                 <div class="form-group">
                   <label class="control-label col-md-4">Publisher:</label>
                   <div class="col-md-8">
                     <input type="text" class="form-control" [(ngModel)]="entity.Publisher" name="Publisher" #Publisher="ngModel" maxlength="100">
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label class="control-label col-md-4">ISBN:</label>
                   <div class="col-md-8">
@@ -89,7 +75,6 @@
                 <div class="alert alert-danger" *ngIf="errorMessage && bookForm.submitted">{{errorMessage}}</div>
 
               </div>
-
 
               <div class="text-right">
                 <div>

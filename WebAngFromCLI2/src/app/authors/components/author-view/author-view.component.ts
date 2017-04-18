@@ -11,11 +11,7 @@ import { AuthorViewModel } from '../../models/AuthorViewModel';
   templateUrl: './author-view.component.html',
   styleUrls: ['./author-view.component.css']
 })
-export class AuthorViewComponent implements OnInit {
-
-  constructor(private _activatedRoute: ActivatedRoute, private _authorService: AuthorService) {
-
-  }
+export class AuthorViewComponent implements OnInit, OnChanges {
 
   @Input() entityId: number;
   @Output() clearEntityId = new EventEmitter();
@@ -27,6 +23,13 @@ export class AuthorViewComponent implements OnInit {
   entity: AuthorViewModel;
 
   haveId: boolean;
+
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _authorService: AuthorService
+  ) {
+
+  }
 
   ngOnInit() {
 
@@ -63,7 +66,7 @@ export class AuthorViewComponent implements OnInit {
     if (error && typeof error == 'string') {
       this.errorMessage = error;
     } else {
-      this.errorMessage = "Error while sending your request!";
+      this.errorMessage = 'Error while sending your request!';
     }
 
     return Promise.resolve();

@@ -23,15 +23,11 @@ export class AuthorAddEditComponent implements OnInit, OnChanges {
 
   haveId: boolean;
 
-
   constructor(
     private _authorService: AuthorService,
   ) { }
 
   ngOnInit() {
-
-
-
   }
 
   handleError(error: any) {
@@ -51,8 +47,6 @@ export class AuthorAddEditComponent implements OnInit, OnChanges {
         this._authorService.findById(this.entityId)
           .then(Author => {
             this.entity = Author;
-
-            console.log(Author);
           })
           .catch((ex) => {
             this.handleError(ex);
@@ -100,7 +94,6 @@ export class AuthorAddEditComponent implements OnInit, OnChanges {
         let result = this._authorService.create(this.entity)
           .then(res => {
             this.successMessage = 'Author ' + res.Name + ' was successfully created!';
-            console.log(res);
 
             this.entity = null;
 

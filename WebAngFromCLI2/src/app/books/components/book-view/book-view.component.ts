@@ -11,7 +11,7 @@ import { BookViewModel } from '../../models/BookViewModel';
   templateUrl: './book-view.component.html',
   styleUrls: ['./book-view.component.css']
 })
-export class BookViewComponent implements OnInit {
+export class BookViewComponent implements OnInit, OnChanges {
 
   @Input() entityId: number;
   @Output() clearEntityId = new EventEmitter();
@@ -24,7 +24,8 @@ export class BookViewComponent implements OnInit {
 
   haveId: boolean;
 
-  constructor(private _activatedRoute: ActivatedRoute,
+  constructor(
+    private _activatedRoute: ActivatedRoute,
     private _booksService: BooksService
   ) {
 
@@ -61,11 +62,10 @@ export class BookViewComponent implements OnInit {
   }
 
   handleError(error: any) {
-
     if (error && typeof error == 'string') {
       this.errorMessage = error;
     } else {
-      this.errorMessage = "Error while sending your request!";
+      this.errorMessage = 'Error while sending your request!';
     }
 
     return Promise.resolve();

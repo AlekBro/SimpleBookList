@@ -12,11 +12,9 @@
     <app-book-view [entityId]="showedEntityId" (clearEntityId)="clearEntityId()"></app-book-view>
   </div>
 
-
   <div class="col-md-12 margin-top-10">
     <button class="btn btn-success btn-sm" (click)="selectEntityId(-1)">Create New Book</button>
   </div>
-
 
   <div *ngIf="ngxDatatableParams && ngxDatatableParams.rows" class="col-md-12 margin-top-10 custom-word-wrap">
     <ngx-datatable class="material" [rows]="ngxDatatableParams.rows" [columns]="ngxDatatableParams.columns" [columnMode]="'force'"
@@ -38,7 +36,6 @@
       <button (click)="deleteEntity(row.Id)" class="btn btn btn-danger uppercase">Delete</button>
     </div>
   </template>
-
 
   <div class="col-md-12 text-right">
     <label>View 

@@ -38,14 +38,12 @@ export class BooksComponent extends BaseGridComponent<BookViewModel> implements 
     private _booksService: BooksService,
     overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal,
   ) {
-
     super();
 
     overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {
-
     super.ngOnInit();
 
     this.ngxDatatableParams.columns = [
@@ -63,14 +61,12 @@ export class BooksComponent extends BaseGridComponent<BookViewModel> implements 
       this.dtParameters.Columns.push(new DTColumn(item.prop));
     });
 
-    this.rowsOnPage = "10";
+    this.rowsOnPage = '10';
 
     this.updateGrid();
   }
 
-
   updateGrid() {
-
     super.updateGrid();
 
     this._booksService.list(this.dtParameters)
@@ -92,13 +88,12 @@ export class BooksComponent extends BaseGridComponent<BookViewModel> implements 
       });
   }
 
-
   deleteEntity(id: number) {
     this.errorMessage = null;
 
     const dialog = this.modal.confirm()
-      .title("Deleting Author")
-      .body("Do you really want to delete this Book?")
+      .title('Deleting Author')
+      .body('Do you really want to delete this Book?')
       .open()
       .then((resultPromise) => {
         resultPromise.result.then((result) => {
@@ -109,7 +104,7 @@ export class BooksComponent extends BaseGridComponent<BookViewModel> implements 
               if (res == true) {
                 this.updateGrid();
               } else {
-                this.errorMessage = "Error while sending your request!";
+                this.errorMessage = 'Error while sending your request!';
               }
 
             },

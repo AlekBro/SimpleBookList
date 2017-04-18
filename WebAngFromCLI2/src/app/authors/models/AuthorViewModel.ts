@@ -4,7 +4,7 @@ export class AuthorViewModel {
     LastName: string;
     BooksNumber: number;
     Name: string;
-    IsUserHasRightForEdit: boolean
+    IsUserHasRightForEdit: boolean;
 
     constructor() {
         this.Id = -1;
