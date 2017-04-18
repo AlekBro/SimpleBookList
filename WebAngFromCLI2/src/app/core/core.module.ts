@@ -5,15 +5,20 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { MenuComponent } from './components/menu/menu.component';
+
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
-        NotFoundPageComponent
+        NotFoundPageComponent,
+        MenuComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        RouterModule,
         CommonModule,
 
     ],
@@ -21,7 +26,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 
     ],
     exports: [
-
+        MenuComponent
     ],
 })
 export class CoreModule { }
