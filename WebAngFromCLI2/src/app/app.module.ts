@@ -25,12 +25,9 @@ import * as $ from 'jquery';
     BrowserModule,
     FormsModule,
     HttpModule,
-
     ModalModule.forRoot(),
     BootstrapModalModule,
-
     routing,
-
     AuthorsModule,
     BooksModule,
     CoreModule

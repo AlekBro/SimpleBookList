@@ -31,7 +31,6 @@ export class ApiService {
         }
     }
 
-
     private IsObject(item: any): boolean {
         if (item instanceof Object) {
             return true;
@@ -49,11 +48,6 @@ export class ApiService {
         return result;
     }
 
-    /**
-     * Converts a sub-object to a parametrised string.
-     * @param object
-     * @returns {string}
-     */
     private subObjectToParams(key, object): string {
         let result = Object.keys(object).map((childKey) => this.IsObject(object[childKey]) ?
             this.subObjectToParams(`${key}[${encodeURIComponent(childKey)}]`, object[childKey]) :
@@ -62,7 +56,6 @@ export class ApiService {
 
         return result;
     }
-
 
     callPost(body: any) {
         return this._http.post(this.fullUrl, body);
@@ -76,12 +69,10 @@ export class ApiService {
         return this._http.delete(this.fullUrl);
     }
 
-
     handleError(error: Response | any): Promise<any> {
         console.log(error);
 
         return Promise.reject(error);
     }
-
 
 }

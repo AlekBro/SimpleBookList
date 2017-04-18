@@ -4,6 +4,5 @@ export class DTSearch {
 
     constructor() {
         this.Regex = false;
-        //this.Value = null;
     }
 }

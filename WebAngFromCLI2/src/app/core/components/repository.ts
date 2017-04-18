@@ -1,21 +1,17 @@
-import { IRepository } from './repository.interface';
-
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
-
-import { ApiService } from '../../../app/core/services/api-service';
-
-
-
-import { DTResult } from '../../../app/core/models/DTResult';
 
 import { Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { ApiService } from '../../../app/core/services/api-service';
+
+import { IRepository } from './repository.interface';
+
 import { DTParameters } from 'app/core/models/DTParameters';
+import { DTResult } from '../../../app/core/models/DTResult';
 
 @Injectable()
 export class Repository<T> extends ApiService implements IRepository<T> {
@@ -25,7 +21,6 @@ export class Repository<T> extends ApiService implements IRepository<T> {
     constructor(protected http: Http) {
         super(http);
     }
-
 
     list(params: DTParameters): Promise<DTResult<T>> {
         this.entityUrl = this.baseApiUlr;

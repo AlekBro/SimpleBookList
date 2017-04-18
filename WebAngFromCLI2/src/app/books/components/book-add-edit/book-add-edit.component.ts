@@ -93,17 +93,11 @@ export class BookAddEditComponent implements OnInit, OnChanges {
       });
   }
 
-
   handleError(error: any) {
-    //this.isError = true;
-
-    console.log(error);
-
     this.errorMessage = error;
 
     return Promise.resolve();
   }
-
 
   ngOnChanges(changes) {
     this.errorMessage = null;
@@ -112,7 +106,6 @@ export class BookAddEditComponent implements OnInit, OnChanges {
 
     if (this.haveId) {
       if (this.entityId != -1) {
-
         this._booksService.findById(this.entityId)
           .then(Book => {
             this.entity = Book;
@@ -128,13 +121,10 @@ export class BookAddEditComponent implements OnInit, OnChanges {
                 this.entity.AuthorsIds.push(author.Id);
               });
             }
-
-            console.log(Book);
           })
           .catch((ex) => {
             this.handleError(ex);
           });
-
 
       } else {
         this.entity = new BookViewModel();
@@ -164,8 +154,7 @@ export class BookAddEditComponent implements OnInit, OnChanges {
         let result = this._booksService.update(this.entity.Id, this.entity)
           .then(res => {
             if (res == true) {
-              this.successMessage = "Book was successfully updated!";
-              console.log(res);
+              this.successMessage = 'Book was successfully updated!';
 
               this.entity = null;
 
@@ -182,8 +171,7 @@ export class BookAddEditComponent implements OnInit, OnChanges {
       } else if (this.entity.Id == -1) {
         let result = this._booksService.create(this.entity)
           .then(res => {
-            this.successMessage = "Book " + res.Name + " was successfully created!";
-            console.log(res);
+            this.successMessage = 'Book ' + res.Name + ' was successfully created!';
 
             this.entity = null;
 

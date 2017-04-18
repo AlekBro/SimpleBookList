@@ -8,11 +8,15 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { MenuComponent } from './components/menu/menu.component';
 
 import { RouterModule } from '@angular/router';
+import { AboutPageComponent } from './components/about-page/about-page.component';
+import { ContactPageComponent } from './components/contact-page/contact-page.component';
 
 @NgModule({
     declarations: [
         NotFoundPageComponent,
-        MenuComponent
+        MenuComponent,
+        AboutPageComponent,
+        ContactPageComponent
     ],
     imports: [
         BrowserModule,
@@ -20,7 +24,6 @@ import { RouterModule } from '@angular/router';
         HttpModule,
         RouterModule,
         CommonModule,
-
     ],
     providers: [
 

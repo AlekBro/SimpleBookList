@@ -9,7 +9,7 @@ export class DTColumn {
 
     constructor(columnName = null) {
         this.Data = columnName;
-        //this.Name = null;
+
         this.Searchable = true;
         this.Orderable = true;
         this.Search = new DTSearch();

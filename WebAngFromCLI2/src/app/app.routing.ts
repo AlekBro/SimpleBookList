@@ -9,14 +9,10 @@ import { AuthorViewComponent } from './authors/components/author-view/author-vie
 import { AuthorAddEditComponent } from './authors/components/author-add-edit/author-add-edit.component';
 
 import { NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
+import { AboutPageComponent } from './core/components/about-page/about-page.component';
+import { ContactPageComponent } from './core/components/contact-page/contact-page.component';
 
 const appRoutes: Routes = [
-    /*
-    {
-        path: '',
-        component: BooksComponent
-    },
-    */
     {
         path: '',
         component: MenuComponent,
@@ -34,6 +30,14 @@ const appRoutes: Routes = [
     {
         path: 'authors',
         component: AuthorsComponent
+    },
+    {
+        path: 'About',
+        component: AboutPageComponent
+    },
+    {
+        path: 'Contact',
+        component: ContactPageComponent
     },
     {
         path: '404',

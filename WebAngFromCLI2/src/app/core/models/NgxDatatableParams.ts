@@ -31,7 +31,7 @@ export class NgxDatatableParams<T> {
         let start = this.rowsOffset;
 
         let rows = [];
-        for (let i: number = 0; i < this.count; i++) {
+        for (let i = 0; i < this.count; i++) {
             rows[i] = { $$index: i };
         }
 
@@ -39,6 +39,7 @@ export class NgxDatatableParams<T> {
             e.$$index = start + i;
             rows[start + i] = e;
         });
+        
         this._rows = rows;
     }
 }

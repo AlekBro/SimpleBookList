@@ -11,7 +11,7 @@ export class DTParameters {
     Search: DTSearch;
     SortOrder: string;
 
-    constructor(length = 10, sortOrder = "Id"){
+    constructor(length = 10, sortOrder = 'Id') {
         this.Draw = 1;
 
         this.Columns = new Array<DTColumn>();

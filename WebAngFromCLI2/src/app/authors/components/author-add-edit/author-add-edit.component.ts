@@ -11,7 +11,7 @@ import { AuthorViewModel } from '../../models/AuthorViewModel';
   templateUrl: './author-add-edit.component.html',
   styleUrls: ['./author-add-edit.component.css']
 })
-export class AuthorAddEditComponent implements OnInit {
+export class AuthorAddEditComponent implements OnInit, OnChanges {
 
   @Input() entityId: number;
   @Output() clearEntityId = new EventEmitter();
@@ -35,15 +35,10 @@ export class AuthorAddEditComponent implements OnInit {
   }
 
   handleError(error: any) {
-    //this.isError = true;
-
-    console.log(error);
-
     this.errorMessage = error;
 
     return Promise.resolve();
   }
-
 
   ngOnChanges(changes) {
     this.errorMessage = null;
@@ -87,8 +82,7 @@ export class AuthorAddEditComponent implements OnInit {
         let result = this._authorService.update(this.entity.Id, this.entity)
           .then(res => {
             if (res == true) {
-              this.successMessage = "Author was successfully updated!";
-              console.log(res);
+              this.successMessage = 'Author was successfully updated!';
 
               this.entity = null;
 
@@ -105,7 +99,7 @@ export class AuthorAddEditComponent implements OnInit {
       } else if (this.entity.Id == -1) {
         let result = this._authorService.create(this.entity)
           .then(res => {
-            this.successMessage = "Author " + res.Name + " was successfully created!";
+            this.successMessage = 'Author ' + res.Name + ' was successfully created!';
             console.log(res);
 
             this.entity = null;
