@@ -12,17 +12,11 @@ export class NgxDatatableParams<T> {
 
     public rowsOffset: number;
 
-    public sortProperty: string;
-    public sortDir: string;
-
     constructor(limit: number = 10) {
         this._rows = [];
         this.count = 0;
         this.offset = 0;
         this.limit = limit;
-
-        this.sortProperty = null;
-        this.sortDir = null;
 
         this.rowsOffset = 0;
     };
