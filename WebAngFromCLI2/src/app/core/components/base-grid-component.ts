@@ -68,6 +68,11 @@ export class BaseGridComponent<T> implements OnInit {
         this.dtParameters.Order = new Array<DTOrder>();
         this.dtParameters.Order.push(new DTOrder(columnIndex, dtOrderDir));
 
+        this.dtParameters.Draw = 1;
+        this.dtParameters.Start = 0;
+        this.ngxDatatableParams.offset = 0;
+        this.ngxDatatableParams.rowsOffset = 0;
+
         this.updateGrid();
     }
 
