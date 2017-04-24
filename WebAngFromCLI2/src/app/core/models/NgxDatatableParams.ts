@@ -4,7 +4,7 @@ export class NgxDatatableParams<T> {
     public get rows(): T[] {
         return [... this._rows]
     }
-    
+
     columns: any[];
     count: number;
     offset: number; // Page offset
@@ -39,7 +39,7 @@ export class NgxDatatableParams<T> {
             e.$$index = start + i;
             rows[start + i] = e;
         });
-        
+
         this._rows = rows;
     }
 }

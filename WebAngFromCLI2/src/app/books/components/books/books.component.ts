@@ -79,7 +79,6 @@ export class BooksComponent extends BaseGridComponent<BookViewModel> implements 
           this.ngxDatatableParams.limit = books.recordsTotal;
         }
 
-        this.ngxDatatableParams.offset = books.draw - 1;
 
         this.loading = false;
       })

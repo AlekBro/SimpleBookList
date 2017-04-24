@@ -38,7 +38,6 @@ export class BaseGridComponent<T> implements OnInit {
 
     // Change page number:
     onPage(event) {
-        this.dtParameters.Draw = event.offset + 1;
         this.dtParameters.Length = event.pageSize;
         this.dtParameters.Start = event.pageSize * event.offset;
 
@@ -68,7 +67,6 @@ export class BaseGridComponent<T> implements OnInit {
         this.dtParameters.Order = new Array<DTOrder>();
         this.dtParameters.Order.push(new DTOrder(columnIndex, dtOrderDir));
 
-        this.dtParameters.Draw = 1;
         this.dtParameters.Start = 0;
         this.ngxDatatableParams.offset = 0;
         this.ngxDatatableParams.rowsOffset = 0;
@@ -102,7 +100,6 @@ export class BaseGridComponent<T> implements OnInit {
         this.ngxDatatableParams.offset = maxOffset;
         this.ngxDatatableParams.limit = newLimit;
 
-        this.dtParameters.Draw = this.ngxDatatableParams.offset + 1;
         this.dtParameters.Length = this.ngxDatatableParams.limit;
         this.dtParameters.Start = this.ngxDatatableParams.limit * this.ngxDatatableParams.offset;
 

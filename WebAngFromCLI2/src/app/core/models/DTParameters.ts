@@ -3,7 +3,6 @@ import { DTOrder } from './DTOrder';
 import { DTSearch } from './DTSearch';
 
 export class DTParameters {
-    Draw: number;
     Columns: DTColumn[];
     Order: DTOrder[];
     Start: number;
@@ -12,8 +11,6 @@ export class DTParameters {
     SortOrder: string;
 
     constructor(length = 10, sortOrder = 'Id') {
-        this.Draw = 1;
-
         this.Columns = new Array<DTColumn>();
         this.Order = new Array<DTOrder>();
 

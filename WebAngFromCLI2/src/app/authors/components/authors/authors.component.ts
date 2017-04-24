@@ -77,7 +77,6 @@ export class AuthorsComponent extends BaseGridComponent<AuthorViewModel> impleme
           this.ngxDatatableParams.limit = Authors.recordsTotal;
         }
 
-        this.ngxDatatableParams.offset = Authors.draw - 1;
 
         this.loading = false;
       })
